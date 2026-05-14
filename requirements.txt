@@ -1,0 +1,13 @@
+langchain
+langchain-community
+pypdf
+presidio-analyzer
+presidio-anonymizer
+spacy
+openai
+faiss-cpu
+langchain_openai
+pytest
+fastapi
+uvicorn
+pydantic
