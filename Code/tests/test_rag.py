@@ -49,4 +49,3 @@ def test_hallucination_control():
         or "not present" in answer
         or "not in the university documents" in answer
     )
-print("RAG test file ran successfully")

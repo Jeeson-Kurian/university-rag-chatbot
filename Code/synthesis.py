@@ -1,4 +1,4 @@
-from retrieval import get_retriever
+from Code.retrieval import get_retriever
 from langchain_openai import ChatOpenAI
 from langchain_classic.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
