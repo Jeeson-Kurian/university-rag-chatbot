@@ -4,11 +4,11 @@ metadata:
   name: chatbot-service
   namespace: university-chatbot
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: university-rag-chatbot
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      nodePort: 30080
+      
