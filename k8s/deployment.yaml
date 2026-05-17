@@ -14,9 +14,9 @@ spec:
         app: university-rag-chatbot
     spec:
       containers:
-        - name: chatbot
-          image: university-rag-chatbot:v1
-          imagePullPolicy: Never
+        - name: university-rag-chatbot
+          image: jeesonku/university-rag-chatbot:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
