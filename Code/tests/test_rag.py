@@ -1,51 +1,28 @@
-from Code.retrieval import get_retriever
-from Code.synthesis import get_qa_chain
+"""Legacy test entry point: current deterministic course-assistant contract.
+
+The former version invoked an external LLM and deserialized a stored FAISS
+index. Those behaviors are intentionally excluded from offline CI.
+See test_course_core.py for the full behavioral suite.
+"""
+from Code.course_core import DEPARTMENTS, CourseAssistant
 
 
-def test_informatics_retrieval_returns_docs():
-    retriever = get_retriever("Informatics")
-
-    docs = retriever.invoke(
-        "What are the main admission requiremnents from the curriculum for the Master's programme?"
-    )
-
-    assert len(docs) > 0
+def test_canonical_department_registry():
+    assert set(DEPARTMENTS) == {
+        "AIandCybersecurity", "Business", "English", "Informatics",
+    }
 
 
-def test_department_filter_informatics():
-    retriever = get_retriever("Informatics")
-
-    docs = retriever.invoke(
-        "What are the admission requirements?"
-    )
-
-    for doc in docs:
-        assert doc.metadata.get("department") == "Informatics"
+def test_local_repository_documents_are_discoverable():
+    assistant = CourseAssistant(use_environment_key=False)
+    assert assistant.by_dept["AIandCybersecurity"]
+    assert assistant.by_dept["Informatics"]
 
 
-def test_answer_has_source_documents():
-    chain = get_qa_chain("Informatics")
-
-    response = chain.invoke({
-        "query": "What are the admission requirements for the Informatics Master's programme?"
-    })
-
-    assert "result" in response
-    assert "source_documents" in response
-    assert len(response["source_documents"]) > 0
-
-
-def test_hallucination_control():
-    chain = get_qa_chain("Informatics")
-
-    response = chain.invoke({
-        "query": "What is the parking rule for flying cars in 2099?"
-    })
-
-    answer = response["result"].lower()
-
-    assert (
-        "cannot find" in answer
-        or "not present" in answer
-        or "not in the university documents" in answer
-    )
+def test_unknown_department_is_rejected():
+    assistant = CourseAssistant(use_environment_key=False)
+    try:
+        assistant.retrieve("What are the admission requirements?", "WrongDepartment")
+    except ValueError:
+        return
+    assert False, "Unknown departments must be rejected"
