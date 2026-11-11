@@ -1,47 +1,60 @@
+"""HTTP boundary for University Course Assistant. Run: uvicorn Code.main:app."""
+from __future__ import annotations
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Literal
-from synthesis import get_qa_chain
-app = FastAPI(
-    title="University RAG Chatbot",
-    version="1.0")
-DepartmentType = Literal[
-    "AIandCybersecurity",
-    "Business",
-    "English",
-    "Informatics"
-]
+
+try:
+    from .course_core import DEPARTMENTS, get_assistant
+except ImportError:  # backward-compatible uvicorn main:app from /Code
+    from course_core import DEPARTMENTS, get_assistant
+
+
+Department = Literal["AIandCybersecurity", "Business", "English", "Informatics"]
+
+
 class QueryRequest(BaseModel):
-    question: str
-    department: DepartmentType
-class QueryResponse(BaseModel):
-    answer: str
-    sources: list[str]
+    question: str = Field(min_length=4, max_length=800)
+    department: Department
+
+
+class SourceReference(BaseModel):
+    id: str
+    document: str
+    page: int | None
     department: str
+    excerpt: str
+
+
+class QueryResponse(BaseModel):
+    question: str
+    department: str
+    retrieval_mode: str
+    mode: str
+    answer: str
+    sources: list[SourceReference]
+    warning: str | None = None
+
+
+app = FastAPI(title="AI University Course Assistant", version="2.0.0")
+
+
 @app.get("/health")
-def health_check():
-    return {
-        "status": "healthy",
-        "service": "University RAG Chatbot"}
+def health():
+    return {"status": "ok", "service": "university-course-assistant"}
+
+
+@app.get("/departments")
+def departments():
+    return [{"id": k, "name": v} for k, v in DEPARTMENTS.items()]
+
+
 @app.post("/ask", response_model=QueryResponse)
-def ask_question(request: QueryRequest):
+def ask(request: QueryRequest):
     try:
-        chain = get_qa_chain(request.department)
-
-        response = chain.invoke({
-            "query": request.question
-        })
-
-        sources = list({
-            doc.metadata.get("source_file", "unknown")
-            for doc in response["source_documents"]
-        })
-
-        return QueryResponse(
-            answer=response["result"],
-            sources=sources,
-            department=request.department
-        )
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return get_assistant().ask(request.question, request.department)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        # Do not leak API keys, filesystem paths, or document contents to callers.
+        raise HTTPException(status_code=503, detail="Course assistant unavailable") from exc
