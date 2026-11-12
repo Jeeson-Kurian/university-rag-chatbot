@@ -67,6 +67,8 @@ From `python scripts/evaluate.py`: 53 labelled questions (45 answerable, 8 unans
 
 Limits of these numbers: the questions were drafted with an AI assistant, not written by students. It is a development set, because the threshold and glossary were tuned on it. The unanswerable group has only 8 questions. LLM answer quality is **not** measured here. The full report, with the per-type breakdown, the threshold sweep and the remaining failure, is in [`eval/RESULTS.md`](eval/RESULTS.md).
 
+The glossary is what makes the German curriculum usable: on the 5 English questions about it, Hit@4 goes from 0/5 without the glossary to 4/5 with it.
+
 **Known failure:** for *"How many words must the master's thesis have?"* in the German *Worlds of English* curriculum, the right page (p. 10, "30.000 Wörtern") is ranked 6th, outside the top 4. Generic terms such as "master" outweigh the translated term.
 
 ## Run it
