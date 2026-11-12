@@ -5,4 +5,6 @@ __pycache__/
 venv/
 .env.*
 *.log
-k8s/secret.yaml
+k8s/secret.yaml.cache/
+.pytest_cache/
+.streamlit/secrets.toml

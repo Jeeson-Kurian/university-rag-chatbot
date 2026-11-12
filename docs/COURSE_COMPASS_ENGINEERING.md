@@ -1,71 +1,77 @@
-# Course Compass: Engineering and submission handoff
+# Course Compass — engineering notes
 
-## Design goals and verified baseline defects
+## Defects found in the pre-hackathon baseline and how they were fixed
 
-- Canonical department metadata: baseline ingestion labelled the AI programme "ArtificialIntelligence and Cybersecurity" while the FastAPI filter expected "AIandCybersecurity".
-- Safe index lifecycle: baseline used allow_dangerous_deserialization=True on local FAISS data. The new core builds its own ephemeral index from curated text; it never opens the historical pickle index.
-- Evidence lineage: source IDs are stable hashes of department, file, page and chunk offset. Responses include local filename and best-effort PDF page number.
-- Offline reproducibility: no model credentials, external network or real student records needed for synthetic API/retrieval tests.
-- Failure transparency: extraction-only preview, model-generated response, abstention and provider-error modes are distinct.
+| Baseline defect | Fix |
+|---|---|
+| Ingestion labelled the AI programme `ArtificialIntelligence and Cybersecurity`, but the API filtered on `AIandCybersecurity`, so filtering silently failed | One canonical department registry is used everywhere, and folders map 1:1 to departments |
+| A FAISS index was loaded with `allow_dangerous_deserialization=True` (pickle) | No pickle anywhere. Embeddings are rebuilt from curated text and cached with `np.save(..., allow_pickle=False)` |
+| No page numbers and no way to check an answer | Passages carry file and page. Answers must cite `[S#]` IDs that exist, or the system abstains |
+| The model was called even for questions with no evidence | The evidence-coverage gate abstains before any provider call |
+| Every query re-tokenised the whole corpus | Term statistics are computed once per department (BM25 index) |
+| English questions could not match the German *Worlds of English* curriculum | EN↔DE curriculum glossary with weighted expansion (0.7) |
+| PDF line-break hyphenation split words ("Wör-tern") | Joined at ingestion when both sides are lowercase letters |
+| Plural/verb forms did not match ("requires" vs "required") | Light suffix folding, applied identically to documents and questions |
 
-## Architecture
+## Retrieval
 
-Data trust: only fixed folders AIandCybersecurity, Business, English and Informatics under the curated repository data root are enumerated. Only PDF/TXT inputs are read; files over 6 MiB are skipped, and PDF extraction is capped at 150 pages. PDF content is untrusted.
+- **BM25** (k1 = 1.5, b = 0.75), computed per department over 900-character passages with 120-character overlap. Passages never cross page boundaries.
+- **Coverage gate:** `coverage = Σ idf(question terms present in passage, directly or via glossary) / Σ idf(all question terms)`. Terms missing from the department get the maximum IDF, so an unknown topic word pulls coverage down sharply. The threshold of 0.35 was picked from the sweep in `eval/RESULTS.md`. At that value, Hit@4 is unchanged from no gate, and all 8 unanswerable questions are rejected.
+- **Hybrid re-rank** (only when a key is configured): the top 16 lexical candidates are fused by reciprocal rank (constant 60) with the semantic ranking. Semantic-only hits are ignored.
 
-Retrieval: lexical candidate matching and weighted term overlap always operate within the selected department. Optional OpenAI embeddings re-rank only these lexical candidates with a reciprocal-rank-fusion-like score. This is deliberately a conservative variant of hybrid retrieval: semantic-only hits cannot enter the answer. This may reduce recall for paraphrases.
+## Answering
 
-Generation: the optional Chat Completions step receives only four selected excerpts and a prompt describing provenance requirements. It is instructed to cite [S1] through [S4] and abstain when evidence is insufficient. Software checks that cited identifiers are present in the supplied evidence bundle. Citation syntax validation is **not** entailment verification.
+- **Extractive (free):** the best-scoring sentence from up to three top passages. Extra lines must score at least 60% of the best line. Abbreviations ("max.", "para.") don't break sentences.
+- **LLM:** at most four excerpts, each up to 850 characters, are labelled `[S1]`…`[S4]` and given to the model as untrusted data. The model must cite every factual sentence and copy numbers exactly. Answers with no citation or an unknown ID become an abstention. `gpt-5*` models are sent `reasoning_effort` and `max_completion_tokens` instead of `temperature`.
+- **Grounding screen** (`Code/grounding.py`) runs on every sentence and checks three things: is there a citation, does every number appear in the cited excerpts, and do at least 50% of the informative terms (or their glossary translations) appear there. A failing sentence produces a visible warning in the UI.
 
-Serving: FastAPI validates input lengths and department enumeration. Streamlit provides user-facing display of citation snippets. The service is intended for loopback demonstration, not an exposed public endpoint.
+## Cost controls
 
-## Security threat model
+1. Abstention before any model call when evidence is missing.
+2. Corpus embeddings are computed once and cached on disk, keyed by model and content hash. Query embeddings are cached in memory (LRU, 512 entries).
+3. Answers are cached in memory (LRU, 256 entries) under a normalised question key.
+4. The defaults are the cheapest suitable models. Token usage and estimated USD are returned for each answer. `/stats` aggregates the counters per process.
 
-Attack surfaces: malicious PDF text, PDF parser errors, crafted student question, unsafe third-party embeddings, provider outages, sensitive curriculum files and untrusted model output.
+## Security model
 
-Implemented mitigations: bounded question size, curated directories, rejected symlinks and oversized files, short excerpt budget, no pickle deserialization, citation-ID checks, no provider secrets sent to UI, sanitized HTTP errors, no network requirements for test fixtures.
+Untrusted inputs are PDF text, questions and model output. Mitigations:
 
-Known limitations: prompt-injection resistance has not been independently measured; evidence passages may contain misleading instructions, and syntactically valid citations can still accompany unsupported conclusions. No public authentication, rate limiting, PII auditing or EU data-protection certification. No guarantee that historical curriculum PDFs are currently authoritative. No scanned-PDF OCR. No claim of production security.
+- fixed department folders, no symlinks, a 6 MiB file cap and a 150-page cap
+- question length limits and control-character stripping
+- no pickle
+- sanitised HTTP errors
+- citation validation
+- secrets read only from the environment or Streamlit secrets
 
-## Quality assurance and reproducibility
+Not done: authentication, rate limiting, measured prompt-injection robustness, PII review.
 
-Run locally:
+## Testing
 
-    python -m pip install -r requirements.txt
-    python -m pytest Code/tests/test_course_core.py -q
-    python -m compileall -q Code streamlit_app.py
-    python scripts/evaluate.py
-    docker build -t course-compass:test .
+`Code/tests` run offline with a fake provider. They cover:
 
-Synthetic unit/API checks cover department isolation, deterministic IDs, offline answers, abstention, invalid inputs, fake-model citation checks and HTTP response validation.
+- department isolation
+- deterministic extractive answers
+- abstention without a model call
+- input validation
+- unique and bounded chunks
+- de-hyphenation and glossary retrieval
+- citation validation and detection of invented numbers
+- answer caching and reasoning-model parameters
+- fallback models
+- the pickle-free embedding cache (needs `faiss`)
+- the HTTP contract (needs `fastapi`)
 
-The evaluation harness has five document-smoke cases: AI/Cybersecurity, Informatics, Business, English and an unrelated spacecraft question. It does not establish retrieval precision, factuality, model quality, user satisfaction or robustness to adversarial prompts. Record pass counts only after executing the suite on the actual commit.
+`scripts/evaluate.py` validates its own labels, compares against the pre-v3 scorer and enforces regression floors in CI.
 
-For a stronger final evaluation, ask five students to write at least 30 realistic curriculum questions; label relevant source passages; measure retrieval hit@4, coverage, citation support and abstention accuracy; retain a failure-case table. Do not invent scores.
+## Demo script (2 minutes)
 
-## Two-minute demonstration plan
+| Time | What to show |
+|---|---|
+| 0:00–0:15 | The problem: long, partly German curricula |
+| 0:15–0:45 | Informatics: "How many hours must the internship last?" → open the cited page 15 excerpt |
+| 0:45–1:05 | English (German PDF): an English question answered from German evidence, with the grounding panel open |
+| 1:05–1:25 | An out-of-scope question → abstains, and the counters show no model call was made |
+| 1:25–1:50 | `eval/RESULTS.md`: baseline vs v3, plus the known failure |
+| 1:50–2:00 | Free mode vs AI mode, cost per answer, and limitations |
 
-0–15s: introduce the actual student problem.
-
-15–45s: select AI/Cybersecurity, ask a question, expand and inspect the evidence source.
-
-45–70s: select Informatics and demonstrate departmental isolation.
-
-70–95s: ask an out-of-domain question and show abstention.
-
-95–120s: show architecture, honest baseline disclosure and operational limitations.
-
-Record actual screen use; label preview mode as extractive and model mode as generated. No fake or simulated screen captures.
-
-## AI OpenBuild disclosure checklist
-
-The old repository already included curriculum PDFs, FAISS, LLM access, a FastAPI service, Docker, and a CI workflow. This branch is an extension, not a greenfield project. Disclose which files/features predate the entry and which commit/dates were added later.
-
-Devpost: project description, problem/target users, actual AI functionality, tools/model/provider, source code or demo access, video or screenshot walkthrough, evaluation plus at least one failure case, prior-work disclosure, acknowledgements and five-person team responsibilities where applicable.
-
-Suggested roles for five participants: backend/retrieval, UI/accessibility, evaluation/test data, documentation/demo, deployment/quality verification. Names and contributions should be recorded truthfully rather than invented.
-
-## Reused engineering ideas, not copied code
-
-ClaimGuard: separate untrusted evidence/HTTP boundary.
-TokenServe: explicit error modes, testable interfaces and conservative performance claims.
-This project implements these ideas independently; no code copied from other repositories.
+Record real screen use only.

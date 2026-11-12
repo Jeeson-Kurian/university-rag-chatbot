@@ -1,14 +1,12 @@
-"""HTTP boundary for University Course Assistant. Run: uvicorn Code.main:app."""
+"""HTTP boundary for Course Compass. Run: uvicorn Code.main:app --host 127.0.0.1 --port 8000"""
 from __future__ import annotations
+
+from typing import Any, Literal
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-from typing import Literal
 
-try:
-    from .course_core import DEPARTMENTS, get_assistant
-except ImportError:  # backward-compatible uvicorn main:app from /Code
-    from course_core import DEPARTMENTS, get_assistant
-
+from .course_core import DEPARTMENTS, get_assistant
 
 Department = Literal["AIandCybersecurity", "Business", "English", "Informatics"]
 
@@ -34,19 +32,35 @@ class QueryResponse(BaseModel):
     answer: str
     sources: list[SourceReference]
     warning: str | None = None
+    grounding: dict[str, Any] | None = None
+    usage: dict[str, Any] | None = None
+    model: str | None = None
+    cached: bool = False
 
 
-app = FastAPI(title="AI University Course Assistant", version="2.0.0")
+app = FastAPI(title="Course Compass — AI University Course Assistant", version="3.0.0")
 
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "university-course-assistant"}
+    return {"status": "ok", "service": "course-compass"}
 
 
 @app.get("/departments")
 def departments():
     return [{"id": k, "name": v} for k, v in DEPARTMENTS.items()]
+
+
+@app.get("/stats")
+def stats():
+    """Process-local counters: model calls avoided, tokens spent, cache hits."""
+    assistant = get_assistant()
+    return {
+        "chat_model": assistant.chat_model if assistant.client else None,
+        "embedding_model": assistant.embedding_model if assistant.vector_enabled else None,
+        "passages": len(assistant.passages),
+        "counters": dict(assistant.stats),
+    }
 
 
 @app.post("/ask", response_model=QueryResponse)
