@@ -1,0 +1,279 @@
+[
+  {
+    "test": {
+      "id": "ai-09",
+      "department": "AIandCybersecurity",
+      "question": "How many ECTS credits does the Master's thesis comprise?",
+      "language": "en",
+      "kind": "factoid",
+      "answerable": true,
+      "expected": [
+        [
+          "curriculum-master-artificial-intelligence-and-cybersecurity-english.pdf",
+          10
+        ]
+      ],
+      "evidence_keyword": "23 ECTS"
+    },
+    "result": {
+      "question": "How many ECTS credits does the Master's thesis comprise?",
+      "department": "AIandCybersecurity",
+      "retrieval_mode": "lexical",
+      "warning": null,
+      "sources": [
+        {
+          "id": "S1",
+          "document": "curriculum-master-artificial-intelligence-and-cybersecurity-english.pdf",
+          "page": 10,
+          "department": "AIandCybersecurity",
+          "excerpt": "within six months. Subject to approval by the supervisor, the Master’s thesis may be \nwritten in a language other than German. A number of students may jointly address a \ntopic, provided that the performance of individual students can be assessed. \n(2) The subject of the Master’s thesis must be chosen from the required subjects (with \nthe exception of the subject \"Foundations of Artificial Intelligence and Cybersecurity\") \nor from the guided electives (with the exception of the subject \"Responsible \nInnovation\"). \n(3) The Master’s thesis comprises 23 ECTS credits. Accompanying the Master’s thesis, the \nexclusive tutorial (2 ECT S credits) offered by the Master’s thesis supervisor must be \ncompleted along with a reflection within the framework of the Master’s seminar \n\"Responsibility in Artificial Intelligence & Cybersecurity: Reflecting t"
+        },
+        {
+          "id": "S3",
+          "document": "curriculum-master-artificial-intelligence-and-cybersecurity-english.pdf",
+          "page": 3,
+          "department": "AIandCybersecurity",
+          "excerpt": "3 \n \nSection 1 General remarks \n(1) The Master’s degree programme in Artificial Intelligence and Cybersecurity comprises \n120 European Credit Transfer System Credits (ECTS credits). This corresponds to an \nanticipated study duration of four semesters. The Master’s degree programme in \nArtificial Intelligence and Cybersecurity is assigned to the group Studies in Engineering \nSciences pursuant to Section 54 (1) of the Austrian Universities Act 2002 (UG). \n(2) The academic workload for the individual is indicated in ECTS credits; the workload \nfor one year should amount to 1,500 full hours, for which 60 ECTS credits are awarded \n(Section 54 (2) UG). The workload comprises independent study as well as the \nsemester hours/contact hours, including participation in assessment procedures. \n(3) The Master’s degree programme in Artificial Intellige"
+        }
+      ],
+      "mode": "extractive",
+      "answer": "- (3) The Master’s thesis comprises 23 ECTS credits. [S1]\n- (1) The Master’s degree programme in Artificial Intelligence and Cybersecurity comprises 120 European Credit Transfer System Credits (ECTS credits). [S3]",
+      "grounding": {
+        "method": "lexical-and-numeric screen (not entailment)",
+        "sentences_checked": 2,
+        "sentences_supported": 2,
+        "score": 1.0,
+        "verdict": "passed",
+        "sentences": [
+          {
+            "sentence": "(3) The Master’s thesis comprises 23 ECTS credits. [S1] -",
+            "citations": [
+              "S1"
+            ],
+            "term_support": 1.0,
+            "missing_numbers": [],
+            "status": "supported"
+          },
+          {
+            "sentence": "(1) The Master’s degree programme in Artificial Intelligence and Cybersecurity comprises 120 European Credit Transfer System Credits (ECTS credits). [S3]",
+            "citations": [
+              "S3"
+            ],
+            "term_support": 1.0,
+            "missing_numbers": [],
+            "status": "supported"
+          }
+        ]
+      },
+      "usage": null,
+      "model": null,
+      "cached": false
+    }
+  },
+  {
+    "test": {
+      "id": "in-05",
+      "department": "Informatics",
+      "question": "How many ECTS credits does the Master's thesis comprise?",
+      "language": "en",
+      "kind": "factoid",
+      "answerable": true,
+      "expected": [
+        [
+          "EN_MA_Informatics.pdf",
+          14
+        ]
+      ],
+      "evidence_keyword": "25 ECTS"
+    },
+    "result": {
+      "question": "How many ECTS credits does the Master's thesis comprise?",
+      "department": "Informatics",
+      "retrieval_mode": "lexical",
+      "warning": null,
+      "sources": [
+        {
+          "id": "S1",
+          "document": "EN_MA_Informatics.pdf",
+          "page": 14,
+          "department": "Informatics",
+          "excerpt": "ormance of individual \nstudents can be assessed. \n(2) The topic to be covered in the Master’s thesis must be chosen from one of required \nsubjects or electives. \n(3) The Master’s thesis comprises 25 ECTS credits. In relation to the Master’s thesis, the \nresearch seminar (2 ECTS credits) must be completed with the Master’s thesis \nsupervisor. \n(4) Pursuant to Part B, Section 18 (4) and (2a) of the Statute, the topic and the Master’s \nthesis supervisor must be approved by the Rector of Studies. The application must be \nmade prior to starting work. The student is permitted to change supervisor until the \ntime that the Master’s thesis is submitted. Supervision by two persons who are \nauthorised to supervise shall be pe rmissible on a case -by-case basis, where there is \ngood reason to do so (interdisciplinary focus of the topic). \n(5) The com"
+        }
+      ],
+      "mode": "extractive",
+      "answer": "- (3) The Master’s thesis comprises 25 ECTS credits. [S1]",
+      "grounding": {
+        "method": "lexical-and-numeric screen (not entailment)",
+        "sentences_checked": 1,
+        "sentences_supported": 1,
+        "score": 1.0,
+        "verdict": "passed",
+        "sentences": [
+          {
+            "sentence": "(3) The Master’s thesis comprises 25 ECTS credits. [S1]",
+            "citations": [
+              "S1"
+            ],
+            "term_support": 1.0,
+            "missing_numbers": [],
+            "status": "supported"
+          }
+        ]
+      },
+      "usage": null,
+      "model": null,
+      "cached": false
+    }
+  },
+  {
+    "test": {
+      "id": "en-02",
+      "department": "English",
+      "question": "What English level is required for applicants whose first language is not English?",
+      "language": "en",
+      "kind": "cross_lingual",
+      "answerable": true,
+      "expected": [
+        [
+          "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
+          5
+        ]
+      ],
+      "evidence_keyword": "C1"
+    },
+    "result": {
+      "question": "What English level is required for applicants whose first language is not English?",
+      "department": "English",
+      "retrieval_mode": "lexical",
+      "warning": null,
+      "sources": [
+        {
+          "id": "S1",
+          "document": "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
+          "page": 5,
+          "department": "English",
+          "excerpt": "(3) Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnisse der englischen \nSprache auf dem Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GERS) vorausgesetzt. \n \n§ 4 Akademischer Grad \nAbsolventinnen und Absolventen dieses Masterstudiums wird der akademische Grad „Master“ \nmit dem Zusatz „of Arts“ (abgekürzt: „MA“) verliehen. Im Falle der Führung ist dieser akademische Grad dem Namen nachzustellen. \n \n§ 5 Aufbau und Gliederung des Studiums/Intendierte Lernergebnisse \nFach/ \nStudienleistung Fachbezeichnung Intendierte Lernergebnisse ECTS-AP \nPflichtfach \n \nRequired Subjects \n1 „Research \nFoundations” \nDie Studierenden sind nach erfolgreicher Absolvierung des Faches in der Lage, wesentliche \nFragestellungen eines Fachgebietes zu definieren, auf diesen aufbauend eigene Forschungsfragen zu entwickeln und s"
+        },
+        {
+          "id": "S2",
+          "document": "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
+          "page": 5,
+          "department": "English",
+          "excerpt": "- 5 - \n \nEinhaltung von Menschenrechten, Geschlechterdiskriminierung, Rassismus, Zerstörung von Ökosystemen und Ausbeutung menschlichen und nichtmenschlichen Lebens \naktiv entgegen. \n \n§ 3 Zulassungsvoraussetzungen \n(1) Die Zulassung zu einem Masterstudium setzt den Abschluss eines fachlich in Frage kommenden Bachelorstudiums oder eines anderen fachlich in Frage kommenden Studiums \nmindestens desselben hochschulischen Bildungsniveaus an einer anerkannten inländischen oder ausländischen postsekundären Bildungseinrichtung oder eines im Curriculum \ndes Masterstudiums definierten Studiums voraus (§ 64 Abs. 3 UG). \n(2) Fachlich in Frage kommend ist jedenfalls das Bachelorstudium Anglistik und Amerikanistik bzw. Worlds of English (UL 033 612) an der Universität Klagenfurt. \n(3) Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnis"
+        }
+      ],
+      "mode": "extractive",
+      "answer": "- (3) Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnisse der englischen Sprache auf dem Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GERS) vorausgesetzt. § 4 Akademischer Grad Absolventinnen und Absolventen dieses Masterstudiums wird der akademische Grad „Master“ mit dem Zusatz „of Arts“ (abgekürzt: „MA“) verliehen. [S1]\n- (3) Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnisse der englischen Sprache auf dem Niveau C1 des [S2]",
+      "grounding": {
+        "method": "lexical-and-numeric screen (not entailment)",
+        "sentences_checked": 2,
+        "sentences_supported": 2,
+        "score": 1.0,
+        "verdict": "passed",
+        "sentences": [
+          {
+            "sentence": "(3) Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnisse der englischen Sprache auf dem Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GERS) vorausgesetzt. § 4 Akademischer Grad Absolventinnen und Absolventen dieses Masterstudiums wird der akademische Grad „Master“ mit dem Zusatz „of Arts“ (abgekürzt: „MA“) verliehen. [S1] -",
+            "citations": [
+              "S1"
+            ],
+            "term_support": 1.0,
+            "missing_numbers": [],
+            "status": "supported"
+          },
+          {
+            "sentence": "(3) Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnisse der englischen Sprache auf dem Niveau C1 des [S2]",
+            "citations": [
+              "S2"
+            ],
+            "term_support": 0.556,
+            "missing_numbers": [],
+            "status": "supported"
+          }
+        ]
+      },
+      "usage": null,
+      "model": null,
+      "cached": false
+    }
+  },
+  {
+    "test": {
+      "id": "un-05",
+      "department": "Informatics",
+      "question": "What is the tuition fee for non-EU students?",
+      "language": "en",
+      "kind": "near_miss",
+      "answerable": false,
+      "expected": [],
+      "evidence_keyword": null
+    },
+    "result": {
+      "question": "What is the tuition fee for non-EU students?",
+      "department": "Informatics",
+      "retrieval_mode": "lexical",
+      "warning": null,
+      "sources": [],
+      "mode": "abstained",
+      "answer": "I cannot find this information in the selected university documents.",
+      "grounding": null,
+      "usage": null,
+      "model": null,
+      "cached": false
+    }
+  },
+  {
+    "test": {
+      "id": "en-04",
+      "department": "English",
+      "question": "How many words must the master's thesis have?",
+      "language": "en",
+      "kind": "cross_lingual",
+      "answerable": true,
+      "expected": [
+        [
+          "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
+          10
+        ]
+      ],
+      "evidence_keyword": "30.000"
+    },
+    "result": {
+      "question": "How many words must the master's thesis have?",
+      "department": "English",
+      "retrieval_mode": "lexical",
+      "warning": null,
+      "sources": [
+        {
+          "id": "S3",
+          "document": "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
+          "page": 6,
+          "department": "English",
+          "excerpt": "- 6 - \n \nSie können diese in den größeren Kontext der \nanglophonen Kultur- und Literaturwissenschaft \neinordnen und deren Beziehungen zu dem Spezialgebiet der Masterarbeit unter Bezugnahme \nauf vorhandene Forschungsliteratur reflexiv \nund gemäß wissenschaftlicher Standards bearbeiten. \nFreie Wahlfächer \n \nOpen Electives \n4 Die Studierenden erschließen vertiefende, ergänzende und/oder kontrastive Wissensgebiete. 12 \nMasterarbeit \n \nMaster Thesis \n Die Studierenden sind in der Lage, ein fachspezifisches Thema selbständig und unter Bezugnahme auf vorhandene Forschungsliteratur reflexiv zu bearbeiten und schriftlich angemessen darzustellen. \n30 \nGesamtprüfung \n \nOverall Examination \n \n12 \n(6+6) \n Summe: 120 \n \n§ 6 Studienbezogener Auslandsaufenthalt/Mobilität \n(1) Es wird allen Studierenden des Masterstudiums nachdrücklich empfohlen, im Rahme"
+        }
+      ],
+      "mode": "extractive",
+      "answer": "- 12 Masterarbeit Master Thesis Die Studierenden sind in der Lage, ein fachspezifisches Thema selbständig und unter Bezugnahme auf vorhandene Forschungsliteratur reflexiv zu bearbeiten und schriftlich angemessen darzustellen. [S3]",
+      "grounding": {
+        "method": "lexical-and-numeric screen (not entailment)",
+        "sentences_checked": 1,
+        "sentences_supported": 1,
+        "score": 1.0,
+        "verdict": "passed",
+        "sentences": [
+          {
+            "sentence": "- 12 Masterarbeit Master Thesis Die Studierenden sind in der Lage, ein fachspezifisches Thema selbständig und unter Bezugnahme auf vorhandene Forschungsliteratur reflexiv zu bearbeiten und schriftlich angemessen darzustellen. [S3]",
+            "citations": [
+              "S3"
+            ],
+            "term_support": 1.0,
+            "missing_numbers": [],
+            "status": "supported"
+          }
+        ]
+      },
+      "usage": null,
+      "model": null,
+      "cached": false
+    }
+  }
+]

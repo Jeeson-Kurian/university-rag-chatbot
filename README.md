@@ -71,6 +71,12 @@ The glossary is what makes the German curriculum usable: on the 5 English questi
 
 **Known failure:** for *"How many words must the master's thesis have?"* in the German *Worlds of English* curriculum, the right page (p. 10, "30.000 Wörtern") is ranked 6th, outside the top 4. Generic terms such as "master" outweigh the translated term.
 
+## Submission materials and live evaluation status
+
+The [submission folder](docs/submission/README.md) contains five actual Streamlit screenshots, a visual walkthrough with real free-mode outputs, the draft Devpost story, reproducibility records and limitations.
+
+A live evaluation on 13 November 2026 returned `AuthenticationError` for all 45 answerable questions: **zero generated answers**. The eight unsupported questions were refused before model calls. The [original failed-run report](docs/submission/LLM_RESULTS_2026-11-13.md) is preserved. This does not establish live AI answer quality. The evaluator now returns a nonzero exit status on provider errors while retaining diagnostic artifacts. Repair the GitHub `OPENAI_API_KEY` secret and rerun before claiming live AI success.
+
 ## Run it
 
 Python 3.12 is recommended.
