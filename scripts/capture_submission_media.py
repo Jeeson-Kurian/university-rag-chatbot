@@ -36,6 +36,7 @@ try:
 
         def ask(question, expected_text, filename):
             page.get_by_label("Your question", exact=True).fill(question)
+            page.get_by_label("Your question", exact=True).press("Tab")
             page.get_by_role("button", name="Find the answer", exact=True).click()
             expect(page.get_by_text(expected_text, exact=False).first).to_be_visible(timeout=30000)
             # Wait until the server-side execution and Streamlit rerender have settled.
