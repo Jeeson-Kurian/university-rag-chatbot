@@ -16,7 +16,21 @@ The offline evaluation was reproduced on 13 November 2026 from commit `19723f976
 
 The [live run](https://github.com/Jeeson-Kurian/university-rag-chatbot/actions/runs/43443789004) used a stored GitHub secret but all 45 answerable questions returned `AuthenticationError`: **zero generated answers**. The original job incorrectly returned success; the evaluator has now been changed to return nonzero on provider failures and preserve diagnostic artifacts. The report's configured hybrid mode and zero reported token cost do not establish successful embedding calls or actual provider billing. Authentication must be repaired before live AI performance can be assessed.
 
-The working demonstration below is free extractive mode. It is a visual report of actual engine outputs, not an app screenshot or live LLM demonstration. The current package still needs actual application screenshots, any desired video/public app URL, final team/eligibility declarations, and submission through Devpost.
+The working demonstration below is free extractive mode. It is a visual report of actual engine outputs, not an app screenshot or live LLM demonstration. Five actual application screenshots were captured in [this successful workflow](https://github.com/Jeeson-Kurian/university-rag-chatbot/actions/runs/43445351253). The package supplies actual screenshots plus a visual walkthrough. It still needs final team/eligibility declarations and submission through Devpost. A video and public app deployment have not been verified.
+
+## Actual application screenshots
+
+Unaltered screenshots of the real Streamlit interface in free extractive mode. No model-generated answer is shown.
+
+![01 ai thesis](app_screenshots/01_ai_thesis.png)
+
+![02 informatics thesis](app_screenshots/02_informatics_thesis.png)
+
+![03 refusal](app_screenshots/03_refusal.png)
+
+![04 german source](app_screenshots/04_german_source.png)
+
+![05 known failure](app_screenshots/05_known_failure.png)
 
 ## Visual walkthrough
 
