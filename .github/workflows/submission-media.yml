@@ -1,0 +1,26 @@
+name: Capture submission screenshots
+on:
+  workflow_dispatch:
+  push:
+    branches: [submission-media]
+permissions:
+  contents: read
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt playwright
+      - run: python -m playwright install --with-deps chromium
+      - name: Capture actual app in free mode
+        run: python scripts/capture_submission_media.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: course-compass-app-screenshots
+          path: submission-media/*.png
+          if-no-files-found: error

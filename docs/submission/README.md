@@ -1,0 +1,47 @@
+# Course Compass - submission materials
+
+These materials prepare the AI OpenBuild application. They are **not** confirmation that the Devpost entry has been submitted.
+
+## Start here
+
+- [Devpost story and technical disclosures](Course_Compass_Devpost_Copy.md)
+- [Final submission checklist and recording plan](Course_Compass_Submission_Checklist.md)
+- [Six-page visual walkthrough (PDF)](Course_Compass_Visual_Walkthrough.pdf)
+- [Underlying free-mode outputs (JSON)](demo_outputs.json)
+- [Original live-provider report](LLM_RESULTS_2026-11-13.md) and [machine-readable results](llm_results_2026-11-13.json)
+
+## Verification status
+
+The offline evaluation was reproduced on 13 November 2026 from commit `19723f976b5196f4f07683c36ff8ac784dfb8552`. It found the expected page in the top four for 44/45 answerable questions and refused all 8 unsupported questions. These are tuned-development-set retrieval/refusal results, not LLM answer accuracy.
+
+The [live run](https://github.com/Jeeson-Kurian/university-rag-chatbot/actions/runs/43443789004) used a stored GitHub secret but all 45 answerable questions returned `AuthenticationError`: **zero generated answers**. The original job incorrectly returned success; the evaluator has now been changed to return nonzero on provider failures and preserve diagnostic artifacts. The report's configured hybrid mode and zero reported token cost do not establish successful embedding calls or actual provider billing. Authentication must be repaired before live AI performance can be assessed.
+
+The working demonstration below is free extractive mode. It is a visual report of actual engine outputs, not an app screenshot or live LLM demonstration. The current package still needs actual application screenshots, any desired video/public app URL, final team/eligibility declarations, and submission through Devpost.
+
+## Visual walkthrough
+
+![Overview and reproduced results](walkthrough_images/walkthrough-1.png)
+
+![AI and Cybersecurity thesis credits, with cited evidence](walkthrough_images/walkthrough-2.png)
+
+![Same question in Informatics returns a different sourced answer](walkthrough_images/walkthrough-3.png)
+
+![English question finds German C1 evidence in extractive mode](walkthrough_images/walkthrough-4.png)
+
+![Unsupported tuition question is refused](walkthrough_images/walkthrough-5.png)
+
+![Known thesis word-count failure despite a passing grounding screen](walkthrough_images/walkthrough-6.png)
+
+## Reproduce
+
+From the repository root, install the requirements, then run:
+
+```bash
+python scripts/evaluate.py
+python -m pytest Code/tests -q
+streamlit run streamlit_app.py
+```
+
+For AI evaluation, configure `OPENAI_API_KEY` privately and run `python scripts/evaluate_llm.py`, or use the existing Actions workflow. Provider failures now return status 1 after the diagnostic files are written. A run without provider errors can still have poor quality; review its per-question results.
+
+The event page and rules were checked on 13 November 2026: https://ai-openbuild.devpost.com/ and https://ai-openbuild.devpost.com/rules. The deadline shown is 10 December, 23:45 EST (11 December, 05:45 Vienna time). Confirm the timeline in Devpost before submitting.
