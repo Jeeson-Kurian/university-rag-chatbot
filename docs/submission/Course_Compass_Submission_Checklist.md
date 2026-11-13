@@ -6,6 +6,7 @@ Prepared: 13 November 2026. This package is not a Devpost submission confirmatio
 
 - `Course_Compass_Devpost_Copy.md`: structured submission text, stack and honest disclosures.
 - `Course_Compass_Visual_Walkthrough.pdf`: real engine outputs from free extractive mode, source evidence, abstention and a known failure.
+- `app_screenshots/`: five actual Streamlit screenshots from the successful capture workflow, showing sourced answers, German evidence, refusal and a known failure.
 - `walkthrough_images/`: PNG pages for a visual walkthrough in the Devpost image gallery. These are walkthrough graphics, not screenshots of the Streamlit app.
 - `demo_outputs.json`: full output records underlying the walkthrough.
 
@@ -13,7 +14,7 @@ Prepared: 13 November 2026. This package is not a Devpost submission confirmatio
 
 1. Open https://ai-openbuild.devpost.com/ and resume the existing Course Compass draft. Do not create a duplicate entry.
 2. Check the title, tagline, story, built-with tags and repository URL against the supplied copy.
-3. Upload the walkthrough images. Link the PDF from the repository's submission folder once available. The event requests screenshots and a short video or visual walkthrough; this package supplies the visual walkthrough, while actual application screenshots are still needed to meet the wording literally.
+3. Upload the actual application screenshots from `app_screenshots/` and add the walkthrough images or link its PDF. The package now provides both actual application screenshots and a visual walkthrough; a narrated video remains an optional improvement.
 4. Confirm the real team list and roles, student status, age and geographic eligibility, source-material rights, and rules/terms acceptance.
 5. Add only verified live-demo/video URLs and actual live AI evaluation results. Do not label free-mode outputs as generated AI answers.
 6. Review every field, accept the required declarations yourself, and click Submit. Verify that Devpost shows the entry as submitted; saving a draft is not submission.

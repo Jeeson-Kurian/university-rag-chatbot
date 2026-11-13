@@ -73,7 +73,7 @@ The glossary is what makes the German curriculum usable: on the 5 English questi
 
 ## Submission materials and live evaluation status
 
-The [submission folder](docs/submission/README.md) contains a visual walkthrough with actual free-mode outputs, the draft Devpost story, reproducibility records and limitations.
+The [submission folder](docs/submission/README.md) contains five actual Streamlit screenshots, a visual walkthrough with real free-mode outputs, the draft Devpost story, reproducibility records and limitations.
 
 A live evaluation on 13 November 2026 returned `AuthenticationError` for all 45 answerable questions: **zero generated answers**. The eight unsupported questions were refused before model calls. The [original failed-run report](docs/submission/LLM_RESULTS_2026-11-13.md) is preserved. This does not establish live AI answer quality. The evaluator now returns a nonzero exit status on provider errors while retaining diagnostic artifacts. Repair the GitHub `OPENAI_API_KEY` secret and rerun before claiming live AI success.
 

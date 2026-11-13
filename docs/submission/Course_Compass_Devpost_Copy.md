@@ -36,7 +36,7 @@ The offline evaluation was reproduced on 13 November 2026 from main commit `1972
 
 These are retrieval and refusal results, not LLM answer accuracy. In free mode, the expected keyword appeared in 82.2% of answers. The 53 questions were AI-assisted and used during development; the glossary and threshold were tuned on them. They are not a held-out student study.
 
-The accompanying visual walkthrough shows actual free-mode engine outputs, including a failure. It is not a recording of the Streamlit interface or a live LLM demonstration. A live provider evaluation on 13 November returned AuthenticationError for all 45 answerable questions, with zero successful generated answers; the eight unsupported questions were refused. This run cannot establish AI answer quality. The failed-run report is included in the submission folder.
+The accompanying visual walkthrough shows actual free-mode engine outputs, including a failure. Five actual Streamlit screenshots, captured by the repository workflow, also show the working interface. Both demonstrate extractive mode, not live LLM answer generation. A live provider evaluation on 13 November returned AuthenticationError for all 45 answerable questions, with zero successful generated answers; the eight unsupported questions were refused. This run cannot establish AI answer quality. The failed-run report is included in the submission folder.
 
 ## Challenges and what we learned
 
