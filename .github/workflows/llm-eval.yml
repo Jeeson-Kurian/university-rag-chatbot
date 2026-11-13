@@ -1,0 +1,29 @@
+name: Live AI-mode evaluation
+# Runs only when triggered by hand (Actions tab -> "Live AI-mode evaluation" -> Run workflow)
+# or by a push to the llm-eval branch. Needs the repository secret OPENAI_API_KEY.
+on:
+  workflow_dispatch:
+  push:
+    branches: [llm-eval]
+jobs:
+  llm-eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - name: Run live evaluation
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python scripts/evaluate_llm.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: llm-eval-results
+          path: |
+            eval/LLM_RESULTS.md
+            eval/llm_results.json
+          if-no-files-found: ignore
