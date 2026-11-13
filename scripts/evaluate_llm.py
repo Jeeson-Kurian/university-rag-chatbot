@@ -100,7 +100,8 @@ def main() -> int:
     (ROOT / "eval" / "llm_results.json").write_text(
         json.dumps({"summary": summary, "rows": rows}, indent=2, ensure_ascii=False), encoding="utf-8")
     (ROOT / "eval" / "LLM_RESULTS.md").write_text(render(summary, rows), encoding="utf-8")
-    return 0
+    # Preserve diagnostic artifacts, but never mark a provider outage as a pass.
+    return 1 if summary["model_errors"] else 0
 
 
 def render(s, rows) -> str:
@@ -121,9 +122,14 @@ def render(s, rows) -> str:
         f"| False abstention (answerable) | {pct(s['false_abstention'])} |",
         f"| Correct abstention (unanswerable, n={s['unanswerable']}) | {pct(s['correct_abstention'])} |",
         f"| Provider errors | {s['model_errors']} |",
-        f"| Model calls / abstained before any call | {s['chat_calls']} / {s['abstained_before_model']} |",
+        f"| Successful model responses / abstained before any call | {s['chat_calls']} / {s['abstained_before_model']} |",
         f"| Total cost (chat + embeddings, estimated) | ${s['chat_cost_usd'] + s['embedding_cost_usd']:.4f} |",
         f"| Average cost per model answer | ${s['avg_cost_per_llm_answer_usd']:.6f} |",
+        "",
+        ("**Provider failure: this run does not establish live AI answer quality.**"
+         if s["model_errors"] else
+         "No provider errors were observed. Metric values still require review; a zero exit code is not a quality guarantee."),
+        "Token-based costs exclude usage not reported by the provider; they are not an invoice.",
         "",
         "\"Expected fact present\" is an automatic keyword/number check, so a correct paraphrase "
         "can count as a miss. Questions that did not pass are listed below for manual review.",
