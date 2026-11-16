@@ -40,7 +40,8 @@ from pypdf import PdfReader
 from . import ai_steps
 from .ai_steps import NO_EVIDENCE
 from .grounding import CITATION_RE, verify
-from .text_tools import clean_sentence, content_terms, expand, numbers, sentences, stem, tokens
+from .text_tools import (clean_sentence, content_terms, expand, glossary_words, numbers,
+                         sentences, stem, tokens)
 
 ROOT = Path(__file__).resolve().parent.parent
 DEPARTMENTS = {
@@ -344,6 +345,18 @@ class CourseAssistant:
             chosen.update(t for t in content_terms(word) if t in originals)
         return chosen
 
+    def _display_terms(self, question: str, understood: dict | None) -> list[str]:
+        """Readable extra search terms (model terms, else glossary words) for the UI."""
+        originals = set(content_terms(question))
+        shown: list[str] = []
+        for word, alternatives in (understood or {}).get("terms", []):
+            if set(content_terms(word)) & originals:
+                shown += [a for a in alternatives if a.lower() not in question.lower()]
+        if not shown and self.use_glossary:
+            for term in content_terms(question):
+                shown += list(glossary_words(term))
+        return list(dict.fromkeys(shown))[:10]
+
     def lexical_ranking(self, question: str, department: str, understood: dict | None = None
                         ) -> list[tuple[Passage, float, float]]:
         """Passages with (BM25 score, idf-weighted question coverage), best first."""
@@ -617,8 +630,7 @@ class CourseAssistant:
             "usage": None,
             "model": None,
             "cached": False,
-            "searched_terms": sorted({t for t, w, _ in self._query_terms(question, understood)
-                                      if w < 1.0})[:12],
+            "searched_terms": self._display_terms(question, understood),
             "question_language": understood.get("language"),
             "second_look": _wide,
         }

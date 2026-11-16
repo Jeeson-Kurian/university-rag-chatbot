@@ -226,7 +226,7 @@ def test_model_terms_let_an_italian_question_reach_german_evidence(corpus):
                         understand=ITALIAN_TERMS)
     result = ai(corpus, client).ask(question, "English")
     assert result["mode"] == "llm" and result["question_language"] == "it"
-    assert "masterarbeit" in result["searched_terms"]
+    assert "Masterarbeit" in result["searched_terms"]
 
 
 def test_model_terms_must_belong_to_words_the_student_wrote(corpus):

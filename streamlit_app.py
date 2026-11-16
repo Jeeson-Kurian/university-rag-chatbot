@@ -179,7 +179,8 @@ def show_checks(result: dict) -> None:
 def show_meta(result: dict) -> None:
     parts = []
     if result.get("searched_terms"):
-        parts.append("also searched for " + ", ".join(f"`{t}`" for t in result["searched_terms"][:8]))
+        parts.append("also searched for " + ", ".join(f"<i>{html.escape(t)}</i>"
+                                                       for t in result["searched_terms"][:8]))
     if result.get("second_look"):
         parts.append("looked twice (wider search after the first answer missed)")
     cost = 0.0
@@ -212,10 +213,14 @@ def show_result(result: dict, key: str) -> None:
 
 # ------------------------------------------------------------------ header
 engine = None if API_URL else local_assistant()
+AI_ON = engine is not None and engine.client is not None
 st.markdown('<div class="cc-hero"><h1>🧭 Course Compass</h1>'
-            "<p>Ask your curriculum in any language. Every answer shows the page it came "
-            "from, a second AI model checks it, and the assistant says so when the documents "
-            "don't cover your question.</p></div>", unsafe_allow_html=True)
+            + ("<p>Ask your curriculum in any language. Every answer shows the page it came "
+               "from, a second AI model checks it, and the assistant says so when the documents "
+               "don't cover your question.</p></div>" if AI_ON or API_URL else
+               "<p>Ask your curriculum. Every answer shows the page it came from, and the "
+               "assistant says so when the documents don't cover your question.</p></div>"),
+            unsafe_allow_html=True)
 if engine is not None:
     if engine.client is None:
         st.info("Free mode: no AI key is configured, so answers are sentences copied from the "

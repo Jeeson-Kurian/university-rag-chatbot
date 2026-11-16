@@ -125,6 +125,16 @@ def content_terms(text: str) -> list[str]:
     return list(seen)
 
 
+_DISPLAY_EN_DE: dict[str, tuple[str, ...]] = {}
+for _english, _german in _RAW_GLOSSARY.items():
+    _DISPLAY_EN_DE[stem(_english)] = _DISPLAY_EN_DE.get(stem(_english), ()) + _german
+
+
+def glossary_words(term: str) -> tuple[str, ...]:
+    """Readable (unstemmed) German curriculum words for an English question term."""
+    return _DISPLAY_EN_DE.get(term, ())
+
+
 def expand(term: str) -> tuple[str, ...]:
     """Cross-lingual alternatives for one stemmed term (may be empty)."""
     return GLOSSARY_EN_DE.get(term, ()) + GLOSSARY_DE_EN.get(term, ())

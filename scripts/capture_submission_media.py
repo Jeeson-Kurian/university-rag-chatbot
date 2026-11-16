@@ -41,7 +41,7 @@ try:
 
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
-        page = browser.new_page(viewport={"width": 1280, "height": 900}, device_scale_factor=1)
+        page = browser.new_page(viewport={"width": 1280, "height": 2300}, device_scale_factor=1)
         page.goto("http://127.0.0.1:8501", wait_until="networkidle")
         expect(page.get_by_text("Course Compass").first).to_be_visible(timeout=90000)
         page.wait_for_timeout(1500)
