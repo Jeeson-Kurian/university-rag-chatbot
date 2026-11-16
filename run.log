@@ -1,0 +1,597 @@
+[development/ai] ai-01: llm/verified fact=True cite=True
+[development/ai] ai-02: llm/verified fact=True cite=True
+[development/ai] ai-03: llm/verified fact=True cite=True
+[development/ai] ai-04: llm/verified fact=True cite=True
+[development/ai] ai-05: llm/verified fact=True cite=True
+[development/ai] ai-06: llm/verified fact=True cite=True
+[development/ai] ai-07: llm/verified fact=True cite=True
+[development/ai] ai-08: llm/verified fact=True cite=True
+[development/ai] ai-09: llm/verified fact=True cite=True
+[development/ai] ai-10: llm/verified fact=True cite=True
+[development/ai] ai-11: llm/verified fact=True cite=True
+[development/ai] ai-12: llm/verified fact=True cite=True
+[development/ai] ai-13: llm/check fact=True cite=True
+[development/ai] in-01: llm/verified fact=False cite=False
+[development/ai] in-02: llm/verified fact=True cite=True
+[development/ai] in-03: llm/verified fact=True cite=True
+[development/ai] in-04: llm/verified fact=True cite=True
+[development/ai] in-05: llm/verified fact=True cite=True
+[development/ai] in-06: llm/verified fact=True cite=True
+[development/ai] in-07: llm/verified fact=True cite=True
+[development/ai] in-08: llm/not_answered fact=False cite=True
+[development/ai] in-09: llm/verified fact=True cite=True
+[development/ai] in-10: llm/verified fact=True cite=True
+[development/ai] in-11: llm/verified fact=True cite=True
+[development/ai] in-12: llm/verified fact=True cite=True
+[development/ai] bu-01: llm/verified fact=True cite=True
+[development/ai] bu-02: llm/verified fact=True cite=True
+[development/ai] bu-03: llm/verified fact=True cite=True
+[development/ai] bu-04: llm/verified fact=True cite=True
+[development/ai] bu-05: llm/verified fact=True cite=True
+[development/ai] bu-06: llm/verified fact=True cite=True
+[development/ai] bu-07: llm/verified fact=True cite=True
+[development/ai] bu-08: llm/verified fact=True cite=True
+[development/ai] bu-09: llm/verified fact=True cite=True
+[development/ai] bu-10: llm/verified fact=True cite=True
+[development/ai] bu-11: llm/verified fact=True cite=True
+[development/ai] bu-12: llm/verified fact=True cite=True
+[development/ai] en-01: llm/verified fact=True cite=False
+[development/ai] en-02: llm/verified fact=True cite=True
+[development/ai] en-03: llm/verified fact=True cite=True
+[development/ai] en-04: llm/verified fact=True cite=True
+[development/ai] en-05: llm/verified fact=True cite=True
+[development/ai] en-06: llm/verified fact=True cite=True
+[development/ai] en-07: llm/verified fact=True cite=True
+[development/ai] en-08: llm/verified fact=True cite=True
+[development/ai] un-01: abstained/abstained fact=False cite=False
+[development/ai] un-02: abstained/abstained fact=False cite=False
+[development/ai] un-03: abstained/abstained fact=False cite=False
+[development/ai] un-04: abstained/abstained fact=False cite=False
+[development/ai] un-05: abstained/abstained fact=False cite=False
+[development/ai] un-06: abstained/abstained fact=False cite=False
+[development/ai] un-07: abstained/abstained fact=False cite=False
+[development/ai] un-08: abstained/abstained fact=False cite=False
+[development/free] ai-01: extractive/screened fact=True cite=True
+[development/free] ai-02: extractive/check fact=True cite=True
+[development/free] ai-03: extractive/screened fact=True cite=True
+[development/free] ai-04: extractive/screened fact=False cite=True
+[development/free] ai-05: extractive/screened fact=True cite=True
+[development/free] ai-06: extractive/screened fact=True cite=True
+[development/free] ai-07: extractive/screened fact=True cite=False
+[development/free] ai-08: extractive/screened fact=True cite=True
+[development/free] ai-09: extractive/screened fact=True cite=True
+[development/free] ai-10: extractive/screened fact=True cite=True
+[development/free] ai-11: extractive/screened fact=True cite=True
+[development/free] ai-12: extractive/screened fact=True cite=True
+[development/free] ai-13: extractive/screened fact=True cite=True
+[development/free] in-01: extractive/screened fact=True cite=True
+[development/free] in-02: extractive/screened fact=True cite=True
+[development/free] in-03: extractive/screened fact=True cite=True
+[development/free] in-04: extractive/screened fact=True cite=True
+[development/free] in-05: extractive/screened fact=True cite=True
+[development/free] in-06: extractive/screened fact=True cite=True
+[development/free] in-07: extractive/screened fact=True cite=True
+[development/free] in-08: extractive/screened fact=False cite=True
+[development/free] in-09: extractive/screened fact=True cite=True
+[development/free] in-10: extractive/screened fact=True cite=True
+[development/free] in-11: extractive/screened fact=True cite=True
+[development/free] in-12: extractive/screened fact=True cite=True
+[development/free] bu-01: extractive/screened fact=True cite=True
+[development/free] bu-02: extractive/screened fact=True cite=True
+[development/free] bu-03: extractive/screened fact=False cite=True
+[development/free] bu-04: extractive/screened fact=True cite=True
+[development/free] bu-05: extractive/screened fact=True cite=True
+[development/free] bu-06: extractive/screened fact=True cite=True
+[development/free] bu-07: extractive/screened fact=False cite=False
+[development/free] bu-08: extractive/screened fact=True cite=True
+[development/free] bu-09: extractive/screened fact=False cite=True
+[development/free] bu-10: extractive/screened fact=True cite=True
+[development/free] bu-11: extractive/screened fact=True cite=False
+[development/free] bu-12: extractive/screened fact=True cite=True
+[development/free] en-01: extractive/screened fact=False cite=False
+[development/free] en-02: extractive/screened fact=True cite=True
+[development/free] en-03: extractive/screened fact=True cite=True
+[development/free] en-04: extractive/screened fact=False cite=False
+[development/free] en-05: extractive/screened fact=True cite=True
+[development/free] en-06: extractive/screened fact=True cite=True
+[development/free] en-07: extractive/screened fact=False cite=True
+[development/free] en-08: extractive/screened fact=True cite=True
+[development/free] un-01: abstained/abstained fact=False cite=False
+[development/free] un-02: abstained/abstained fact=False cite=False
+[development/free] un-03: abstained/abstained fact=False cite=False
+[development/free] un-04: abstained/abstained fact=False cite=False
+[development/free] un-05: abstained/abstained fact=False cite=False
+[development/free] un-06: abstained/abstained fact=False cite=False
+[development/free] un-07: abstained/abstained fact=False cite=False
+[development/free] un-08: abstained/abstained fact=False cite=False
+[held_out/ai] h-ai-01: llm/verified fact=True cite=True
+[held_out/ai] h-ai-02: llm/verified fact=False cite=True
+[held_out/ai] h-ai-03: llm/check fact=True cite=True
+[held_out/ai] h-ai-04: llm/verified fact=False cite=True
+[held_out/ai] h-ai-05: llm/check fact=False cite=True
+[held_out/ai] h-ai-06: llm/verified fact=True cite=True
+[held_out/ai] h-in-01: llm/verified fact=True cite=True
+[held_out/ai] h-in-02: llm/verified fact=False cite=False
+[held_out/ai] h-in-03: llm/verified fact=True cite=True
+[held_out/ai] h-in-04: llm/verified fact=True cite=True
+[held_out/ai] h-in-05: llm/verified fact=False cite=True
+[held_out/ai] h-bu-01: llm/verified fact=True cite=True
+[held_out/ai] h-bu-02: llm/verified fact=True cite=True
+[held_out/ai] h-bu-03: llm/verified fact=True cite=True
+[held_out/ai] h-bu-04: llm/check fact=False cite=False
+[held_out/ai] h-en-01: abstained/abstained fact=False cite=False
+[held_out/ai] h-en-02: llm/check fact=False cite=True
+[held_out/ai] h-en-03: llm/check fact=False cite=True
+[held_out/ai] h-en-04: llm/verified fact=True cite=True
+[held_out/ai] h-en-05: abstained/abstained fact=False cite=False
+[held_out/ai] h-un-01: abstained/abstained fact=False cite=False
+[held_out/ai] h-un-02: abstained/abstained fact=False cite=False
+[held_out/ai] h-un-03: abstained/abstained fact=False cite=False
+[held_out/ai] h-un-04: abstained/abstained fact=False cite=False
+[held_out/ai] h-un-05: abstained/abstained fact=False cite=False
+[held_out/ai] h-un-06: abstained/abstained fact=False cite=False
+[held_out/free] h-ai-01: abstained/abstained fact=False cite=False
+[held_out/free] h-ai-02: abstained/abstained fact=False cite=False
+[held_out/free] h-ai-03: abstained/abstained fact=False cite=False
+[held_out/free] h-ai-04: extractive/screened fact=False cite=True
+[held_out/free] h-ai-05: abstained/abstained fact=False cite=False
+[held_out/free] h-ai-06: abstained/abstained fact=False cite=False
+[held_out/free] h-in-01: extractive/screened fact=False cite=False
+[held_out/free] h-in-02: abstained/abstained fact=False cite=False
+[held_out/free] h-in-03: extractive/screened fact=False cite=True
+[held_out/free] h-in-04: extractive/screened fact=False cite=True
+[held_out/free] h-in-05: abstained/abstained fact=False cite=False
+[held_out/free] h-bu-01: extractive/screened fact=False cite=False
+[held_out/free] h-bu-02: abstained/abstained fact=False cite=False
+[held_out/free] h-bu-03: extractive/screened fact=True cite=True
+[held_out/free] h-bu-04: abstained/abstained fact=False cite=False
+[held_out/free] h-en-01: abstained/abstained fact=False cite=False
+[held_out/free] h-en-02: abstained/abstained fact=False cite=False
+[held_out/free] h-en-03: extractive/screened fact=True cite=True
+[held_out/free] h-en-04: abstained/abstained fact=False cite=False
+[held_out/free] h-en-05: abstained/abstained fact=False cite=False
+[held_out/free] h-un-01: abstained/abstained fact=False cite=False
+[held_out/free] h-un-02: abstained/abstained fact=False cite=False
+[held_out/free] h-un-03: abstained/abstained fact=False cite=False
+[held_out/free] h-un-04: abstained/abstained fact=False cite=False
+[held_out/free] h-un-05: abstained/abstained fact=False cite=False
+[held_out/free] h-un-06: extractive/screened fact=False cite=False
+[planted] ai-01 original: verified
+[planted] ai-01 changed_number: not_answered
+[planted] ai-01 answer_to_other_question: not_answered
+[planted] ai-01 invented_rule: check
+[planted] ai-02 original: verified
+[planted] ai-02 changed_number: not_answered
+[planted] ai-02 answer_to_other_question: not_answered
+[planted] ai-02 invented_rule: check
+[planted] ai-03 original: verified
+[planted] ai-03 answer_to_other_question: not_answered
+[planted] ai-03 invented_rule: check
+[planted] ai-04 original: verified
+[planted] ai-04 answer_to_other_question: not_answered
+[planted] ai-04 invented_rule: check
+[planted] ai-05 original: verified
+[planted] ai-05 changed_number: not_answered
+[planted] ai-05 answer_to_other_question: not_answered
+[planted] ai-05 invented_rule: check
+[planted] ai-06 original: verified
+[planted] ai-06 changed_number: not_answered
+[planted] ai-06 answer_to_other_question: not_answered
+[planted] ai-06 invented_rule: check
+[planted] ai-07 original: verified
+[planted] ai-07 changed_number: not_answered
+[planted] ai-07 answer_to_other_question: not_answered
+[planted] ai-07 invented_rule: check
+[planted] ai-08 original: verified
+[planted] ai-08 changed_number: not_answered
+[planted] ai-08 answer_to_other_question: not_answered
+[planted] ai-08 invented_rule: check
+[planted] ai-09 original: verified
+[planted] ai-09 changed_number: contradicted
+[planted] ai-09 answer_to_other_question: not_answered
+[planted] ai-09 invented_rule: check
+[planted] ai-10 original: verified
+[planted] ai-10 answer_to_other_question: not_answered
+[planted] ai-10 invented_rule: check
+[planted] ai-11 original: verified
+[planted] ai-11 answer_to_other_question: not_answered
+[planted] ai-11 invented_rule: check
+[planted] ai-12 original: verified
+[planted] ai-12 answer_to_other_question: not_answered
+[planted] ai-12 invented_rule: check
+[planted] ai-13 original: check
+[planted] ai-13 changed_number: contradicted
+[planted] ai-13 answer_to_other_question: not_answered
+[planted] ai-13 invented_rule: check
+[planted] in-02 original: verified
+[planted] in-02 answer_to_other_question: not_answered
+[planted] in-02 invented_rule: check
+[planted] in-03 original: verified
+[planted] in-03 changed_number: not_answered
+[planted] in-03 answer_to_other_question: not_answered
+[planted] in-03 invented_rule: check
+[planted] in-04 original: verified
+[planted] in-04 changed_number: not_answered
+[planted] in-04 answer_to_other_question: not_answered
+[planted] in-04 invented_rule: check
+[planted] in-05 original: verified
+[planted] in-05 changed_number: not_answered
+[planted] in-05 answer_to_other_question: not_answered
+[planted] in-05 invented_rule: check
+[planted] in-06 original: verified
+[planted] in-06 answer_to_other_question: not_answered
+[planted] in-06 invented_rule: check
+[planted] in-07 original: verified
+[planted] in-07 changed_number: not_answered
+[planted] in-07 answer_to_other_question: not_answered
+[planted] in-07 invented_rule: check
+[planted] in-09 original: verified
+[planted] in-09 changed_number: not_answered
+[planted] in-09 answer_to_other_question: not_answered
+[planted] in-09 invented_rule: check
+[planted] in-10 original: verified
+[planted] in-10 answer_to_other_question: not_answered
+[planted] in-10 invented_rule: check
+[planted] in-11 original: verified
+[planted] in-11 changed_number: not_answered
+[planted] in-11 answer_to_other_question: not_answered
+[planted] in-11 invented_rule: check
+[planted] in-12 original: verified
+[planted] in-12 answer_to_other_question: not_answered
+[planted] in-12 invented_rule: check
+[planted] bu-01 original: verified
+[planted] bu-01 changed_number: not_answered
+[planted] bu-01 answer_to_other_question: not_answered
+[planted] bu-01 invented_rule: check
+[planted] bu-02 original: verified
+[planted] bu-02 answer_to_other_question: not_answered
+[planted] bu-02 invented_rule: check
+[planted] bu-03 original: verified
+[planted] bu-03 changed_number: contradicted
+[planted] bu-03 answer_to_other_question: not_answered
+[planted] bu-03 invented_rule: check
+[planted] bu-04 original: verified
+[planted] bu-04 changed_number: contradicted
+[planted] bu-04 answer_to_other_question: not_answered
+[planted] bu-04 invented_rule: check
+[planted] bu-05 original: verified
+[planted] bu-05 changed_number: not_answered
+[planted] bu-05 answer_to_other_question: not_answered
+[planted] bu-05 invented_rule: check
+[planted] bu-06 original: verified
+[planted] bu-06 changed_number: not_answered
+[planted] bu-06 answer_to_other_question: not_answered
+[planted] bu-06 invented_rule: check
+[planted] bu-07 original: verified
+[planted] bu-07 changed_number: contradicted
+[planted] bu-07 answer_to_other_question: not_answered
+[planted] bu-07 invented_rule: check
+[planted] bu-08 original: verified
+[planted] bu-08 changed_number: not_answered
+[planted] bu-08 answer_to_other_question: not_answered
+[planted] bu-08 invented_rule: check
+[planted] bu-09 original: verified
+[planted] bu-09 answer_to_other_question: not_answered
+[planted] bu-09 invented_rule: check
+[planted] bu-10 original: verified
+[planted] bu-10 answer_to_other_question: not_answered
+[planted] bu-10 invented_rule: check
+[planted] bu-11 original: verified
+[planted] bu-11 answer_to_other_question: not_answered
+[planted] bu-11 invented_rule: check
+[planted] bu-12 original: verified
+[planted] bu-12 answer_to_other_question: not_answered
+[planted] bu-12 invented_rule: check
+[planted] en-02 original: verified
+[planted] en-02 answer_to_other_question: not_answered
+[planted] en-02 invented_rule: check
+[planted] en-03 original: verified
+[planted] en-03 invented_rule: check
+[planted] en-04 original: verified
+[planted] en-04 invented_rule: check
+[planted] en-05 original: verified
+[planted] en-05 changed_number: not_answered
+[planted] en-05 answer_to_other_question: not_answered
+[planted] en-05 invented_rule: check
+[planted] en-06 original: verified
+[planted] en-06 changed_number: not_answered
+[planted] en-06 answer_to_other_question: check
+[planted] en-06 invented_rule: check
+[planted] en-07 original: verified
+[planted] en-07 answer_to_other_question: check
+[planted] en-07 invented_rule: check
+[planted] en-08 original: verified
+[planted] en-08 answer_to_other_question: verified
+[planted] en-08 invented_rule: check
+[planted] h-ai-01 original: verified
+[planted] h-ai-01 answer_to_other_question: check
+[planted] h-ai-01 invented_rule: check
+[planted] h-ai-03 original: verified
+[planted] h-ai-03 changed_number: contradicted
+[planted] h-ai-03 invented_rule: check
+[planted] h-ai-06 original: verified
+[planted] h-ai-06 changed_number: not_answered
+[planted] h-ai-06 answer_to_other_question: not_answered
+[planted] h-ai-06 invented_rule: check
+[planted] h-in-01 original: verified
+[planted] h-in-01 answer_to_other_question: not_answered
+[planted] h-in-01 invented_rule: check
+[planted] h-in-03 original: verified
+[planted] h-in-03 changed_number: not_answered
+[planted] h-in-03 answer_to_other_question: not_answered
+[planted] h-in-03 invented_rule: check
+[planted] h-in-04 original: verified
+[planted] h-in-04 invented_rule: check
+[planted] h-bu-01 original: verified
+[planted] h-bu-01 answer_to_other_question: check
+[planted] h-bu-01 invented_rule: check
+[planted] h-bu-02 original: verified
+[planted] h-bu-02 changed_number: not_answered
+[planted] h-bu-02 invented_rule: check
+[planted] h-bu-03 original: verified
+[planted] h-bu-03 changed_number: not_answered
+[planted] h-bu-03 answer_to_other_question: not_answered
+[planted] h-bu-03 invented_rule: check
+[planted] h-en-04 original: verified
+[planted] h-en-04 changed_number: not_answered
+[planted] h-en-04 answer_to_other_question: not_answered
+[planted] h-en-04 invented_rule: check
+[compare] How many ECTS credits does the Master's thesis comprise?: {'AIandCybersecurity': True, 'Informatics': True, 'English': True}
+[compare] What English level is required for admission?: {'AIandCybersecurity': True, 'English': True, 'Business': True}
+[compare] How many ECTS credits must be completed in open electives?: {'AIandCybersecurity': True, 'Informatics': True, 'Business': True}
+{
+  "run_at_utc": "2026-11-16 18:56",
+  "chat_model": "gpt-4o-mini",
+  "review_model": "gpt-4.1-mini",
+  "embedding_model": "text-embedding-3-small",
+  "planted_errors": {
+    "summary": {
+      "answer_to_other_question": {
+        "n": 47,
+        "caught": 0.979,
+        "caught_by_lexical_check_alone": 0.936
+      },
+      "changed_number": {
+        "n": 29,
+        "caught": 1.0,
+        "caught_by_lexical_check_alone": 0.966
+      },
+      "invented_rule": {
+        "n": 52,
+        "caught": 1.0,
+        "caught_by_lexical_check_alone": 1.0
+      },
+      "original": {
+        "n": 52,
+        "false_alarm": 0.0,
+        "shown_as_checked": 0.981
+      }
+    },
+    "cases": [
+      {
+        "id": "ai-01",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.0002744
+      },
+      {
+        "id": "ai-01",
+        "kind": "changed_number",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "contradicted"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0002904
+      },
+      {
+        "id": "ai-01",
+        "kind": "answer_to_other_question",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.000284
+      },
+      {
+        "id": "ai-01",
+        "kind": "invented_rule",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported",
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.000318
+      },
+      {
+        "id": "ai-02",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.0002848
+      },
+      {
+        "id": "ai-02",
+        "kind": "changed_number",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "contradicted"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0002864
+      },
+      {
+        "id": "ai-02",
+        "kind": "answer_to_other_question",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.000316
+      },
+      {
+        "id": "ai-02",
+        "kind": "invented_rule",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported",
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0003492
+      },
+      {
+        "id": "ai-03",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.0003
+      },
+      {
+        "id": "ai-03",
+        "kind": "answer_to_other_question",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0002744
+      },
+      {
+        "id": "ai-03",
+        "kind": "invented_rule",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported",
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0003596
+      },
+      {
+        "id": "ai-04",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.0002884
+      },
+      {
+        "id": "ai-04",
+        "kind": "answer_to_other_question",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0002852
+      },
+      {
+        "id": "ai-04",
+        "kind": "invented_rule",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported",
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0003384
+      },
+      {
+        "id": "ai-05",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.000258
+      },
+      {
+        "id": "ai-05",
+        "kind": "changed_number",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "contradicted"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0002436
+      },
+      {
+        "id": "ai-05",
+        "kind": "answer_to_other_question",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0002612
+      },
+      {
+        "id": "ai-05",
+        "kind": "invented_rule",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported",
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.000324
+      },
+      {
+        "id": "ai-06",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.0002788
+      },
+      {
+        "id": "ai-06",
+        "kind": "changed_number",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "contradicted"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.000282
+      },
+      {
+        "id

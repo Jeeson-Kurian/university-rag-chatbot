@@ -1,0 +1,3 @@
+length=164 (stripped 164); starts_with='sk-'; whitespace_or_newline=False; quotes=False; looks_masked=False
+OK: key accepted; models visible: 96
+OK: chat call works: OK!
