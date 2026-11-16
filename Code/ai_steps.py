@@ -129,3 +129,16 @@ def parse_review(data: dict[str, Any] | None, sentence_count: int) -> dict[str, 
 
 def numbered(sentences: list[str]) -> str:
     return "\n".join(f"{i}. {s}" for i, s in enumerate(sentences, start=1))
+
+
+LANGUAGES = {"en": "English", "de": "German", "it": "Italian", "es": "Spanish", "fr": "French",
+             "pt": "Portuguese", "nl": "Dutch", "sl": "Slovenian", "hr": "Croatian",
+             "hi": "Hindi", "ml": "Malayalam", "tr": "Turkish", "pl": "Polish", "ru": "Russian",
+             "uk": "Ukrainian", "zh": "Chinese", "ar": "Arabic"}
+
+
+def language_name(code: str | None) -> str:
+    """Readable language for the answer prompt; unknown codes fall back to the question's own."""
+    if not code:
+        return "the same language as the question"
+    return LANGUAGES.get(code.lower().split("-")[0], f"the language with code {code}")

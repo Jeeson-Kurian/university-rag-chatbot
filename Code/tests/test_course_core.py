@@ -303,3 +303,14 @@ def test_document_path_blocks_traversal(corpus):
     for bad in ("../Informatics/curriculum.txt", "/etc/passwd", "missing.pdf"):
         with pytest.raises(ValueError):
             document_path("English", bad, corpus)
+
+
+def test_answer_prompt_names_the_question_language(corpus):
+    client = FakeClient(understand=ITALIAN_TERMS)
+    ai(corpus, client).ask("Quante parole deve avere la tesi?", "English")
+    assert "Write the answer in Italian" in client.answer_calls[0]["messages"][1]["content"]
+
+
+def test_model_terms_cover_german_inflections():
+    from Code.text_tools import inflections
+    assert "wörtern" in inflections("wörter") and "semestern" in inflections("semester")

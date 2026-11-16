@@ -69,6 +69,25 @@ def total_cost(result: dict) -> float:
     return cost
 
 
+GRADER_SYSTEM = (
+    "You grade a curriculum assistant. Given a question, the expected fact (in English or "
+    "German) and the assistant's answer (in any language), decide whether the answer states "
+    "the expected fact correctly. Translations and paraphrases count; a different number or "
+    "a missing fact does not. Reply with JSON only: {\"correct\": true|false}")
+
+
+def graded(assistant: CourseAssistant, question: str, expected: str, answer: str) -> bool:
+    """Language-independent check by a model that sees the expected fact (reported separately)."""
+    try:
+        text, _ = assistant._chat(assistant.review_model, [
+            {"role": "system", "content": GRADER_SYSTEM},
+            {"role": "user", "content": f"QUESTION: {question}\nEXPECTED FACT: {expected}\n"
+                                        f"ANSWER: {answer}"}], json_mode=True, max_tokens=20)
+        return bool((json.loads(text) or {}).get("correct"))
+    except Exception:
+        return False
+
+
 def run_set(assistant: CourseAssistant, questions: list[dict], label: str) -> list[dict]:
     rows = []
     for q in questions:
@@ -79,6 +98,7 @@ def run_set(assistant: CourseAssistant, questions: list[dict], label: str) -> li
             "id": q["id"], "kind": q["kind"], "language": q["language"],
             "answerable": q["answerable"], "mode": r["mode"], "verdict": r.get("verdict"),
             "fact_in_answer": bool(q["answerable"] and fact_in_answer(q["evidence_keyword"], r["answer"])),
+            "fact_graded": None,
             "cited_expected_page": bool(q["answerable"] and cited),
             "grounding": (r.get("grounding") or {}).get("verdict"),
             "reader_answers_question": review.get("answers_question"),
@@ -90,6 +110,10 @@ def run_set(assistant: CourseAssistant, questions: list[dict], label: str) -> li
             "warning": r.get("warning"),
         })
         row = rows[-1]
+        row["fact_graded"] = row["fact_in_answer"]
+        if q["answerable"] and not row["fact_in_answer"] and r["mode"] in {"llm", "extractive"} \
+                and getattr(assistant, "client", None) is not None and hasattr(assistant, "_chat"):
+            row["fact_graded"] = graded(assistant, q["question"], q["evidence_keyword"], r["answer"])
         print(f"[{label}] {q['id']}: {row['mode']}/{row['verdict']} fact={row['fact_in_answer']} "
               f"cite={row['cited_expected_page']}", flush=True)
     return rows
@@ -104,6 +128,8 @@ def summarise(rows: list[dict]) -> dict:
     return {
         "answerable": len(ans), "unanswerable": len(una),
         "correct_with_right_page": round(len(correct) / n, 3),
+        "correct_any_language": round(sum(bool(r.get("fact_graded")) and r["cited_expected_page"]
+                                          for r in ans) / n, 3),
         "fact_in_answer": round(sum(r["fact_in_answer"] for r in ans) / n, 3),
         "cites_expected_page": round(sum(r["cited_expected_page"] for r in ans) / n, 3),
         "false_abstention": round(sum(r["mode"] == "abstained" for r in ans) / n, 3),
@@ -266,23 +292,26 @@ def render(r: dict) -> str:
          "No provider errors. A clean run is still not a quality guarantee; read the misses below."),
         "",
         "## A. Answers: free mode vs AI mode", "",
-        "| Set | Mode | Correct fact on the right page | False abstention | Correct abstention | "
-        "Right when shown as checked | Cost |",
-        "|---|---|---|---|---|---|---|",
+        "| Set | Mode | Correct on the right page (strict keyword) | … any language (graded) | "
+        "False abstention | Correct abstention | Right when shown as checked | Cost |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for name, s in r["sets"].items():
         for mode in ("free", "ai"):
             m = s[mode]
             lines.append(
                 f"| {name.replace('_', '-')} ({m['answerable']}+{m['unanswerable']}) | {mode} | "
-                f"{pct(m['correct_with_right_page'])} | {pct(m['false_abstention'])} | "
+                f"{pct(m['correct_with_right_page'])} | {pct(m.get('correct_any_language', 0))} | "
+                f"{pct(m['false_abstention'])} | "
                 f"{pct(m['correct_abstention'])} | {pct(m['precision_of_checked_answers'])} "
                 f"(n={m['checked_answers']}) | ${m['cost_usd']:.4f} |")
     lines += ["", "The development set was used while building; the held-out set was frozen "
               "before any system ran on it (commit history). Both were drafted with an AI "
               "assistant from the curriculum pages, not by students. \"Correct\" is an "
               "automatic keyword/number check plus the expected page among the citations, so a "
-              "correct paraphrase can count as a miss.", "",
+              "correct paraphrase can count as a miss. The *any language* column additionally "
+              f"asks `{r['review_model']}`, shown the expected fact, whether a non-matching answer "
+              "states it (translations count); it is a model judgement, reported separately.", "",
               "### Held-out, AI mode, by question type", "",
               "| Type | n | Correct on right page | False abstention | Correct abstention |",
               "|---|---|---|---|---|"]
@@ -319,7 +348,8 @@ def render(r: dict) -> str:
               if (x["answerable"] and not (x["fact_in_answer"] and x["cited_expected_page"]))
               or (not x["answerable"] and x["mode"] != "abstained")]
     for x in misses:
-        lines.append(f"- `{x['id']}` {x['question']} → {x['mode']}/{x['verdict']}: "
+        lines.append(f"- `{x['id']}` {x['question']} → {x['mode']}/{x['verdict']}"
+                     f"{' (graded correct)' if x.get('fact_graded') else ''}: "
                      f"{x['answer'].replace(chr(10), ' ')[:240]}")
     if not misses:
         lines.append("- None.")

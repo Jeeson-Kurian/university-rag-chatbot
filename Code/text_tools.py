@@ -173,3 +173,16 @@ def clean_sentence(text: str) -> str:
             break
         text = stripped
     return text
+
+
+def inflections(term: str) -> tuple[str, ...]:
+    """A model-suggested German term plus its common inflected forms (Wörter -> Wörtern,
+    Semester -> Semestern, Prüfung -> Prüfungen). Forms absent from a corpus score zero,
+    so extra variants cannot create evidence on their own."""
+    forms = [term]
+    if len(term) >= 4:
+        forms += [term + "n", term + "en", term + "e", term + "s"]
+        for ending in ("en", "n", "e", "s"):
+            if term.endswith(ending) and len(term) - len(ending) >= 4:
+                forms.append(term[: -len(ending)])
+    return tuple(dict.fromkeys(forms))

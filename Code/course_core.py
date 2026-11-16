@@ -40,7 +40,7 @@ from pypdf import PdfReader
 from . import ai_steps
 from .ai_steps import NO_EVIDENCE
 from .grounding import CITATION_RE, verify
-from .text_tools import (clean_sentence, content_terms, expand, glossary_words, numbers,
+from .text_tools import (clean_sentence, content_terms, expand, glossary_words, inflections, numbers,
                          sentences, stem, tokens)
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -333,8 +333,9 @@ class CourseAssistant:
                 continue  # a model term must stand for a word the student actually wrote
             for alternative in alternatives:
                 for alt in content_terms(alternative):
-                    if alt != original:
-                        triples.append((alt, EXPANSION_WEIGHT, original))
+                    for form in inflections(alt):
+                        if form != original:
+                            triples.append((form, EXPANSION_WEIGHT, original))
         return list(dict.fromkeys(triples))
 
     @staticmethod
@@ -516,13 +517,17 @@ class CourseAssistant:
                  "department": p.department, "excerpt": p.text[:850]}
                 for i, p in enumerate(selected, start=1)]
 
-    def _write(self, question: str, selected: list[Passage]) -> tuple[str | None, dict | None, Exception | None]:
+    def _write(self, question: str, selected: list[Passage], language: str | None = None
+               ) -> tuple[str | None, dict | None, Exception | None]:
         excerpts = "\n\n".join(
             f"[S{i}] Document: {p.document}; page: {p.page or 'text file'}\n{p.text[:850]}"
             for i, p in enumerate(selected, start=1))
+        target = ai_steps.language_name(language)
         messages = [
             {"role": "system", "content": ai_steps.ANSWER_SYSTEM},
-            {"role": "user", "content": f"SOURCE EXCERPTS:\n{excerpts}\n\nQUESTION:\n{question}"},
+            {"role": "user", "content": f"SOURCE EXCERPTS:\n{excerpts}\n\nQUESTION:\n{question}\n\n"
+                                        f"Write the answer in {target}, the language of the question, "
+                                        "even if the excerpts are in another language."},
         ]
         last_error = None
         for model in [self.chat_model] + ([self.fallback_model] if self.fallback_model else []):
@@ -579,7 +584,7 @@ class CourseAssistant:
                       base: dict) -> dict:
         sources = self._sources(selected)
         excerpt_by_number = {i: s["excerpt"] for i, s in enumerate(sources, start=1)}
-        answer, usage, error = self._write(question, selected)
+        answer, usage, error = self._write(question, selected, base.get("question_language"))
         if error is not None:
             base.update({"mode": "model_error",
                          "answer": "Answer generation is temporarily unavailable; please retry.",
