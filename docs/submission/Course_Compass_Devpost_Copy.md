@@ -1,7 +1,7 @@
 # Course Compass: Devpost story (v4 draft)
 
-> Fill every `⟦…⟧` from `eval/LLM_RESULTS.md` after the live run, and the demo link after
-> deployment. Do not submit while any `⟦…⟧` remains.
+> Numbers below are from live run 5 (16 Nov 2026, `eval/LLM_RESULTS.md`). Still to fill:
+> the demo link, the student check, and the team line. Do not submit while any `⟦…⟧` remains.
 
 **Tagline:** Ask your curriculum in any language. Get the answer, the page that proves it, and a second AI that checks it.
 
@@ -64,31 +64,46 @@ plainly that their meaning was not checked. No model was trained or fine-tuned.
 - **The honest baseline.** Our earlier keyword-only system looked excellent on the development
   set (right page in the top 4 for 97.8%) and **found the right page for only 35% of the
   held-out questions, and 0 of 8 non-English ones.** It had been tuned to its own test.
-- **AI mode, held-out set:** correct fact on the right page ⟦X%⟧ (free mode ⟦Y%⟧). False
-  abstention ⟦…⟧, correct abstention ⟦…⟧. Of the answers labelled *checked twice*, ⟦…⟧ were
-  right.
-- **Planted errors.** We corrupted correct answers on purpose and checked them again: changed
-  number caught ⟦…⟧, answer to a different question caught ⟦…⟧, invented extra rule caught
-  ⟦…⟧. Untouched answers wrongly flagged: ⟦…⟧.
-- **Compare mode:** ⟦…⟧ of programme answers correct on three questions whose answer differs
+- **AI mode, held-out set:** the correct fact on the right page for **50%** with a strict
+  keyword match, **80%** in any language (graded by a model that sees the expected fact;
+  translations count), versus 10% in free mode. Answerable questions wrongly refused fell from
+  65% to **10%**; all 6 unanswerable questions were refused (free mode: 5 of 6). Of the answers
+  labelled *checked twice*, **12 of 13** were right. On the development set: 93% correct, 0
+  unanswerable questions answered, 42 of 43 *checked twice* answers right.
+- **Planted errors.** We corrupted 52 correct answers on purpose and checked them again. A
+  changed number was caught **29/29** times, an answer to a different question **46/47**, an
+  invented extra rule **52/52**. Of the untouched correct answers, **0/52** were wrongly
+  flagged and 51/52 were shown as *checked twice*. To be fair, the simple word-and-number check
+  alone already catches 94–100% of these planted errors. The second reader matters for meaning
+  across languages and for "did this answer the question?".
+- **Compare mode:** 9 of 9 programme answers correct on three questions whose answer differs
   by programme.
+- **Kept honest:** five live runs on 16 Nov are in the repository. The first contact with the
+  held-out set scored 40%. Every fix after it was made after seeing held-out misses, so these
+  numbers are no longer fully blind. One full run of everything above costs about $0.09.
 - **Students:** ⟦n⟧ students asked ⟦m⟧ of their own questions (`eval/STUDENT_RESULTS.md`).
 - Offline tests in CI cover the engine, API, Streamlit UI and evaluator; CI builds both Docker
   images.
 
 ## Failure cases we kept
 
-- *"How many words must the master's thesis have?"* (German curriculum). Keyword search ranks
-  the right page 6th, and free mode copies a nearby sentence without the number. ⟦In AI mode:
-  what the second reader and second look did⟧.
-- In free mode, *"What is the tuition fee for non-EU students?"* (AI and Cybersecurity) copies
-  an application-deadline sentence that mentions non-EU citizens. The label says the meaning
-  was not checked, and ⟦AI mode result⟧.
-- ⟦Worst held-out miss from LLM_RESULTS.md⟧.
+- **Flattened tables.** PDF tables become one line of numbers. Twice the model read a semester
+  plan or subtotal row as the answer: the Informatics thesis came out as "30" instead of 25, and
+  required subjects as "22" instead of 34. Both checks passed, because that number really is on
+  the cited page. This is the main reason a *checked twice* answer can still be wrong.
+- **Two German-curriculum questions are still refused**, e.g. *"How long is the Worlds of
+  English master planned to take?"*. The wording never reaches *Studiendauer*.
+- **The old headline failure is fixed:** *"How many words must the master's thesis have?"*
+  (German curriculum) used to quote a nearby sentence without the number. AI mode now answers
+  "at least 30,000 words", checked twice, with the sentence highlighted on page 10.
+- **Bugs the live runs exposed and we fixed:** English questions answered in German;
+  *Wörter* not matching *Wörtern*; an Italian question refused because a German web page
+  outranked the right curriculum page; compare answers adding credits together ("23 + 2 = 25").
 
 ## Challenges and what we learned
 
-A test set you tune on lies to you: 97.8% became 35% on fresh questions. Citations are not
+A test set you tune on lies to you: 97.8% became 35% on fresh questions. Live runs find
+bugs no offline test does, such as answers in the wrong language and models doing arithmetic. Citations are not
 correctness either. An answer can quote a real page and still not answer the question, which
 is why the second reader judges *the question* and not only the words. The hardest trade-off
 is refusing versus answering. Every threshold that stops a made-up answer also withholds some

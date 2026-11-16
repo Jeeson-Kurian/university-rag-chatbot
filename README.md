@@ -70,7 +70,7 @@ All numbers come from scripts in this repository; every run is reproducible.
 **Two question sets.** The *development set* (53 questions) was used while building, so its
 numbers are optimistic. The *held-out set* (26 questions: paraphrases, questions in Italian,
 German, Spanish and French, near-miss unanswerable questions) was **frozen in a commit before any
-system ran on it** and is never tuned on. Both were drafted with an AI assistant from the
+system ran on it**; its questions and labels were never changed (but fixes were made after seeing its misses, see below). Both were drafted with an AI assistant from the
 curriculum pages; labels are machine-checked against the expected page.
 
 **Free mode, offline** (`python scripts/evaluate.py`):
@@ -84,18 +84,53 @@ The gap is the honest headline: keyword search plus a hand-written glossary was 
 development questions and fails on fresh wording and on every non-English question (0 of 8). This is the problem the
 AI steps are built to solve.
 
-**AI mode, live** (`python scripts/evaluate_llm.py`): _pending a working provider key; the
-results will be published in [`eval/LLM_RESULTS.md`](eval/LLM_RESULTS.md) exactly as measured._
-The live evaluation reports, for both sets, free vs AI accuracy (correct fact *and* the right
-page), abstention, how often answers shown as checked are actually right, the **planted-error
-test** (correct answers corrupted on purpose: changed number, answer to another question,
-invented rule; how many the checks catch) and compare-mode cases.
+**AI mode, live** (`python scripts/evaluate_llm.py`, run 5 on 16 Nov 2026, 0 provider errors,
+≈ $0.09 for everything below; full report: [`eval/LLM_RESULTS.md`](eval/LLM_RESULTS.md)):
 
-**Known failure kept on purpose:** *"How many words must the master's thesis have?"* (German
-Worlds of English curriculum). Keyword search ranks the right page (p. 10, "30.000 Wörtern")
-6th, and the copied answer quotes a nearby sentence that does not contain the number. The old
-word-overlap check passed it. In AI mode the second reader is designed to catch exactly this
-("does not answer the question") and trigger the wider second look.
+| Held-out set (20 answerable + 6 not) | Free mode | **AI mode** |
+|---|---|---|
+| Correct fact on the right page, strict keyword | 10% | **50%** |
+| … in any language (model-graded, translations count) | 10% | **80%** |
+| Answerable questions wrongly refused | 65% | **10%** |
+| Unanswerable questions correctly refused | 83% | **100%** |
+| Answers labelled *checked twice* that were right (graded) | – | **12 of 13** |
+
+On the development set AI mode gets 93% right on the right page (free 78%), refuses all 8
+unanswerable questions, and 42 of its 43 *checked twice* answers are right.
+
+**Planted errors.** 52 correct AI answers were corrupted on purpose and re-checked:
+
+| Corruption | Caught |
+|---|---|
+| A number changed (e.g. 23 → 28 ECTS) | 29 / 29 |
+| The answer to a different question | 46 / 47 |
+| An invented extra rule | 52 / 52 |
+| *Untouched* correct answers wrongly flagged | 0 / 52 (98% shown as checked twice) |
+
+Honest note: the deterministic word & number check alone already catches most of these
+planted errors (94–100%). The second reader's distinct value is judging *meaning across
+languages* and *whether the question was answered*, which word overlap cannot do.
+
+**Compare mode:** 9 of 9 programme answers correct on three questions whose answer differs by
+programme (thesis credits, English level, open electives).
+
+**The road there is kept** in [`eval/live_runs/`](eval/live_runs/): five runs on 16 Nov. Run 1
+(first contact with the held-out set) scored 40% strict; the fixes after it (answer language,
+German word forms, gate, no arithmetic) were made **after seeing held-out misses**, so the
+held-out numbers above are no longer fully blind. The student check is the next independent test.
+
+**Remaining failures (shown, not hidden):**
+- *Flattened tables.* PDF tables become one line of numbers. Twice the model read a
+  semester-plan or subtotal row as the answer (Informatics: thesis "30" instead of 25, required
+  subjects "22" instead of 34) and both checks passed, because the number really is on that page.
+- *Two German-curriculum questions are still refused* ("how long is the programme planned to
+  take", "how much time should the thesis topic allow"): their wording never reaches
+  *Studiendauer* or *sechs Monaten*.
+- A French question about the bachelor's total credits got a sub-total (122 for required
+  subjects); it is labelled *check the page*, not checked.
+- **The former known failure is fixed in AI mode:** *"How many words must the master's thesis
+  have?"* on the German curriculum is now answered "at least 30,000 words", checked twice, with
+  the sentence highlighted on page 10. In free mode it still fails.
 
 ## Run it
 
@@ -119,8 +154,9 @@ Hugging Face* workflow. It copies `OPENAI_API_KEY` into the Space as a secret.
 
 - **Four curricula, one university, ~60 pages.** No OCR; tables extract imperfectly.
   Curricula change; the English versions say they are not legally binding.
-- **The second reader is a model too** and can be wrong. The planted-error test measures how
-  often it catches errors and how often it raises false alarms; it is not proof.
+- **The second reader is a model too** and can be wrong; it missed both flattened-table errors.
+  The planted-error test measures catch and false-alarm rates on this data; it is not proof.
+- **Tables** are read as flattened text, the main remaining source of wrong "checked" answers.
 - **Question sets are AI-drafted**, not written by students. A small student check
   ([`docs/student_testing/`](docs/student_testing/)) is the next step; its results will be
   reported as they are.
