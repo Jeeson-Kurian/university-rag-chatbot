@@ -1,0 +1,30 @@
+name: Offline serving rehearsal
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - scripts/benchmark_offline.py
+      - scripts/rehearse_offline_release.sh
+      - .github/workflows/offline-rehearsal.yml
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Rehearse release, measure /ask and restore the previous image
+        run: bash scripts/rehearse_offline_release.sh | tee "$RUNNER_TEMP/rehearsal.txt"
+        shell: bash
+      - name: Preserve rehearsal output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: offline-serving-rehearsal
+          path: ${{ runner.temp }}/rehearsal.txt

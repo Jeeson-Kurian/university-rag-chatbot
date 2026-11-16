@@ -6,6 +6,10 @@ Course Compass answers questions about the University of Klagenfurt curricula in
 
 > Status: hackathon project (AI OpenBuild 2026). Not an official university service and not production-validated. Curricula can change; check the official documents before making decisions.
 
+**Evaluation.** Offline retrieval found the expected page in the top four for 44 of 45 answerable development questions (97.8%). On the harder set used in the v4 experiments, the free retriever found it for 7 of 20 (35%). Live AI answers on those 20 scored 10/20 under strict keyword and page matching and 16/20 when model-graded translations counted. Later runs incorporated fixes informed by earlier misses. [Development-set report](eval/RESULTS.md) · [v4 experiment and limitations](https://github.com/Jeeson-Kurian/university-rag-chatbot/blob/01417605c95922b5a1cb9ffd676c77663425d5a9/README.md#results)
+
+**Serving.** A local Docker rehearsal measured offline API latency and restored a previous release on the same port. [Workload, results and reproduction commands](docs/OFFLINE_SERVING_BENCHMARK.md)
+
 ## What it does
 
 | Student action | What Course Compass does |
