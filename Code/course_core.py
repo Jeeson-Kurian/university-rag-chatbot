@@ -576,6 +576,11 @@ class CourseAssistant:
         lexical_ok = bool(grounding) and grounding.get("verdict") == "passed"
         if review and review.get("status") == "done":
             rows = [r["verdict"] for r in review["sentences"]]
+            # Word overlap cannot judge an answer written in another language than its page;
+            # the second reader judges meaning. Numbers and citations stay strictly checked.
+            hard = {"uncited", "number_not_in_evidence"}
+            lexical_ok = bool(grounding) and not any(
+                row["status"] in hard for row in grounding.get("sentences", []))
             if review["answers_question"] == "no":
                 return "not_answered", "The second reader found that the cited pages do not answer this question."
             if "contradicted" in rows:
@@ -699,10 +704,12 @@ class CourseAssistant:
             results = list(pool.map(lambda d: self.ask(question, d), departments))
         answered = [r for r in results if r["mode"] in {"llm", "extractive"}
                     and r["verdict"] not in {"not_answered", "contradicted"}]
+        checked = [r for r in answered if r["verdict"] == "verified"]
         summary, usage = None, None
-        if len(answered) >= 2 and self.ai_available:
+        if len(checked) >= 2 and self.ai_available:
+            # The contrast is written only from answers that passed both checks.
             block = "\n\n".join(f"{SHORT_NAMES[r['department']]}:\n{CITATION_RE.sub('', r['answer'])}"
-                                for r in answered)
+                                for r in checked)
             try:
                 text, usage = self._chat(self.chat_model, [
                     {"role": "system", "content": ai_steps.COMPARE_SYSTEM},
@@ -711,7 +718,7 @@ class CourseAssistant:
                 data = ai_steps.parse_json(text) or {}
                 candidate = str(data.get("summary", "")).strip()
                 # Every number in the contrast must appear in one of the checked answers.
-                allowed = set().union(*(numbers(r["answer"]) for r in answered))
+                allowed = set().union(*(numbers(r["answer"]) for r in checked))
                 if candidate and numbers(candidate) <= allowed:
                     summary = candidate[:600]
             except Exception:

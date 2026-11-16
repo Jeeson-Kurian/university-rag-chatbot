@@ -292,8 +292,8 @@ with compare_tab:
         st.divider()
         if cmp.get("summary"):
             st.markdown(f'<div class="cc-summary"><b>In short:</b> {html.escape(cmp["summary"])}'
-                        "<br><small>Written by the model from the checked answers below; every "
-                        "number in it appears in one of them.</small></div>",
+                        "<br><small>Written by the model only from the answers marked ✓ checked twice; "
+                        "every number in it appears in one of them.</small></div>",
                         unsafe_allow_html=True)
         results = cmp["results"]
         for row_start in range(0, len(results), 2):

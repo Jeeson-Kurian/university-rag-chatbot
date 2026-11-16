@@ -314,3 +314,12 @@ def test_answer_prompt_names_the_question_language(corpus):
 def test_model_terms_cover_german_inflections():
     from Code.text_tools import inflections
     assert "wörtern" in inflections("wörter") and "semestern" in inflections("semester")
+
+
+def test_reader_overrides_word_overlap_for_other_languages_but_not_numbers():
+    reader_ok = {"status": "done", "answers_question": "yes",
+                 "sentences": [{"verdict": "supported"}]}
+    weak = {"verdict": "flagged", "sentences": [{"status": "weak_support"}]}
+    wrong_number = {"verdict": "flagged", "sentences": [{"status": "number_not_in_evidence"}]}
+    assert CourseAssistant.verdict(weak, reader_ok)[0] == "verified"
+    assert CourseAssistant.verdict(wrong_number, reader_ok)[0] == "check"
