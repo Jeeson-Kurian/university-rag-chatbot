@@ -1,3 +1,7 @@
+> **v4 (16 Nov 2026) note:** this document describes the v3 retrieval core, which v4 keeps.
+> v4 adds AI question understanding, the second reader with a wider second look, compare mode,
+> the evidence viewer and budget controls; see the README and `Code/ai_steps.py`.
+
 # Course Compass — engineering notes
 
 ## Defects found in the pre-hackathon baseline and how they were fixed
