@@ -37,7 +37,7 @@ def test_ask_shows_answer_verdict_and_evidence(app):
 
 
 def test_refusal_is_explicit(app):
-    app.text_area(key="question").input("What is the tuition fee for non-EU students?").run()
+    app.text_area(key="question").input("How much does student housing in Klagenfurt cost?").run()
     click(app, "Find the answer")
     assert "I cannot find this information" in markdown_text(app)
 

@@ -85,7 +85,7 @@ try:
         step("02_how_it_was_checked", lambda: ask(thesis, expand_checks=True))
         step("03_italian_question", lambda: ask(
             "Quanti crediti devo ottenere all'Università di Udine per il doppio titolo?"))
-        step("04_refusal", lambda: ask("What is the tuition fee for non-EU students?"))
+        step("04_refusal", lambda: ask("How much does student housing in Klagenfurt cost?"))
 
         def word_count():
             choose("Worlds of English (Master, German curriculum)")

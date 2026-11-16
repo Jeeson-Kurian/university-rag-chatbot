@@ -20,7 +20,7 @@ ASK_EXAMPLES = {
     "AIandCybersecurity": [
         "How many ECTS credits does the Master's thesis comprise?",
         "Quanti crediti devo ottenere all'Università di Udine per il doppio titolo?",
-        "What is the tuition fee for non-EU students?",
+        "How much does student housing in Klagenfurt cost?",
     ],
     "Informatics": [
         "How many hours must the internship last?",
