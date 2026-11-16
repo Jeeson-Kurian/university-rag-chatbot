@@ -1,14 +1,15 @@
-name: Capture submission screenshots
+name: Capture app screenshots
+# Manual or a push to submission-media / run/screenshots. Uses OPENAI_API_KEY for AI mode.
 on:
   workflow_dispatch:
   push:
-    branches: [submission-media]
+    branches: [submission-media, "run/screenshots"]
 permissions:
-  contents: read
+  contents: write
 jobs:
   screenshots:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -16,11 +17,26 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install -r requirements.txt playwright
       - run: python -m playwright install --with-deps chromium
-      - name: Capture actual app in free mode
+      - name: AI mode
+        continue-on-error: true
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python scripts/capture_submission_media.py
+      - name: Free mode
+        continue-on-error: true
+        run: python scripts/capture_submission_media.py --free
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: course-compass-app-screenshots
-          path: submission-media/*.png
-          if-no-files-found: error
+          path: submission-media/
+      - name: Publish results branch
+        if: always()
+        run: |
+          mkdir -p /tmp/out && cp -r submission-media/. /tmp/out/ 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan results-tmp && git rm -rqf . && cp -r /tmp/out/. .
+          echo "source commit: $GITHUB_SHA" > SOURCE.txt
+          git add -A && git commit -qm "Screenshots for $GITHUB_SHA"
+          git push -f origin HEAD:refs/heads/results/screenshots

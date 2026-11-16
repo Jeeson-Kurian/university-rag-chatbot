@@ -148,3 +148,18 @@ def sentences(text: str) -> list[str]:
         elif part:
             merged.append(part)
     return [p for p in merged if len(p) >= 12]
+
+
+LEAD_MARKER_RE = re.compile(r"^(?:\(\s*\d+[a-z]?\s*\)|§\s*\d+[a-z]?\.?|[a-z]\)|[•▪◦\-–])\s*")
+
+
+def clean_sentence(text: str) -> str:
+    """Remove paragraph markers such as "(3)", "§ 5" or bullets from the start of a copied
+    sentence and collapse whitespace; the words themselves are left untouched."""
+    text = re.sub(r"\s+", " ", text).strip()
+    for _ in range(3):
+        stripped = LEAD_MARKER_RE.sub("", text, count=1)
+        if stripped == text:
+            break
+        text = stripped
+    return text

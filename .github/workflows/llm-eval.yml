@@ -1,14 +1,22 @@
 name: Live AI-mode evaluation
-# Runs only when triggered by hand (Actions tab -> "Live AI-mode evaluation" -> Run workflow)
-# or by a push to the llm-eval branch. Needs the repository secret OPENAI_API_KEY.
+# Manual (Actions tab -> Run workflow) or a push to llm-eval / run/llm-eval.
+# Needs the repository secret OPENAI_API_KEY. Results are also pushed to the
+# results/llm-eval branch so they can be read without downloading artifacts.
 on:
   workflow_dispatch:
+    inputs:
+      quick:
+        description: "Quick run (every 4th question)"
+        type: boolean
+        default: false
   push:
-    branches: [llm-eval]
+    branches: [llm-eval, "run/llm-eval"]
+permissions:
+  contents: write
 jobs:
   llm-eval:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -18,7 +26,9 @@ jobs:
       - name: Run live evaluation
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python scripts/evaluate_llm.py
+        run: |
+          set -o pipefail
+          python scripts/evaluate_llm.py ${{ inputs.quick && '--quick' || '' }} 2>&1 | tee eval/run.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -26,4 +36,15 @@ jobs:
           path: |
             eval/LLM_RESULTS.md
             eval/llm_results.json
+            eval/run.log
           if-no-files-found: ignore
+      - name: Publish results branch
+        if: always()
+        run: |
+          mkdir -p /tmp/out && cp eval/LLM_RESULTS.md eval/llm_results.json eval/run.log /tmp/out/ 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan results-tmp && git rm -rqf . && cp -r /tmp/out/. .
+          echo "source commit: $GITHUB_SHA" > SOURCE.txt
+          git add -A && git commit -qm "Live evaluation results for $GITHUB_SHA"
+          git push -f origin HEAD:refs/heads/results/llm-eval
