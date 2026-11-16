@@ -1,5 +1,5 @@
 {
-  "run_at_utc": "2026-11-16 18:34",
+  "run_at_utc": "2026-11-16 18:45",
   "chat_model": "gpt-4o-mini",
   "review_model": "gpt-4.1-mini",
   "embedding_model": "text-embedding-3-small",
@@ -14,22 +14,22 @@
         "cites_expected_page": 0.956,
         "false_abstention": 0.0,
         "correct_abstention": 1.0,
-        "precision_of_checked_answers": 0.974,
-        "checked_answers": 38,
+        "precision_of_checked_answers": 0.976,
+        "checked_answers": 41,
         "second_looks": 1,
         "model_errors": 0,
-        "cost_usd": 0.02148
+        "cost_usd": 0.02162
       },
       "free": {
         "answerable": 45,
         "unanswerable": 8,
-        "correct_with_right_page": 0.756,
-        "correct_any_language": 0.756,
-        "fact_in_answer": 0.8,
+        "correct_with_right_page": 0.778,
+        "correct_any_language": 0.778,
+        "fact_in_answer": 0.822,
         "cites_expected_page": 0.889,
         "false_abstention": 0.0,
         "correct_abstention": 1.0,
-        "precision_of_checked_answers": 0.795,
+        "precision_of_checked_answers": 0.818,
         "checked_answers": 44,
         "second_looks": 0,
         "model_errors": 0,
@@ -46,10 +46,10 @@
           "false_abstention": 0.0,
           "correct_abstention": 0.0,
           "precision_of_checked_answers": 1.0,
-          "checked_answers": 1,
+          "checked_answers": 5,
           "second_looks": 0,
           "model_errors": 0,
-          "cost_usd": 0.0024
+          "cost_usd": 0.00239
         },
         "factoid": {
           "answerable": 40,
@@ -60,8 +60,8 @@
           "cites_expected_page": 0.975,
           "false_abstention": 0.0,
           "correct_abstention": 0.0,
-          "precision_of_checked_answers": 0.973,
-          "checked_answers": 37,
+          "precision_of_checked_answers": 0.972,
+          "checked_answers": 36,
           "second_looks": 1,
           "model_errors": 0,
           "cost_usd": 0.01874
@@ -79,7 +79,7 @@
           "checked_answers": 0,
           "second_looks": 0,
           "model_errors": 0,
-          "cost_usd": 0.00033
+          "cost_usd": 0.00049
         },
         "out_of_scope": {
           "answerable": 0,
@@ -116,13 +116,13 @@
         "factoid": {
           "answerable": 40,
           "unanswerable": 0,
-          "correct_with_right_page": 0.775,
-          "correct_any_language": 0.775,
-          "fact_in_answer": 0.825,
+          "correct_with_right_page": 0.8,
+          "correct_any_language": 0.8,
+          "fact_in_answer": 0.85,
           "cites_expected_page": 0.925,
           "false_abstention": 0.0,
           "correct_abstention": 0.0,
-          "precision_of_checked_answers": 0.821,
+          "precision_of_checked_answers": 0.846,
           "checked_answers": 39,
           "second_looks": 0,
           "model_errors": 0,
@@ -182,7 +182,7 @@
             "Künstliche Intelligenz",
             "Cybersicherheit"
           ],
-          "cost_usd": 0.00044615000000000003,
+          "cost_usd": 0.0004477,
           "question": "How many ECTS credits does the Master's programme in Artificial Intelligence and Cybersecurity comprise?",
           "answer": "The Master's programme in Artificial Intelligence and Cybersecurity comprises 120 European Credit Transfer System Credits (ECTS credits) [S1].",
           "sources": [
@@ -207,7 +207,7 @@
           "reader_answers_question": "yes",
           "second_look": false,
           "searched_terms": [
-            "points",
+            "credit points",
             "ECTS-AP",
             "Punkte",
             "Leistungspunkte",
@@ -218,7 +218,7 @@
             "Lernende",
             "dual degree"
           ],
-          "cost_usd": 0.00044695,
+          "cost_usd": 0.0004485,
           "question": "How many ECTS credits must students obtain at the University of Udine for the double degree?",
           "answer": "Students must obtain 30 ECTS credits at the University of Udine for the double degree programme [S3].",
           "sources": [
@@ -249,7 +249,7 @@
             "Bewerber",
             "Muttersprache"
           ],
-          "cost_usd": 0.0004398,
+          "cost_usd": 0.00045575,
           "question": "What English language level is required for applicants whose first language is not English?",
           "answer": "Applicants whose first language is not English must be proficient in the English language at level B2 of the Common European Framework of Reference for Languages (CEFR) [S1].",
           "sources": [
@@ -274,17 +274,11 @@
           "reader_answers_question": "yes",
           "second_look": false,
           "searched_terms": [
-            "bachelor programs",
-            "undergraduate programs",
-            "Bachelor-Studiengänge",
-            "Bachelor-Programme",
-            "applicable",
-            "anwendbar",
-            "entry",
-            "Zulassung",
-            "Eintritt"
+            "bachelor's programs",
+            "Bachelorstudiengänge",
+            "Zulassung"
           ],
-          "cost_usd": 0.00047654999999999996,
+          "cost_usd": 0.00048130000000000004,
           "question": "Which bachelor's programmes are classed as relevant for admission in any case?",
           "answer": "The Bachelor's degree programmes classed as relevant for admission in any case are Applied Informatics, Informatics, Information Management, Management Information Systems, Information and Communications Engineering, Robotics & Artificial Intelligence, and the teacher training programme in Computer Science and Digital Education at the University of Klagenfurt, as well as the Corso di Laurea in Informatica at the University of Udine [S1].",
           "sources": [
@@ -315,7 +309,7 @@
             "Pflichtfach",
             "Pflichtveranstaltung"
           ],
-          "cost_usd": 0.0004091,
+          "cost_usd": 0.00041385,
           "question": "How many ECTS credits must be completed in the required subjects?",
           "answer": "A total of 34 ECTS credits must be completed in the required subjects [S1].",
           "sources": [
@@ -341,10 +335,10 @@
           "second_look": false,
           "searched_terms": [
             "ECTS-AP",
-            "Wahlpflichtfächer",
-            "abgeschlossen"
+            "Wahlfächer",
+            "absolviert"
           ],
-          "cost_usd": 0.00044395000000000003,
+          "cost_usd": 0.0004583,
           "question": "How many ECTS credits of guided electives must be completed?",
           "answer": "A total of 50 ECTS credits must be completed in guided electives from the areas of Specialisation in Artificial Intelligence and Cybersecurity and Responsible Innovation [S2].",
           "sources": [
@@ -374,7 +368,7 @@
             "Projekt",
             "groß"
           ],
-          "cost_usd": 0.0004632,
+          "cost_usd": 0.00046955,
           "question": "How many ECTS credits is the Large Project worth?",
           "answer": "The Large Project in Artificial Intelligence and Cybersecurity is worth 20 ECTS credits [S3].",
           "sources": [
@@ -400,10 +394,12 @@
           "second_look": false,
           "searched_terms": [
             "maximal",
+            "students",
             "Teilnehmer",
+            "Studierende",
             "integrierte Vorlesung"
           ],
-          "cost_usd": 0.00043165,
+          "cost_usd": 0.0004348,
           "question": "What is the maximum number of participants in an integrated lecture?",
           "answer": "The maximum number of participants permitted in an integrated lecture (VI) is 30, except for the course \"Social, Ethical and Legal Aspects of Artificial Intelligence and Cybersecurity,\" which has a maximum of 20 participants [S1].",
           "sources": [
@@ -432,7 +428,7 @@
             "Punkte",
             "Masterarbeit"
           ],
-          "cost_usd": 0.00041885,
+          "cost_usd": 0.0004236,
           "question": "How many ECTS credits does the Master's thesis comprise?",
           "answer": "The Master's thesis comprises 23 ECTS credits [S1].",
           "sources": [
@@ -457,12 +453,11 @@
           "reader_answers_question": "yes",
           "second_look": false,
           "searched_terms": [
-            "Mobilität",
-            "Fenster",
-            "Zeitraum",
-            "Ausland"
+            "Mobilitätsfenster",
+            "study abroad",
+            "Auslandsstudium"
           ],
-          "cost_usd": 0.00043269999999999995,
+          "cost_usd": 0.00042909999999999997,
           "question": "Which semester is recommended as the mobility window for a period abroad?",
           "answer": "The second or third semester is recommended as the mobility window for a period abroad [S1].",
           "sources": [
@@ -489,10 +484,11 @@
           "searched_terms": [
             "thesis topic",
             "Thema",
+            "thesis supervisor",
             "Betreuer",
             "Masterarbeit"
           ],
-          "cost_usd": 0.00041055,
+          "cost_usd": 0.0003977,
           "question": "Who must approve the topic and the supervisor of the Master's thesis?",
           "answer": "The topic and the Master's thesis supervisor must be approved by the Rector of Studies [S2].",
           "sources": [
@@ -524,7 +520,7 @@
             "Absolventen",
             "Alumni"
           ],
-          "cost_usd": 0.00045195,
+          "cost_usd": 0.0004503,
           "question": "What academic degree do graduates of the programme receive?",
           "answer": "Graduates of the Master’s degree programme will be awarded the academic title \"Master\" accompanied by the words \"of Science\" (abbreviated to \"MSc\") [S1].",
           "sources": [
@@ -557,10 +553,10 @@
             "Abgabefrist",
             "entry",
             "Zulassung",
-            "Eintritt",
+            "Aufnahme",
             "process"
           ],
-          "cost_usd": 0.00056075,
+          "cost_usd": 0.0005702999999999999,
           "question": "What is the application deadline for the admission procedure?",
           "answer": "The application deadlines for the admission procedure are from January 12, 2026, to April 30, 2026, at 23:59. For non-EU or non-EEA citizens, the deadline is from January 12, 2026, to February 28, 2026 [S1][S2].",
           "sources": [
@@ -590,15 +586,15 @@
           "second_look": false,
           "searched_terms": [
             "ECTS-AP",
-            "Punkte",
             "mandatory course",
             "Pflichtfach",
             "Pflichtveranstaltung",
-            "Informatik"
+            "Informatics master's program",
+            "Informatik Masterstudium"
           ],
-          "cost_usd": 0.00046685,
+          "cost_usd": 0.00046140000000000005,
           "question": "How many ECTS credits must be completed in the required subjects of the Informatics master?",
-          "answer": "A total of 22 ECTS credits must be completed in the required subjects of the Informatics master [S3].",
+          "answer": "A total of 22 ECTS credits must be completed in the required subjects of the Informatics master's program [S4].",
           "sources": [
             [
               "EN_MA_Informatics.pdf",
@@ -632,9 +628,9 @@
             "Informatik",
             "Computerscience"
           ],
-          "cost_usd": 0.0004861,
+          "cost_usd": 0.00049285,
           "question": "What academic title is awarded to graduates of the Informatics master?",
-          "answer": "Graduates of the Master's degree programme in Informatics will be awarded the academic title \"Diplom - Ingenieurin/Diplom-Ingenieur,\" abbreviated as \"Dipl.-Ing.\" or \"DI\" [S1].",
+          "answer": "Graduates of the Master's degree programme in Informatics will be awarded the academic title \"Diplom - Ingenieurin/Diplom-Ingenieur\" (shortened to \"Dipl.-Ing.\" or \"DI\") [S1].",
           "sources": [
             [
               "EN_MA_Informatics.pdf",
@@ -668,7 +664,7 @@
             "required subjects",
             "Kernfächer"
           ],
-          "cost_usd": 0.00046560000000000004,
+          "cost_usd": 0.00046875,
           "question": "How many ECTS credits from informatics core subjects must engineering graduates provide for admission?",
           "answer": "Engineering graduates must provide evidence of at least 75 ECTS credits from the core subjects for informatics for admission to the Master’s degree programme [S1].",
           "sources": [
@@ -698,7 +694,7 @@
             "duration",
             "Dauer"
           ],
-          "cost_usd": 0.00041674999999999997,
+          "cost_usd": 0.0004295,
           "question": "How many hours must the internship last?",
           "answer": "The internship must last at least 350 hours [S1].",
           "sources": [
@@ -727,7 +723,7 @@
             "Punkte",
             "Masterarbeit"
           ],
-          "cost_usd": 0.00040195,
+          "cost_usd": 0.0004179,
           "question": "How many ECTS credits does the Master's thesis comprise?",
           "answer": "The Master's thesis comprises 25 ECTS credits [S2].",
           "sources": [
@@ -761,9 +757,9 @@
             "wählen",
             "auswählen"
           ],
-          "cost_usd": 0.00044035000000000005,
+          "cost_usd": 0.00044610000000000006,
           "question": "Which specialist subjects can students select?",
-          "answer": "Students can select from the following specialist subjects: Artificial Intelligence, Business Information Systems, Data Science and Engineering, Distributed Systems, Human-Computer Interaction, Information and System Security, Multimedia Systems, and Software Engineering [S2].",
+          "answer": "Students can select one of the following specialist subjects: Artificial Intelligence, Business Information Systems, Data Science and Engineering, Distributed Systems, Human-Computer Interaction, Information and System Security, Multimedia Systems, or Software Engineering [S2].",
           "sources": [
             [
               "EN_MA_Informatics.pdf",
@@ -789,9 +785,9 @@
             "maximal",
             "Teilnehmer"
           ],
-          "cost_usd": 0.0004246,
+          "cost_usd": 0.00043155,
           "question": "What is the maximum number of participants in a seminar?",
-          "answer": "The maximum number of participants permitted in a seminar is 15 [S2].",
+          "answer": "The maximum number of participants in a seminar is 15 [S2].",
           "sources": [
             [
               "EN_MA_Informatics.pdf",
@@ -823,7 +819,7 @@
             "benötigen",
             "erforderlich"
           ],
-          "cost_usd": 0.0005471,
+          "cost_usd": 0.00055025,
           "question": "How many ECTS credits does the supplementary subject require?",
           "answer": "The supplementary subject requires 12 ECTS credits [S2].",
           "sources": [
@@ -853,7 +849,7 @@
             "submission",
             "Abgabe"
           ],
-          "cost_usd": 0.00043939999999999995,
+          "cost_usd": 0.00042814999999999997,
           "question": "Until when can seminar papers for winter semester courses be handed in?",
           "answer": "Seminar papers for courses taking place in the winter semester can be handed in up until the following 30 June [S1].",
           "sources": [
@@ -881,7 +877,7 @@
             "Sprache",
             "Masterarbeit"
           ],
-          "cost_usd": 0.0004041,
+          "cost_usd": 0.00040725000000000006,
           "question": "In which language must the Master's thesis be written?",
           "answer": "The Master's thesis must be written in English [S1].",
           "sources": [
@@ -912,7 +908,7 @@
             "Wahlfächer",
             "Wahlpflichtfächer"
           ],
-          "cost_usd": 0.00044195,
+          "cost_usd": 0.00044189999999999995,
           "question": "How many ECTS credits must be completed in open electives?",
           "answer": "Students are required to complete 6 ECTS credits in open electives [S1].",
           "sources": [
@@ -929,25 +925,21 @@
           "language": "en",
           "answerable": true,
           "mode": "llm",
-          "verdict": "verified",
+          "verdict": "check",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
           "grounding": "passed",
-          "reader_answers_question": "yes",
+          "reader_answers_question": "partly",
           "second_look": false,
           "searched_terms": [
             "Überprüfung",
             "Projekt"
           ],
-          "cost_usd": 0.0006545,
+          "cost_usd": 0.00051565,
           "question": "What happens in the Cross Project Review?",
-          "answer": "In the Cross Project Review, students must present the content of their written report as part of a joint course, which is worth 1 ECTS credit [S2]. The course is evaluated separately from the project [S2]. This presentation follows the completion of the project and is typically held in the same or following semester [S1].",
+          "answer": "In the Cross Project Review, students must present the content of their written report as part of a joint course, which is worth 1 ECTS credit [S2]. The course is evaluated separately from the project [S2].",
           "sources": [
-            [
-              "EN_MA_Informatics.pdf",
-              15
-            ],
             [
               "EN_MA_Informatics.pdf",
               15
@@ -976,7 +968,7 @@
             "Wirtschaft",
             "Ökonomie"
           ],
-          "cost_usd": 0.00043655,
+          "cost_usd": 0.0004429,
           "question": "How many ECTS credits is the Bachelor's programme in International Business and Economics?",
           "answer": "The Bachelor's degree programme in International Business and Economics is equivalent to 180 European Credit Transfer System (ECTS) credits [S1].",
           "sources": [
@@ -1005,7 +997,7 @@
             "Niveau",
             "Zulassung"
           ],
-          "cost_usd": 0.00046029999999999997,
+          "cost_usd": 0.00046025000000000005,
           "question": "What English language level is required for admission?",
           "answer": "The required English language proficiency level for admission is B2 of the Common European Framework of Reference for Languages (CEFR) for individuals whose first language is not English [S1].",
           "sources": [
@@ -1040,9 +1032,9 @@
             "Phase",
             "Zeitraum"
           ],
-          "cost_usd": 0.0005315,
+          "cost_usd": 0.00054305,
           "question": "Which courses belong to the introductory and orientation period StEOP?",
-          "answer": "The courses that belong to the Introductory and Orientation Period (StEOP) are: \"Introduction to Business\" (2 ECTS credits), \"Introduction to Economics I\" (2 ECTS credits), \"Intercultural Skills\" (2 ECTS credits), and \"Scientific Skills\" (2 ECTS credits), totaling 8 ECTS credits [S2].",
+          "answer": "The courses that belong to the Introductory and Orientation Period (StEOP) are: \"Introduction to Business\" (2 ECTS credits), \"Introduction to Economics I\" (2 ECTS credits), \"Intercultural Skills\" (2 ECTS credits), and \"Scientific Skills\" (2 ECTS credits) [S2].",
           "sources": [
             [
               "Curriculum-BA-International-Business-and-Economics-english.pdf",
@@ -1070,7 +1062,7 @@
             "Dauer",
             "Länge"
           ],
-          "cost_usd": 0.00041515,
+          "cost_usd": 0.0003927,
           "question": "How long should the internship last?",
           "answer": "The internship should last for three months (no less than 30 working hours per week), or four months (no less than 20 working hours per week) and should be completed within one semester [S1].",
           "sources": [
@@ -1103,9 +1095,9 @@
             "Wahlfächer",
             "freie Wahlfächer"
           ],
-          "cost_usd": 0.00042984999999999996,
+          "cost_usd": 0.0004368,
           "question": "How many ECTS credits are required in open electives?",
-          "answer": "Students must complete a total of 10 ECTS credits in Open Electives [S2].",
+          "answer": "A total of 10 ECTS credits are required in Open Electives [S2].",
           "sources": [
             [
               "Curriculum-BA-International-Business-and-Economics-english.pdf",
@@ -1132,7 +1124,7 @@
             "Teilnehmer",
             "Sprachkurs"
           ],
-          "cost_usd": 0.00040950000000000003,
+          "cost_usd": 0.00040465,
           "question": "What is the maximum number of participants in a language course?",
           "answer": "The maximum number of participants permitted in a language course is 20 participants [S1].",
           "sources": [
@@ -1158,17 +1150,17 @@
           "second_look": false,
           "searched_terms": [
             "enrollment",
+            "application",
             "Anmeldung",
             "Eintragung",
+            "Bewerbung",
             "criteria",
+            "conditions",
             "Anforderungen",
-            "Voraussetzungen",
-            "course",
-            "module",
-            "Kurs",
-            "Modul"
+            "Kriterien",
+            "Bedingungen"
           ],
-          "cost_usd": 0.0005232,
+          "cost_usd": 0.00052635,
           "question": "What are the registration requirements for ECON 3 Macroeconomics?",
           "answer": "To register for ECON 3: Macroeconomics, students must first successfully complete Methodology 1: Mathematics I, Methodology 1: Mathematics II, and Methodology 2: Statistics I [S1].",
           "sources": [
@@ -1197,7 +1189,7 @@
             "Punkte",
             "Bachelorarbeit"
           ],
-          "cost_usd": 0.0005696,
+          "cost_usd": 0.00059515,
           "question": "How many ECTS credits is the Bachelor's thesis awarded?",
           "answer": "The Bachelor's thesis is awarded 6 ECTS credits in addition to the 2 ECTS credits for the accompanying seminar, totaling 8 ECTS credits for both components [S1][S2].",
           "sources": [
@@ -1232,7 +1224,7 @@
             "Auslandsstudium",
             "Praktikum"
           ],
-          "cost_usd": 0.0004121,
+          "cost_usd": 0.00041685,
           "question": "Which semester is recommended for a study-related period abroad?",
           "answer": "The recommended mobility window for a study-related period abroad is the fourth or fifth semester [S1].",
           "sources": [
@@ -1265,7 +1257,7 @@
             "Absolventen",
             "Alumni"
           ],
-          "cost_usd": 0.00045125,
+          "cost_usd": 0.0004544,
           "question": "What academic title do graduates receive?",
           "answer": "Graduates of the Bachelor’s degree programme in International Business and Economics shall be awarded the academic title “Bachelor” accompanied by “of Science” (abbreviated to: “BSc”) [S1].",
           "sources": [
@@ -1291,17 +1283,19 @@
           "second_look": false,
           "searched_terms": [
             "optional",
+            "choice",
             "Wahlfach",
-            "Wahlmodule",
+            "Wahlpflicht",
+            "Option",
+            "package",
+            "set",
             "Bündel",
-            "finished",
-            "abgeschlossen",
-            "fertiggestellt",
-            "Geführte Wahlfächer I"
+            "Paket",
+            "Set"
           ],
-          "cost_usd": 0.0004727,
+          "cost_usd": 0.00049545,
           "question": "How many elective bundles must be completed in Guided Electives I?",
-          "answer": "In Guided Electives I, students must complete two elective bundles worth 12 ECTS credits each [S2].",
+          "answer": "Students must complete a total of two elective bundles worth 12 ECTS credits each in Guided Electives I [S2].",
           "sources": [
             [
               "Curriculum-BA-International-Business-and-Economics-english.pdf",
@@ -1327,9 +1321,10 @@
             "Teilnahme",
             "mandatory",
             "verpflichtend",
-            "interaktive Vorlesungen"
+            "Vorlesungen",
+            "interaktiv"
           ],
-          "cost_usd": 0.0004847,
+          "cost_usd": 0.00048785,
           "question": "Is attendance compulsory in interactive lectures?",
           "answer": "Attendance is not compulsory in interactive lectures (VI) [S1]. However, teaching staff and students are obliged to interact continuously via e-learning platforms [S1].",
           "sources": [
@@ -1346,7 +1341,7 @@
           "language": "en",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": false,
@@ -1362,7 +1357,7 @@
             "Studiengang",
             "Kurs"
           ],
-          "cost_usd": 0.00046219999999999996,
+          "cost_usd": 0.00045095,
           "question": "How many ECTS credits does the Master's thesis in Worlds of English comprise?",
           "answer": "The Master's thesis in Worlds of English comprises 30 ECTS credits [S2].",
           "sources": [
@@ -1379,7 +1374,7 @@
           "language": "en",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -1396,11 +1391,11 @@
             "Bewerber",
             "Studierende",
             "native language",
-            "Muttersprache"
+            "mother tongue"
           ],
-          "cost_usd": 0.00049895,
+          "cost_usd": 0.0004973,
           "question": "What English level is required for applicants whose first language is not English?",
-          "answer": "Applicants whose first language is not English are required to have English language skills at the C1 level of the Common European Framework of Reference for Languages (CEFR) [S1].",
+          "answer": "Applicants whose first language is not English are required to have English language proficiency at the C1 level of the Common European Framework of Reference for Languages (CEFR) [S1].",
           "sources": [
             [
               "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
@@ -1429,11 +1424,11 @@
             "alumni",
             "Absolventen",
             "Alumni",
-            "Welten des Englischs"
+            "Welten des Englisch"
           ],
-          "cost_usd": 0.00048325,
+          "cost_usd": 0.00048,
           "question": "What academic degree do Worlds of English graduates receive?",
-          "answer": "Graduates of the Worlds of English master's program receive the academic degree \"Master\" with the addition \"of Arts\" (abbreviated as \"MA\") [S2].",
+          "answer": "Graduates of the Worlds of English master's program receive the academic degree \"Master\" with the addition \"of Arts\" (abbreviated: \"MA\") [S2].",
           "sources": [
             [
               "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
@@ -1448,7 +1443,7 @@
           "language": "en",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -1459,7 +1454,7 @@
             "Wörter",
             "Masterarbeit"
           ],
-          "cost_usd": 0.0004628,
+          "cost_usd": 0.00046595,
           "question": "How many words must the master's thesis have?",
           "answer": "The master's thesis must have a minimum of 30,000 words in the main text [S4].",
           "sources": [
@@ -1476,7 +1471,7 @@
           "language": "en",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -1484,15 +1479,11 @@
           "reader_answers_question": "yes",
           "second_look": false,
           "searched_terms": [
-            "students",
-            "enrollees",
+            "maximal",
             "Teilnehmer",
-            "Studierende",
-            "ongoing evaluation",
-            "laufende Bewertung",
-            "kontinuierliche Leistungsbeurteilung"
+            "laufende Bewertung"
           ],
-          "cost_usd": 0.00049575,
+          "cost_usd": 0.0004943,
           "question": "What is the maximum number of participants in courses with continuous assessment?",
           "answer": "The maximum number of participants in courses with continuous assessment is 20 [S1].",
           "sources": [
@@ -1520,9 +1511,9 @@
             "credits",
             "thesis"
           ],
-          "cost_usd": 0.000498,
+          "cost_usd": 0.00048215,
           "question": "Wie viele ECTS-AP umfasst die Masterarbeit?",
-          "answer": "Die Masterarbeit umfasst 30 ECTS-AP und hat einen Umfang von mindestens 30.000 Wörtern im Haupttext aufzuweisen [S3].",
+          "answer": "Die Masterarbeit umfasst 30 ECTS-AP [S3].",
           "sources": [
             [
               "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
@@ -1548,9 +1539,9 @@
             "admission requirements",
             "master program"
           ],
-          "cost_usd": 0.000753,
+          "cost_usd": 0.00075355,
           "question": "Welche Zulassungsvoraussetzungen gelten für das Masterstudium?",
-          "answer": "Die Zulassung zu einem Masterstudium setzt den Abschluss eines fachlich in Frage kommenden Bachelorstudiums oder eines anderen fachlich in Frage kommenden Studiums voraus, das mindestens dasselbe hochschulische Bildungsniveau hat [S1]. Fachlich in Frage kommend ist jedenfalls das Bachelorstudium Anglistik und Amerikanistik bzw. Worlds of English an der Universität Klagenfurt [S1]. Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnisse der englischen Sprache auf dem Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen vorausgesetzt [S4].",
+          "answer": "Die Zulassung zu einem Masterstudium setzt den Abschluss eines fachlich in Frage kommenden Bachelorstudiums oder eines anderen fachlich in Frage kommenden Studiums mindestens desselben hochschulischen Bildungsniveaus voraus [S1]. Fachlich in Frage kommend ist jedenfalls das Bachelorstudium Anglistik und Amerikanistik bzw. Worlds of English an der Universität Klagenfurt [S1]. Bei Personen, deren Erstsprache nicht Englisch ist, werden Kenntnisse der englischen Sprache auf dem Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen vorausgesetzt [S4].",
           "sources": [
             [
               "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
@@ -1581,7 +1572,7 @@
             "English",
             "required"
           ],
-          "cost_usd": 0.0004733,
+          "cost_usd": 0.00047645,
           "question": "Welches Sprachniveau in Englisch wird vorausgesetzt?",
           "answer": "Es wird ein Sprachniveau in Englisch auf dem Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GERS) vorausgesetzt [S1].",
           "sources": [
@@ -1606,9 +1597,7 @@
           "reader_answers_question": null,
           "second_look": false,
           "searched_terms": [
-            "mission",
             "Raumschiff",
-            "Mission",
             "Start",
             "Zeitplan"
           ],
@@ -1681,15 +1670,8 @@
           "second_look": false,
           "searched_terms": [
             "soccer",
-            "sport",
             "Fußball",
-            "Sport",
-            "Spiel",
-            "global",
-            "international",
-            "Welt",
-            "trophy",
-            "championship"
+            "Weltmeisterschaft"
           ],
           "cost_usd": 0.0,
           "question": "Who won the last football world cup?",
@@ -1711,12 +1693,13 @@
           "reader_answers_question": null,
           "second_look": false,
           "searched_terms": [
+            "fees",
             "Studiengebühr",
-            "Gebühr",
+            "Gebühren",
             "Nicht-EU",
             "Studierende"
           ],
-          "cost_usd": 0.0001533,
+          "cost_usd": 0.00015645,
           "question": "What is the tuition fee for non-EU students?",
           "answer": "I cannot find this information in the selected university documents.",
           "sources": [],
@@ -1762,9 +1745,10 @@
           "searched_terms": [
             "E-Mail",
             "Adresse",
+            "Studiengangsleiter",
             "Assistent"
           ],
-          "cost_usd": 0.0,
+          "cost_usd": 0.00015225,
           "question": "What is the email address of the programme director's assistant?",
           "answer": "I cannot find this information in the selected university documents.",
           "sources": [],
@@ -1789,7 +1773,7 @@
             "Dozent",
             "Mikroökonomie"
           ],
-          "cost_usd": 0.0001782,
+          "cost_usd": 0.00018135,
           "question": "Which professor teaches Microeconomics this semester?",
           "answer": "I cannot find this information in the selected university documents.",
           "sources": [],
@@ -1801,17 +1785,17 @@
       "ai": {
         "answerable": 20,
         "unanswerable": 6,
-        "correct_with_right_page": 0.5,
-        "correct_any_language": 0.8,
-        "fact_in_answer": 0.5,
-        "cites_expected_page": 0.8,
-        "false_abstention": 0.1,
+        "correct_with_right_page": 0.45,
+        "correct_any_language": 0.75,
+        "fact_in_answer": 0.45,
+        "cites_expected_page": 0.75,
+        "false_abstention": 0.15,
         "correct_abstention": 1.0,
-        "precision_of_checked_answers": 0.857,
-        "checked_answers": 7,
+        "precision_of_checked_answers": 0.643,
+        "checked_answers": 14,
         "second_looks": 0,
         "model_errors": 0,
-        "cost_usd": 0.00862
+        "cost_usd": 0.00812
       },
       "free": {
         "answerable": 20,
@@ -1857,7 +1841,7 @@
           "checked_answers": 0,
           "second_looks": 0,
           "model_errors": 0,
-          "cost_usd": 0.00057
+          "cost_usd": 0.00042
         },
         "other_language": {
           "answerable": 8,
@@ -1868,26 +1852,26 @@
           "cites_expected_page": 0.75,
           "false_abstention": 0.0,
           "correct_abstention": 0.0,
-          "precision_of_checked_answers": 0.0,
-          "checked_answers": 0,
+          "precision_of_checked_answers": 0.5,
+          "checked_answers": 6,
           "second_looks": 0,
           "model_errors": 0,
-          "cost_usd": 0.00345
+          "cost_usd": 0.00347
         },
         "paraphrase": {
           "answerable": 8,
           "unanswerable": 0,
-          "correct_with_right_page": 0.875,
-          "correct_any_language": 1.0,
-          "fact_in_answer": 0.875,
-          "cites_expected_page": 1.0,
-          "false_abstention": 0.0,
+          "correct_with_right_page": 0.75,
+          "correct_any_language": 0.875,
+          "fact_in_answer": 0.75,
+          "cites_expected_page": 0.875,
+          "false_abstention": 0.125,
           "correct_abstention": 0.0,
-          "precision_of_checked_answers": 1.0,
-          "checked_answers": 6,
+          "precision_of_checked_answers": 0.857,
+          "checked_answers": 7,
           "second_looks": 0,
           "model_errors": 0,
-          "cost_usd": 0.00364
+          "cost_usd": 0.00327
         }
       },
       "free_by_kind": {
@@ -1958,35 +1942,30 @@
           "kind": "paraphrase",
           "language": "en",
           "answerable": true,
-          "mode": "llm",
-          "verdict": "verified",
-          "fact_in_answer": true,
-          "fact_graded": true,
-          "cited_expected_page": true,
-          "grounding": "passed",
-          "reader_answers_question": "yes",
+          "mode": "abstained",
+          "verdict": "abstained",
+          "fact_in_answer": false,
+          "fact_graded": false,
+          "cited_expected_page": false,
+          "grounding": null,
+          "reader_answers_question": null,
           "second_look": false,
           "searched_terms": [
+            "master's program",
             "degree",
-            "Studiengang",
+            "graduate program",
+            "Masterstudium",
+            "Graduiertenstudium",
+            "Masterabschluss",
             "artificial intelligence",
-            "KI",
+            "machine learning",
             "künstliche Intelligenz",
-            "information security",
-            "Cybersicherheit",
-            "Informationssicherheit",
-            "duration",
-            "length"
+            "KI"
           ],
-          "cost_usd": 0.0004111,
+          "cost_usd": 0.0001452,
           "question": "How long is the AI and Cybersecurity master supposed to take?",
-          "answer": "The Master's degree programme in Artificial Intelligence and Cybersecurity is anticipated to take four semesters [S1].",
-          "sources": [
-            [
-              "curriculum-master-artificial-intelligence-and-cybersecurity-english.pdf",
-              3
-            ]
-          ],
+          "answer": "I cannot find this information in the selected university documents.",
+          "sources": [],
           "warning": null
         },
         {
@@ -1995,7 +1974,7 @@
           "language": "it",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": false,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -2005,9 +1984,11 @@
           "searched_terms": [
             "language",
             "Sprache",
+            "master's program",
+            "Masterstudium",
             "KI"
           ],
-          "cost_usd": 0.00041555,
+          "cost_usd": 0.0004155,
           "question": "In quale lingua viene insegnato il master in AI e Cybersecurity?",
           "answer": "Il master in Intelligenza Artificiale e Cybersecurity viene insegnato in inglese [S4].",
           "sources": [
@@ -2034,7 +2015,7 @@
           "searched_terms": [
             "ECTS-AP"
           ],
-          "cost_usd": 0.00048845,
+          "cost_usd": 0.0004916,
           "question": "How many credits can I fill with any course I like from another recognised university?",
           "answer": "You can fill 6 ECTS credits with any course you like from another recognised university as open electives [S4].",
           "sources": [
@@ -2051,11 +2032,11 @@
           "language": "en",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": false,
           "fact_graded": true,
           "cited_expected_page": true,
-          "grounding": "flagged",
+          "grounding": "passed",
           "reader_answers_question": "yes",
           "second_look": false,
           "searched_terms": [
@@ -2070,9 +2051,9 @@
             "mündliche Prüfung",
             "Viva"
           ],
-          "cost_usd": 0.0005232500000000001,
+          "cost_usd": 0.0004826,
           "question": "What does the first part of the final oral exam consist of?",
-          "answer": "The first part of the final oral examination consists of the subject that the topic of the Master’s thesis falls under, which is presented and defended during the examination. This part is worth 1 ECTS credit [S1].",
+          "answer": "The first part of the final oral examination consists of the subject that the topic of the Master’s thesis falls under, which is presented and defended during the examination, earning 1 ECTS credit [S1].",
           "sources": [
             [
               "curriculum-master-artificial-intelligence-and-cybersecurity-english.pdf",
@@ -2100,7 +2081,7 @@
             "examination type",
             "mandatory"
           ],
-          "cost_usd": 0.00047255,
+          "cost_usd": 0.0004693,
           "question": "Ist die Anwesenheit in Lehrveranstaltungen mit immanentem Prüfungscharakter Pflicht?",
           "answer": "Ja, die Anwesenheit in Lehrveranstaltungen mit immanentem Prüfungscharakter ist Pflicht [S2].",
           "sources": [
@@ -2117,7 +2098,7 @@
           "language": "es",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -2127,14 +2108,13 @@
           "searched_terms": [
             "credits",
             "ECTS-AP",
-            "Punkte",
             "master",
             "program",
             "Master",
             "Studiengang",
             "gesamt"
           ],
-          "cost_usd": 0.00042495,
+          "cost_usd": 0.0004297,
           "question": "¿Cuántos créditos ECTS tiene el máster en total?",
           "answer": "El máster en Inteligencia Artificial y Ciberseguridad tiene un total de 120 créditos ECTS [S3].",
           "sources": [
@@ -2160,9 +2140,10 @@
           "second_look": false,
           "searched_terms": [
             "Informatik",
-            "geplant"
+            "master's program",
+            "Masterstudium"
           ],
-          "cost_usd": 0.00042139999999999994,
+          "cost_usd": 0.00042515,
           "question": "For how many semesters is the Informatics master planned?",
           "answer": "The Master's degree programme in Informatics is planned for four semesters [S1].",
           "sources": [
@@ -2179,7 +2160,7 @@
           "language": "it",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": false,
           "fact_graded": false,
           "cited_expected_page": false,
@@ -2194,7 +2175,7 @@
             "computer science",
             "Informatik"
           ],
-          "cost_usd": 0.0003775,
+          "cost_usd": 0.00038225,
           "question": "Quanti crediti ECTS vale la tesi magistrale in Informatica?",
           "answer": "La tesi magistrale in Informatica vale 30 ECTS crediti [S1].",
           "sources": [
@@ -2225,7 +2206,7 @@
             "Verteidigung",
             "Abschlussprüfung"
           ],
-          "cost_usd": 0.00043515000000000003,
+          "cost_usd": 0.0004223,
           "question": "How many credits is the thesis presentation and defence worth in the final exam?",
           "answer": "The thesis presentation and defence in the final exam is worth 1.5 ECTS credits [S1].",
           "sources": [
@@ -2242,17 +2223,17 @@
           "language": "en",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
-          "grounding": "flagged",
+          "grounding": "passed",
           "reader_answers_question": "yes",
           "second_look": false,
           "searched_terms": [
             "practical courses",
             "Übungskurse",
-            "Praktika",
+            "praktische Übungen",
             "attendance",
             "participation",
             "Teilnahme",
@@ -2261,9 +2242,9 @@
             "miss",
             "Fehlen"
           ],
-          "cost_usd": 0.00046355,
+          "cost_usd": 0.0004007,
           "question": "Do I have to show up to exercise classes, or can I skip them?",
-          "answer": "Attendance is compulsory for exercise classes (Übung/UE) as well as for all other types of courses with ongoing assessment [S3]. Therefore, you cannot skip them.",
+          "answer": "Attendance is compulsory for exercise classes (UE) [S3].",
           "sources": [
             [
               "EN_MA_Informatics.pdf",
@@ -2278,7 +2259,7 @@
           "language": "de",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": false,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -2287,10 +2268,10 @@
           "second_look": false,
           "searched_terms": [
             "language",
-            "Master program",
+            "Master's program",
             "computer science"
           ],
-          "cost_usd": 0.00038905000000000005,
+          "cost_usd": 0.000389,
           "question": "In welcher Sprache wird das Masterstudium Informatik unterrichtet?",
           "answer": "Das Masterstudium Informatik wird in Englisch unterrichtet [S2].",
           "sources": [
@@ -2317,7 +2298,7 @@
           "searched_terms": [
             "Wirtschaftswissenschaften"
           ],
-          "cost_usd": 0.0004263,
+          "cost_usd": 0.00042945000000000006,
           "question": "How many semesters does the International Business and Economics bachelor take?",
           "answer": "The Bachelor’s degree programme in International Business and Economics has an anticipated study duration of six semesters [S1].",
           "sources": [
@@ -2334,7 +2315,7 @@
           "language": "it",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -2349,7 +2330,7 @@
             "elective",
             "Wahlfach"
           ],
-          "cost_usd": 0.0004376,
+          "cost_usd": 0.00044395,
           "question": "Quanti crediti ECTS servono per i corsi a libera scelta?",
           "answer": "Per i corsi a libera scelta sono richiesti un totale di 10 crediti ECTS [S2].",
           "sources": [
@@ -2381,11 +2362,11 @@
             "geleitete Wahlfächer",
             "ECTS",
             "ECTS-AP",
-            "Punkte",
+            "Leistungspunkte",
             "acquire",
             "erwerben"
           ],
-          "cost_usd": 0.000466,
+          "cost_usd": 0.00046915,
           "question": "If I go abroad as part of Guided Electives II, how many credits do I need to earn?",
           "answer": "If you go abroad as part of Guided Electives II, you must produce academic achievements to the value of 16 ECTS credits in total [S2].",
           "sources": [
@@ -2412,13 +2393,16 @@
           "searched_terms": [
             "credits",
             "ECTS-AP",
+            "Punkte",
+            "degree",
             "bachelor",
             "Bachelor",
+            "Studiengang",
             "gesamt"
           ],
-          "cost_usd": 0.00046144999999999997,
+          "cost_usd": 0.0004646,
           "question": "Combien de crédits ECTS compte la licence au total ?",
-          "answer": "La licence compte un total de 122 crédits ECTS pour les matières obligatoires [S4].",
+          "answer": "La licence compte un total de 122 crédits ECTS pour les matières obligatoires [S3].",
           "sources": [
             [
               "Curriculum-BA-International-Business-and-Economics-english.pdf",
@@ -2476,11 +2460,12 @@
             "test",
             "Prüfung",
             "comprehensive",
-            "gesamt"
+            "gesamt",
+            "umfassend"
           ],
-          "cost_usd": 0.0005069499999999999,
+          "cost_usd": 0.0005101,
           "question": "What does the final oral overall examination cover?",
-          "answer": "The final oral overall examination covers two subject areas from the specialization. One of these areas must relate to the master's thesis but should include further questions; the other area can be freely chosen from the specialization [S1].",
+          "answer": "The final oral overall examination covers two subject areas from the specialization. One of these areas must relate to the master's thesis but must include further questions; the other area can be freely chosen from the specialization [S1].",
           "sources": [
             [
               "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
@@ -2505,11 +2490,11 @@
           "searched_terms": [
             "Sprache",
             "Masterarbeit",
-            "Englisch"
+            "Welten des Englischen"
           ],
-          "cost_usd": 0.00046195,
+          "cost_usd": 0.00045579999999999997,
           "question": "In which language must the Worlds of English thesis be written?",
-          "answer": "The thesis for the Worlds of English program must be written in English [S2].",
+          "answer": "The thesis for the Worlds of English program must be written in English [S3].",
           "sources": [
             [
               "Mitteilungsblatt-2023-2024-14-Beilage-3.pdf",
@@ -2524,7 +2509,7 @@
           "language": "it",
           "answerable": true,
           "mode": "llm",
-          "verdict": "check",
+          "verdict": "verified",
           "fact_in_answer": true,
           "fact_graded": true,
           "cited_expected_page": true,
@@ -2539,7 +2524,7 @@
             "master's degree",
             "Masterabschluss"
           ],
-          "cost_usd": 0.0004701,
+          "cost_usd": 0.00047325,
           "question": "Quante parole deve avere la tesi di laurea magistrale?",
           "answer": "La tesi di laurea magistrale deve avere un volume di almeno 30.000 parole nel testo principale [S3].",
           "sources": [
@@ -2566,7 +2551,8 @@
           "searched_terms": [
             "duration",
             "Zeit",
-            "Masterarbeit",
+            "dissertation",
+            "Dissertation",
             "Thema",
             "completion",
             "Abschluss"
@@ -2625,7 +2611,7 @@
             "Servicezentrum",
             "Studierendenbüro"
           ],
-          "cost_usd": 0.00013905,
+          "cost_usd": 0.0001422,
           "question": "What is the phone number of the student service centre?",
           "answer": "I cannot find this information in the selected university documents.",
           "sources": [],
@@ -2671,9 +2657,9 @@
           "reader_answers_question": null,
           "second_look": false,
           "searched_terms": [
-            "Wintersemester"
+            "Beginn"
           ],
-          "cost_usd": 0.00017805,
+          "cost_usd": 0.0,
           "question": "When does the winter semester 2026 start?",
           "answer": "I cannot find this information in the selected university documents.",
           "sources": [],
@@ -2699,7 +2685,7 @@
             "Studierende",
             "Kosten"
           ],
-          "cost_usd": 0.00012675,
+          "cost_usd": 0.0001299,
           "question": "Quanto costa un alloggio per studenti a Udine?",
           "answer": "I cannot find this information in the selected university documents.",
           "sources": [],
@@ -2719,18 +2705,12 @@
           "reader_answers_question": null,
           "second_look": false,
           "searched_terms": [
-            "enrollment",
             "Studierende",
-            "Einschreibung",
-            "acceptance",
             "zugelassen",
-            "Aufnahme",
-            "Computer Science",
             "Informatik",
-            "Computerscience",
-            "Master's program"
+            "Jahr"
           ],
-          "cost_usd": 0.00012615,
+          "cost_usd": 0.0001455,
           "question": "How many students are admitted to the Informatics master each year?",
           "answer": "I cannot find this information in the selected university documents.",
           "sources": [],
@@ -2742,9 +2722,9 @@
   "planted_errors": {
     "summary": {
       "answer_to_other_question": {
-        "n": 48,
+        "n": 47,
         "caught": 0.979,
-        "caught_by_lexical_check_alone": 0.938
+        "caught_by_lexical_check_alone": 0.957
       },
       "changed_number": {
         "n": 31,
@@ -2752,14 +2732,14 @@
         "caught_by_lexical_check_alone": 0.968
       },
       "invented_rule": {
-        "n": 52,
+        "n": 51,
         "caught": 1.0,
         "caught_by_lexical_check_alone": 1.0
       },
       "original": {
-        "n": 52,
+        "n": 51,
         "false_alarm": 0.0,
-        "shown_as_checked": 0.827
+        "shown_as_checked": 0.922
       }
     },
     "cases": [
@@ -2772,7 +2752,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.000274
+        "reader_cost_usd": 0.0002692
       },
       {
         "id": "ai-01",
@@ -2794,7 +2774,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002856
+        "reader_cost_usd": 0.0002824
       },
       {
         "id": "ai-01",
@@ -2806,7 +2786,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003192
+        "reader_cost_usd": 0.0003416
       },
       {
         "id": "ai-02",
@@ -2817,7 +2797,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.00028
+        "reader_cost_usd": 0.0002848
       },
       {
         "id": "ai-02",
@@ -2828,7 +2808,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000288
+        "reader_cost_usd": 0.0002864
       },
       {
         "id": "ai-02",
@@ -2851,7 +2831,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003508
+        "reader_cost_usd": 0.0003572
       },
       {
         "id": "ai-03",
@@ -2862,7 +2842,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002968
+        "reader_cost_usd": 0.0002904
       },
       {
         "id": "ai-03",
@@ -2885,7 +2865,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003276
+        "reader_cost_usd": 0.0003532
       },
       {
         "id": "ai-04",
@@ -2896,7 +2876,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002932
+        "reader_cost_usd": 0.000298
       },
       {
         "id": "ai-04",
@@ -2907,7 +2887,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002832
+        "reader_cost_usd": 0.0002768
       },
       {
         "id": "ai-04",
@@ -2919,7 +2899,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003384
+        "reader_cost_usd": 0.0003416
       },
       {
         "id": "ai-05",
@@ -2941,7 +2921,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002516
+        "reader_cost_usd": 0.0002468
       },
       {
         "id": "ai-05",
@@ -2964,7 +2944,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000324
+        "reader_cost_usd": 0.0003224
       },
       {
         "id": "ai-06",
@@ -2975,7 +2955,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.00029
+        "reader_cost_usd": 0.0002788
       },
       {
         "id": "ai-06",
@@ -2986,7 +2966,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000282
+        "reader_cost_usd": 0.0002916
       },
       {
         "id": "ai-06",
@@ -2997,7 +2977,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002636
+        "reader_cost_usd": 0.0002716
       },
       {
         "id": "ai-06",
@@ -3009,7 +2989,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000348
+        "reader_cost_usd": 0.0003512
       },
       {
         "id": "ai-07",
@@ -3020,7 +3000,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002876
+        "reader_cost_usd": 0.0002924
       },
       {
         "id": "ai-07",
@@ -3031,7 +3011,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003132
+        "reader_cost_usd": 0.0003004
       },
       {
         "id": "ai-07",
@@ -3042,7 +3022,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003192
+        "reader_cost_usd": 0.0003096
       },
       {
         "id": "ai-07",
@@ -3054,7 +3034,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003696
+        "reader_cost_usd": 0.0003664
       },
       {
         "id": "ai-08",
@@ -3076,7 +3056,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002588
+        "reader_cost_usd": 0.0002572
       },
       {
         "id": "ai-08",
@@ -3087,7 +3067,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002516
+        "reader_cost_usd": 0.0002388
       },
       {
         "id": "ai-08",
@@ -3099,7 +3079,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003392
+        "reader_cost_usd": 0.0003328
       },
       {
         "id": "ai-09",
@@ -3115,13 +3095,13 @@
       {
         "id": "ai-09",
         "kind": "changed_number",
-        "verdict": "contradicted",
-        "reader": "partly",
+        "verdict": "not_answered",
+        "reader": "no",
         "reader_rows": [
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.00032
+        "reader_cost_usd": 0.0003184
       },
       {
         "id": "ai-09",
@@ -3144,7 +3124,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003124
+        "reader_cost_usd": 0.0003684
       },
       {
         "id": "ai-10",
@@ -3178,7 +3158,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003264
+        "reader_cost_usd": 0.000344
       },
       {
         "id": "ai-11",
@@ -3189,7 +3169,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002616
+        "reader_cost_usd": 0.0002456
       },
       {
         "id": "ai-11",
@@ -3200,7 +3180,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000256
+        "reader_cost_usd": 0.0002672
       },
       {
         "id": "ai-11",
@@ -3212,7 +3192,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003228
+        "reader_cost_usd": 0.0003276
       },
       {
         "id": "ai-12",
@@ -3223,7 +3203,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.000288
+        "reader_cost_usd": 0.0002896
       },
       {
         "id": "ai-12",
@@ -3246,7 +3226,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003572
+        "reader_cost_usd": 0.000354
       },
       {
         "id": "ai-13",
@@ -3257,18 +3237,18 @@
           "supported"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003768
+        "reader_cost_usd": 0.0003928
       },
       {
         "id": "ai-13",
         "kind": "changed_number",
-        "verdict": "contradicted",
-        "reader": "partly",
+        "verdict": "not_answered",
+        "reader": "no",
         "reader_rows": [
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.00042
+        "reader_cost_usd": 0.0003976
       },
       {
         "id": "ai-13",
@@ -3279,7 +3259,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000356
+        "reader_cost_usd": 0.0003528
       },
       {
         "id": "ai-13",
@@ -3291,7 +3271,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0004972
+        "reader_cost_usd": 0.0004364
       },
       {
         "id": "in-02",
@@ -3302,7 +3282,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0003184
+        "reader_cost_usd": 0.0003208
       },
       {
         "id": "in-02",
@@ -3313,7 +3293,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002876
+        "reader_cost_usd": 0.000278
       },
       {
         "id": "in-02",
@@ -3325,7 +3305,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000354
+        "reader_cost_usd": 0.000342
       },
       {
         "id": "in-03",
@@ -3336,7 +3316,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002904
+        "reader_cost_usd": 0.000284
       },
       {
         "id": "in-03",
@@ -3358,7 +3338,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002748
+        "reader_cost_usd": 0.0002756
       },
       {
         "id": "in-03",
@@ -3403,7 +3383,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002752
+        "reader_cost_usd": 0.000276
       },
       {
         "id": "in-04",
@@ -3415,7 +3395,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003332
+        "reader_cost_usd": 0.000338
       },
       {
         "id": "in-05",
@@ -3437,7 +3417,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002964
+        "reader_cost_usd": 0.0002756
       },
       {
         "id": "in-05",
@@ -3448,7 +3428,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.00028
+        "reader_cost_usd": 0.0002804
       },
       {
         "id": "in-05",
@@ -3460,7 +3440,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003352
+        "reader_cost_usd": 0.0003272
       },
       {
         "id": "in-06",
@@ -3471,7 +3451,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.000262
+        "reader_cost_usd": 0.0002704
       },
       {
         "id": "in-06",
@@ -3494,7 +3474,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003344
+        "reader_cost_usd": 0.0003348
       },
       {
         "id": "in-07",
@@ -3505,7 +3485,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002788
+        "reader_cost_usd": 0.0002832
       },
       {
         "id": "in-07",
@@ -3516,7 +3496,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002692
+        "reader_cost_usd": 0.000272
       },
       {
         "id": "in-07",
@@ -3527,7 +3507,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002648
+        "reader_cost_usd": 0.0002856
       },
       {
         "id": "in-07",
@@ -3539,7 +3519,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003432
+        "reader_cost_usd": 0.0003556
       },
       {
         "id": "in-09",
@@ -3561,7 +3541,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002704
+        "reader_cost_usd": 0.000272
       },
       {
         "id": "in-09",
@@ -3572,7 +3552,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002832
+        "reader_cost_usd": 0.0002808
       },
       {
         "id": "in-09",
@@ -3606,7 +3586,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002804
+        "reader_cost_usd": 0.0002812
       },
       {
         "id": "in-10",
@@ -3640,7 +3620,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002688
+        "reader_cost_usd": 0.000264
       },
       {
         "id": "in-11",
@@ -3651,7 +3631,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002784
+        "reader_cost_usd": 0.0002792
       },
       {
         "id": "in-11",
@@ -3663,20 +3643,19 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003684
+        "reader_cost_usd": 0.0003636
       },
       {
         "id": "in-12",
         "kind": "original",
-        "verdict": "verified",
-        "reader": "yes",
+        "verdict": "check",
+        "reader": "partly",
         "reader_rows": [
-          "supported",
           "supported",
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0004992
+        "reader_cost_usd": 0.0003592
       },
       {
         "id": "in-12",
@@ -3685,11 +3664,10 @@
         "reader": "partly",
         "reader_rows": [
           "contradicted",
-          "supported",
           "supported"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0004816
+        "reader_cost_usd": 0.0003496
       },
       {
         "id": "in-12",
@@ -3700,7 +3678,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003588
+        "reader_cost_usd": 0.00027
       },
       {
         "id": "in-12",
@@ -3710,11 +3688,10 @@
         "reader_rows": [
           "supported",
           "supported",
-          "supported",
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0005748
+        "reader_cost_usd": 0.0003932
       },
       {
         "id": "bu-01",
@@ -3725,7 +3702,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002824
+        "reader_cost_usd": 0.0002792
       },
       {
         "id": "bu-01",
@@ -3736,7 +3713,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000284
+        "reader_cost_usd": 0.0002904
       },
       {
         "id": "bu-01",
@@ -3759,7 +3736,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003436
+        "reader_cost_usd": 0.0003484
       },
       {
         "id": "bu-02",
@@ -3770,7 +3747,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002972
+        "reader_cost_usd": 0.0002924
       },
       {
         "id": "bu-02",
@@ -3781,7 +3758,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002728
+        "reader_cost_usd": 0.0002744
       },
       {
         "id": "bu-02",
@@ -3804,7 +3781,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0003116
+        "reader_cost_usd": 0.0003156
       },
       {
         "id": "bu-03",
@@ -3815,7 +3792,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000334
+        "reader_cost_usd": 0.000322
       },
       {
         "id": "bu-03",
@@ -3826,7 +3803,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003324
+        "reader_cost_usd": 0.0003272
       },
       {
         "id": "bu-03",
@@ -3838,7 +3815,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003984
+        "reader_cost_usd": 0.0003752
       },
       {
         "id": "bu-04",
@@ -3849,7 +3826,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002536
+        "reader_cost_usd": 0.0002568
       },
       {
         "id": "bu-04",
@@ -3860,7 +3837,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002584
+        "reader_cost_usd": 0.000252
       },
       {
         "id": "bu-04",
@@ -3871,7 +3848,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002344
+        "reader_cost_usd": 0.0002296
       },
       {
         "id": "bu-04",
@@ -3883,7 +3860,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000318
+        "reader_cost_usd": 0.0003132
       },
       {
         "id": "bu-05",
@@ -3894,7 +3871,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002848
+        "reader_cost_usd": 0.0002892
       },
       {
         "id": "bu-05",
@@ -3905,7 +3882,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000296
+        "reader_cost_usd": 0.0002892
       },
       {
         "id": "bu-05",
@@ -3916,7 +3893,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003104
+        "reader_cost_usd": 0.0003096
       },
       {
         "id": "bu-05",
@@ -3928,7 +3905,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003492
+        "reader_cost_usd": 0.0003696
       },
       {
         "id": "bu-06",
@@ -3973,7 +3950,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003392
+        "reader_cost_usd": 0.0003424
       },
       {
         "id": "bu-07",
@@ -3995,7 +3972,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003128
+        "reader_cost_usd": 0.0003144
       },
       {
         "id": "bu-07",
@@ -4018,7 +3995,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003484
+        "reader_cost_usd": 0.0003468
       },
       {
         "id": "bu-08",
@@ -4029,7 +4006,7 @@
           "supported"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000412
+        "reader_cost_usd": 0.0004136
       },
       {
         "id": "bu-08",
@@ -4049,7 +4026,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003828
+        "reader_cost_usd": 0.0003796
       },
       {
         "id": "bu-08",
@@ -4061,7 +4038,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000446
+        "reader_cost_usd": 0.000494
       },
       {
         "id": "bu-09",
@@ -4072,7 +4049,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002664
+        "reader_cost_usd": 0.0002648
       },
       {
         "id": "bu-09",
@@ -4095,7 +4072,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000318
+        "reader_cost_usd": 0.0003228
       },
       {
         "id": "bu-10",
@@ -4106,7 +4083,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0002796
+        "reader_cost_usd": 0.0002828
       },
       {
         "id": "bu-10",
@@ -4117,7 +4094,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002752
+        "reader_cost_usd": 0.000272
       },
       {
         "id": "bu-10",
@@ -4129,7 +4106,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003552
+        "reader_cost_usd": 0.0003584
       },
       {
         "id": "bu-11",
@@ -4140,7 +4117,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0003088
+        "reader_cost_usd": 0.0003096
       },
       {
         "id": "bu-11",
@@ -4151,7 +4128,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003344
+        "reader_cost_usd": 0.0003352
       },
       {
         "id": "bu-11",
@@ -4162,7 +4139,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003296
+        "reader_cost_usd": 0.0003592
       },
       {
         "id": "bu-11",
@@ -4174,7 +4151,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000402
+        "reader_cost_usd": 0.0003932
       },
       {
         "id": "bu-12",
@@ -4186,7 +4163,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.000312
+        "reader_cost_usd": 0.0003296
       },
       {
         "id": "bu-12",
@@ -4197,7 +4174,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000264
+        "reader_cost_usd": 0.0002624
       },
       {
         "id": "bu-12",
@@ -4215,7 +4192,7 @@
       {
         "id": "en-02",
         "kind": "original",
-        "verdict": "check",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
           "supported"
@@ -4232,7 +4209,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002768
+        "reader_cost_usd": 0.000264
       },
       {
         "id": "en-02",
@@ -4244,7 +4221,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003696
+        "reader_cost_usd": 0.0003584
       },
       {
         "id": "en-03",
@@ -4255,7 +4232,7 @@
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0003016
+        "reader_cost_usd": 0.0002952
       },
       {
         "id": "en-03",
@@ -4267,12 +4244,12 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003564
+        "reader_cost_usd": 0.000374
       },
       {
         "id": "en-04",
         "kind": "original",
-        "verdict": "check",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
           "supported"
@@ -4290,12 +4267,12 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000374
+        "reader_cost_usd": 0.0003868
       },
       {
         "id": "en-05",
         "kind": "original",
-        "verdict": "check",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
           "supported"
@@ -4312,7 +4289,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000282
+        "reader_cost_usd": 0.0002884
       },
       {
         "id": "en-05",
@@ -4323,7 +4300,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002992
+        "reader_cost_usd": 0.0002848
       },
       {
         "id": "en-05",
@@ -4335,93 +4312,10 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000356
+        "reader_cost_usd": 0.0003416
       },
       {
         "id": "en-06",
-        "kind": "original",
-        "verdict": "verified",
-        "reader": "yes",
-        "reader_rows": [
-          "supported"
-        ],
-        "lexical": "passed",
-        "reader_cost_usd": 0.0002976
-      },
-      {
-        "id": "en-06",
-        "kind": "changed_number",
-        "verdict": "not_answered",
-        "reader": "no",
-        "reader_rows": [
-          "contradicted"
-        ],
-        "lexical": "flagged",
-        "reader_cost_usd": 0.0003024
-      },
-      {
-        "id": "en-06",
-        "kind": "answer_to_other_question",
-        "verdict": "check",
-        "reader": "partly",
-        "reader_rows": [
-          "supported"
-        ],
-        "lexical": "flagged",
-        "reader_cost_usd": 0.0003172
-      },
-      {
-        "id": "en-06",
-        "kind": "invented_rule",
-        "verdict": "check",
-        "reader": "partly",
-        "reader_rows": [
-          "supported",
-          "not_in_source"
-        ],
-        "lexical": "flagged",
-        "reader_cost_usd": 0.000346
-      },
-      {
-        "id": "en-07",
-        "kind": "original",
-        "verdict": "verified",
-        "reader": "yes",
-        "reader_rows": [
-          "supported",
-          "supported",
-          "supported"
-        ],
-        "lexical": "passed",
-        "reader_cost_usd": 0.0005156
-      },
-      {
-        "id": "en-07",
-        "kind": "answer_to_other_question",
-        "verdict": "check",
-        "reader": "partly",
-        "reader_rows": [
-          "supported"
-        ],
-        "lexical": "flagged",
-        "reader_cost_usd": 0.000386
-      },
-      {
-        "id": "en-07",
-        "kind": "invented_rule",
-        "verdict": "check",
-        "reader": "partly",
-        "reader_rows": [
-          "supported",
-          "supported",
-          "supported",
-          "not_in_source"
-        ],
-        "lexical": "flagged",
-        "reader_cost_usd": 0.0005864
-      },
-      {
-        "id": "en-08",
         "kind": "original",
         "verdict": "verified",
         "reader": "yes",
@@ -4432,9 +4326,92 @@
         "reader_cost_usd": 0.0002932
       },
       {
-        "id": "en-08",
+        "id": "en-06",
+        "kind": "changed_number",
+        "verdict": "not_answered",
+        "reader": "no",
+        "reader_rows": [
+          "contradicted"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.000306
+      },
+      {
+        "id": "en-06",
         "kind": "answer_to_other_question",
         "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0003092
+      },
+      {
+        "id": "en-06",
+        "kind": "invented_rule",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported",
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0003656
+      },
+      {
+        "id": "en-07",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported",
+          "supported",
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.0005456
+      },
+      {
+        "id": "en-07",
+        "kind": "answer_to_other_question",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0003876
+      },
+      {
+        "id": "en-07",
+        "kind": "invented_rule",
+        "verdict": "check",
+        "reader": "partly",
+        "reader_rows": [
+          "supported",
+          "supported",
+          "supported",
+          "not_in_source"
+        ],
+        "lexical": "flagged",
+        "reader_cost_usd": 0.0005828
+      },
+      {
+        "id": "en-08",
+        "kind": "original",
+        "verdict": "verified",
+        "reader": "yes",
+        "reader_rows": [
+          "supported"
+        ],
+        "lexical": "passed",
+        "reader_cost_usd": 0.0002948
+      },
+      {
+        "id": "en-08",
+        "kind": "answer_to_other_question",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
           "supported"
@@ -4452,52 +4429,18 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000356
-      },
-      {
-        "id": "h-ai-01",
-        "kind": "original",
-        "verdict": "verified",
-        "reader": "yes",
-        "reader_rows": [
-          "supported"
-        ],
-        "lexical": "passed",
-        "reader_cost_usd": 0.0002604
-      },
-      {
-        "id": "h-ai-01",
-        "kind": "answer_to_other_question",
-        "verdict": "check",
-        "reader": "partly",
-        "reader_rows": [
-          "supported"
-        ],
-        "lexical": "passed",
-        "reader_cost_usd": 0.000274
-      },
-      {
-        "id": "h-ai-01",
-        "kind": "invented_rule",
-        "verdict": "check",
-        "reader": "partly",
-        "reader_rows": [
-          "supported",
-          "not_in_source"
-        ],
-        "lexical": "flagged",
-        "reader_cost_usd": 0.0003248
+        "reader_cost_usd": 0.0003656
       },
       {
         "id": "h-ai-03",
         "kind": "original",
-        "verdict": "verified",
-        "reader": "yes",
+        "verdict": "check",
+        "reader": "partly",
         "reader_rows": [
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.0003284
+        "reader_cost_usd": 0.0003172
       },
       {
         "id": "h-ai-03",
@@ -4508,7 +4451,7 @@
           "contradicted"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.000306
+        "reader_cost_usd": 0.000378
       },
       {
         "id": "h-ai-03",
@@ -4520,12 +4463,12 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003736
+        "reader_cost_usd": 0.0003944
       },
       {
         "id": "h-ai-06",
         "kind": "original",
-        "verdict": "check",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
           "supported"
@@ -4542,7 +4485,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002832
+        "reader_cost_usd": 0.0002816
       },
       {
         "id": "h-ai-06",
@@ -4553,7 +4496,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000324
+        "reader_cost_usd": 0.0003144
       },
       {
         "id": "h-ai-06",
@@ -4565,7 +4508,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003492
+        "reader_cost_usd": 0.0003428
       },
       {
         "id": "h-in-01",
@@ -4587,7 +4530,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002804
+        "reader_cost_usd": 0.0002892
       },
       {
         "id": "h-in-01",
@@ -4599,7 +4542,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003284
+        "reader_cost_usd": 0.0003092
       },
       {
         "id": "h-in-03",
@@ -4621,7 +4564,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002828
+        "reader_cost_usd": 0.000294
       },
       {
         "id": "h-in-03",
@@ -4632,7 +4575,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000272
+        "reader_cost_usd": 0.0002728
       },
       {
         "id": "h-in-03",
@@ -4644,19 +4587,18 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003416
+        "reader_cost_usd": 0.0003304
       },
       {
         "id": "h-in-04",
         "kind": "original",
-        "verdict": "check",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
-          "supported",
           "supported"
         ],
-        "lexical": "flagged",
-        "reader_cost_usd": 0.0003088
+        "lexical": "passed",
+        "reader_cost_usd": 0.0002576
       },
       {
         "id": "h-in-04",
@@ -4665,11 +4607,10 @@
         "reader": "partly",
         "reader_rows": [
           "supported",
-          "supported",
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003828
+        "reader_cost_usd": 0.0003348
       },
       {
         "id": "h-bu-01",
@@ -4708,7 +4649,7 @@
       {
         "id": "h-bu-02",
         "kind": "original",
-        "verdict": "check",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
           "supported"
@@ -4736,7 +4677,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000314
+        "reader_cost_usd": 0.0003116
       },
       {
         "id": "h-bu-02",
@@ -4748,7 +4689,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003576
+        "reader_cost_usd": 0.0003656
       },
       {
         "id": "h-bu-03",
@@ -4770,7 +4711,7 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0002744
+        "reader_cost_usd": 0.0002808
       },
       {
         "id": "h-bu-03",
@@ -4781,7 +4722,7 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.00029
+        "reader_cost_usd": 0.0002892
       },
       {
         "id": "h-bu-03",
@@ -4793,12 +4734,12 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003324
+        "reader_cost_usd": 0.000334
       },
       {
         "id": "h-en-04",
         "kind": "original",
-        "verdict": "check",
+        "verdict": "verified",
         "reader": "yes",
         "reader_rows": [
           "supported"
@@ -4815,18 +4756,18 @@
           "contradicted"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.000308
+        "reader_cost_usd": 0.0003096
       },
       {
         "id": "h-en-04",
         "kind": "answer_to_other_question",
-        "verdict": "verified",
-        "reader": "yes",
+        "verdict": "check",
+        "reader": "partly",
         "reader_rows": [
           "supported"
         ],
         "lexical": "passed",
-        "reader_cost_usd": 0.00031
+        "reader_cost_usd": 0.0002928
       },
       {
         "id": "h-en-04",
@@ -4838,10 +4779,10 @@
           "not_in_source"
         ],
         "lexical": "flagged",
-        "reader_cost_usd": 0.0003524
+        "reader_cost_usd": 0.0003572
       }
     ],
-    "cost_usd": 0.05775
+    "cost_usd": 0.0564
   },
   "compare": [
     {
@@ -4851,7 +4792,7 @@
         "Informatics": true,
         "English": true
       },
-      "summary": "The Master's thesis comprises 23 ECTS credits in AI & Cybersecurity, 25 ECTS credits in Informatics, and 30 ECTS credits in Worlds of English. The programmes differ in the number of ECTS credits for the thesis, with Worlds of English having the highest and AI & Cybersecurity the lowest.",
+      "summary": "The Master's thesis comprises 23 ECTS credits in AI & Cybersecurity, 25 ECTS credits in Informatics, and 30 ECTS credits in Worlds of English. All programmes require a Master's thesis but differ in the number of ECTS credits assigned.",
       "answers": {
         "AIandCybersecurity": "The Master's thesis comprises 23 ECTS credits [S1].",
         "Informatics": "The Master's thesis comprises 25 ECTS credits [S2].",
@@ -4866,12 +4807,12 @@
         "English": true,
         "Business": true
       },
-      "summary": "The AI & Cybersecurity and Int. Business & Economics programmes require an English level of B2, while the Worlds of English programme requires a higher level of C1. All programmes reference the Common European Framework of Reference for Languages (CEFR) for their requirements.",
+      "summary": "The AI & Cybersecurity and Int. Business & Economics programmes require an English level of B2, while the Worlds of English programme requires a higher level of C1. All programmes reference the Common European Framework of Reference for Languages (CEFR) for their English level requirements.",
       "answers": {
-        "AIandCybersecurity": "The required English level for admission is B2 according to the Common European Framework of Reference for Languages (CEFR) [S1].",
+        "AIandCybersecurity": "The required English level for admission is B2 of the Common European Framework of Reference for Languages (CEFR) [S1].",
         "Informatics": "I cannot find this information in the selected university documents.",
         "English": "The required English language proficiency level for admission is C1 according to the Common European Framework of Reference for Languages (CEFR) for individuals whose first language is not English [S1].",
-        "Business": "The required English language proficiency for admission is at level B2 of the Common European Framework of Reference for Languages (CEFR) for individuals whose first language is not English [S1]."
+        "Business": "Individuals whose first language is not English are required to demonstrate English language proficiency at level B2 of the Common European Framework of Reference for Languages (CEFR) [S1]."
       }
     },
     {
@@ -4881,24 +4822,24 @@
         "Informatics": true,
         "Business": true
       },
-      "summary": "AI & Cybersecurity and Informatics both require 6 ECTS credits in open electives, while Worlds of English requires 12 ECTS credits, and Int. Business & Economics requires 10 ECTS credits.",
+      "summary": "AI & Cybersecurity and Informatics both require 6 ECTS credits in open electives, while Worlds of English requires 12 ECTS credits, and Int. Business & Economics requires 10 ECTS credits. The commonality is that all programmes have a requirement for open electives, but the number of credits varies.",
       "answers": {
         "AIandCybersecurity": "Students are required to complete 6 ECTS credits in open electives [S1].",
         "Informatics": "Students are required to complete 6 ECTS credits in open electives [S1].",
-        "English": "Students must complete 12 ECTS credits in open electives [S2].",
+        "English": "12 ECTS credits must be completed in open electives [S2].",
         "Business": "Students must complete a total of 10 ECTS credits in Open Electives [S2]."
       }
     }
   ],
   "counters": {
-    "chat_calls": 425,
-    "chat_prompt_tokens": 209742,
-    "chat_completion_tokens": 29716,
-    "embedding_tokens": 37648,
-    "second_reads": 253,
+    "chat_calls": 421,
+    "chat_prompt_tokens": 208257,
+    "chat_completion_tokens": 29181,
+    "embedding_tokens": 37650,
+    "second_reads": 249,
     "second_looks": 1,
     "abstained_before_model": 10,
-    "answer_cache_hits": 66
+    "answer_cache_hits": 65
   },
   "embedding_cost_usd": 0.00075,
   "provider_errors": 0

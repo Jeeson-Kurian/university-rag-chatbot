@@ -535,7 +535,9 @@ class CourseAssistant:
             {"role": "system", "content": ai_steps.ANSWER_SYSTEM},
             {"role": "user", "content": f"SOURCE EXCERPTS:\n{excerpts}\n\nQUESTION:\n{question}\n\n"
                                         f"Write the answer in {target}, the language of the question, "
-                                        "even if the excerpts are in another language."},
+                                        "even if the excerpts are in another language. Answer exactly "
+                                        "what was asked. Do not add numbers together and do not "
+                                        "report totals or related credits the question did not ask for."},
         ]
         last_error = None
         for model in [self.chat_model] + ([self.fallback_model] if self.fallback_model else []):
