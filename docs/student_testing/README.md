@@ -7,11 +7,15 @@ and are reported as they are, including failures.
 ## Message to send
 
 > Hi! I built a small AI assistant for the AAU curricula for a student hackathon and need
-> 15 minutes of honest feedback. Open **<demo link>**, pick your programme, and ask 3 real
-> questions you have had (or still have) about your curriculum: credits, thesis, exams,
-> electives, admission, internships… in English, German or any language. For each one,
+> 15 minutes of honest feedback. Before opening the demo, write down three questions you
+> genuinely have about your programme, in the language you would normally use. Then open
+> **<demo link>**, select your programme and try those same questions. For each one,
 > please fill in one row of the sheet (or just reply with the answers). Wrong answers are
 > just as useful as right ones. No personal data please.
+
+## Before running the evaluation
+
+With the participants’ permission, preserve their original wording and assign each question an anonymous ID. Record the curriculum edition, expected fact and source page, or the reason the documents cannot answer it. Have a human check those labels against the curriculum before seeing any model output. Freeze the complete question set and labels in a dated snapshot and record its hash with the application revision. Keep unpublished participant material private.
 
 ## For each question (one row)
 
@@ -34,8 +38,9 @@ fine if you trust it, or open the PDF). If unsure, write `partly` and explain in
 
 1. Put the rows in `eval/student_results.csv` (template in this folder).
 2. Run `python scripts/summarise_students.py` to produce `eval/STUDENT_RESULTS.md`.
-3. Add any question that failed to a new file `eval/student_questions.jsonl` as a fresh
-   held-out case; never edit the frozen held-out set.
+3. Score the first run on the complete frozen set. For answerable questions, count the expected page in the top four separately from a correct answer supported by a citation. For unsupported questions, report appropriate abstention. Give counts and denominators for each measure.
+4. For a disputed answer, have a second human check the question, expected fact, cited page and answer without seeing the model grade. Preserve the original scores, final judgement and reason. Report unresolved disagreements explicitly.
+5. Keep difficult questions discovered during the session as regression cases. If a fix uses the pilot results, label the next run as a retest. A new first-run estimate requires fresh, unseen questions.
 
 The participants' names are not recorded. Ask each person for consent to use their
-anonymous answers in the hackathon submission.
+anonymous answers in the hackathon submission and, separately, for permission to publish any verbatim text on GitHub. Record only material covered by that permission.
