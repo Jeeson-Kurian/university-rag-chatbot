@@ -29,19 +29,20 @@ def best_sentence(excerpt: str, claim: str) -> str:
     return best
 
 
-def _fragments(sentence: str) -> list[str]:
-    """Search strings from longest to shortest; PDF text may break lines mid-sentence."""
+def _fragments(sentence: str) -> list[tuple[int, int, str]]:
+    """(start, end, text) search strings from longest to shortest; PDF text may break lines
+    mid-sentence, so shorter pieces can find the part after a line break."""
     words = re.sub(r"\s+", " ", sentence).strip().split(" ")
     out = []
     for size in (12, 8, 5, 3):
         if len(words) >= size:
             for start in range(0, len(words) - size + 1, max(1, size // 2)):
-                out.append(" ".join(words[start:start + size]))
-    return out or [" ".join(words)]
+                out.append((start, start + size, " ".join(words[start:start + size])))
+    return out or [(0, len(words), " ".join(words))]
 
 
 @lru_cache(maxsize=64)
-def _render(path: str, page_number: int, highlight: str, scale: float) -> bytes:
+def _render(path: str, page_number: int, highlight: str, scale: float, crop: bool) -> bytes:
     import pypdfium2 as pdfium
     from PIL import Image, ImageDraw
 
@@ -66,10 +67,14 @@ def _render(path: str, page_number: int, highlight: str, scale: float) -> bytes:
                 searcher.close()
                 return found_boxes
 
-            for fragment in _fragments(highlight):
+            covered: set[int] = set()
+            for start, end, fragment in _fragments(highlight):
+                if set(range(start, end)) <= covered:
+                    continue  # these words are already marked; don't match them elsewhere
                 hits = find(fragment)
                 if not hits:
                     continue
+                covered |= set(range(start, end))
                 if not boxes:
                     boxes = hits          # the longest fragment that matches anchors the mark
                     continue
@@ -88,6 +93,13 @@ def _render(path: str, page_number: int, highlight: str, scale: float) -> bytes:
                                 right * scale + 2, (height - bottom) * scale + 2],
                                fill=HIGHLIGHT, outline=OUTLINE)
             image = Image.alpha_composite(image, overlay)
+            if crop:
+                # Show the evidence in context: a window around the highlight, full width.
+                top_px = min((height - b[3]) * scale for b in boxes)
+                bottom_px = max((height - b[1]) * scale for b in boxes)
+                margin = 190 * scale / 1.6
+                image = image.crop((0, max(0, int(top_px - margin)), image.size[0],
+                                    min(image.size[1], int(bottom_px + margin))))
         buffer = BytesIO()
         image.convert("RGB").save(buffer, format="PNG", optimize=True)
         return buffer.getvalue()
@@ -95,8 +107,10 @@ def _render(path: str, page_number: int, highlight: str, scale: float) -> bytes:
         pdf.close()
 
 
-def render_page(path: Path, page: int, highlight: str = "", scale: float = 1.6) -> bytes:
-    """PNG bytes of one PDF page, with the highlight sentence marked when it can be found."""
+def render_page(path: Path, page: int, highlight: str = "", scale: float = 1.6,
+                crop: bool = False) -> bytes:
+    """PNG bytes of one PDF page, with the highlight sentence marked when it can be found.
+    With crop=True only a window around the highlight is returned (whole page if not found)."""
     if path.suffix.lower() != ".pdf":
         raise ValueError("Only PDF sources have pages")
-    return _render(str(path), int(page), highlight[:600], scale)
+    return _render(str(path), int(page), highlight[:600], scale, crop)

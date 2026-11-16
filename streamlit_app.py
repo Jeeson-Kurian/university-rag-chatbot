@@ -114,15 +114,15 @@ def compare(question: str, departments: list[str]) -> dict:
 
 
 @st.cache_data(show_spinner=False, max_entries=64)
-def page_png(department: str, document: str, page: int, highlight: str) -> bytes:
+def page_png(department: str, document: str, page: int, highlight: str, crop: bool) -> bytes:
     if API_URL:
         import requests
         response = requests.get(f"{API_URL}/page", params={
             "department": department, "document": document, "page": page,
-            "highlight": highlight}, timeout=60)
+            "highlight": highlight, "crop": crop}, timeout=60)
         response.raise_for_status()
         return response.content
-    return render_page(document_path(department, document), page, highlight)
+    return render_page(document_path(department, document), page, highlight, crop=crop)
 
 
 def pill(verdict: str, text: str | None = None) -> None:
@@ -146,8 +146,10 @@ def show_sources(result: dict, key: str, expanded_first: bool = True) -> None:
         with st.expander(title, expanded=expanded_first and n == 0 and bool(page)):
             highlight = best_sentence(source["excerpt"], claim_for_source(result, source["id"]))
             if page and source["document"].lower().endswith(".pdf"):
+                whole = st.toggle("Show the whole page", key=f"whole-{key}-{source['id']}")
                 try:
-                    st.image(page_png(source["department"], source["document"], page, highlight),
+                    st.image(page_png(source["department"], source["document"], page, highlight,
+                                      not whole),
                              caption="The highlighted sentence is the evidence for this answer.")
                 except Exception:
                     st.caption("The page image is unavailable; the excerpt is shown instead.")

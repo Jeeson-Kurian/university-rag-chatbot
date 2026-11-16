@@ -106,11 +106,12 @@ def compare(request: CompareRequest):
 
 @app.get("/page")
 def page_image(department: Department, document: str = Query(max_length=200),
-         page: int = Query(ge=1, le=150), highlight: str = Query("", max_length=600)):
+         page: int = Query(ge=1, le=150), highlight: str = Query("", max_length=600),
+               crop: bool = False):
     """PNG of a cited PDF page with the supporting sentence highlighted."""
     from .page_view import render_page
     try:
         path = document_path(department, document)
-        return Response(render_page(path, page, highlight), media_type="image/png")
+        return Response(render_page(path, page, highlight, crop=crop), media_type="image/png")
     except (ValueError, IndexError) as exc:
         raise HTTPException(status_code=404, detail="Page not available") from exc
