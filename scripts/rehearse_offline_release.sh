@@ -22,9 +22,21 @@ start_image() {
   docker run -d --cpus 2 --memory 2g -e OPENAI_API_KEY= -p "127.0.0.1:$2:8000" "$1"
 }
 
+wait_for_health() {
+  for ((attempt = 0; attempt < 45; attempt++)); do
+    if curl --max-time 2 -fs "$base/health" >/dev/null; then return 0; fi
+    sleep 1
+  done
+  echo "Service did not become ready at $base/health" >&2
+  for id in "$previous_id" "$candidate_id" "$restored_id"; do
+    if [[ -n "$id" ]]; then docker logs --tail 15 "$id" >&2; fi
+  done
+  return 1
+}
+
 check_api() {
   local phase="$1" expected="$2" mode="$3" actual
-  curl --retry 45 --retry-delay 1 --retry-connrefused --max-time 3 -fsS "$base/health" >/dev/null
+  wait_for_health
   actual=$(curl -fsS "$base/openapi.json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["info"]["version"])')
   test "$actual" = "$expected"
   curl -fsS --max-time 60 -H 'Content-Type: application/json' \
@@ -48,13 +60,13 @@ docker stop "$previous_id" >/dev/null
 
 candidate_id=$(start_image "$candidate_image" "$port")
 # Read the candidate version from its own OpenAPI response, then validate the exercised route.
-curl --retry 45 --retry-delay 1 --retry-connrefused --max-time 3 -fsS "$base/health" >/dev/null
+wait_for_health
 candidate_version=$(curl -fsS "$base/openapi.json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["info"]["version"])')
 test "$candidate_version" != 2.0.0
 check_api candidate "$candidate_version" extractive
 for workers in 1 4; do
   docker restart "$candidate_id" >/dev/null
-  curl --retry 45 --retry-delay 1 --retry-connrefused --max-time 3 -fsS "$base/health" >/dev/null
+  wait_for_health
   python3 scripts/benchmark_offline.py "$port" "$workers"
 done
 
