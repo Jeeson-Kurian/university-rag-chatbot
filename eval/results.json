@@ -116,7 +116,7 @@
   ],
   "extractive_answers": {
     "answers": 45,
-    "keyword_in_extractive_answer": 0.8,
+    "keyword_in_extractive_answer": 0.822,
     "grounding_passed": 0.978
   },
   "v3_failures": [
@@ -805,7 +805,7 @@
     {
       "id": "in-09",
       "mode": "extractive",
-      "keyword_in_answer": false,
+      "keyword_in_answer": true,
       "grounding": "passed"
     },
     {

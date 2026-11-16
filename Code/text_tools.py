@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 
-TOKEN_RE = re.compile(r"[a-z0-9äöüß]+")
+TOKEN_RE = re.compile(r"[a-z0-9äöüßàáâèéêëìíîïòóôùúûçñ]+")
 NUMBER_RE = re.compile(r"\b\d+(?:[.,]\d+)*\b")
 # Split after sentence punctuation that follows a letter/bracket (so "12. Januar" and
 # "30.000" survive), or before numbered paragraphs such as "(3) ".

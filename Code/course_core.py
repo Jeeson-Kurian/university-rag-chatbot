@@ -374,13 +374,17 @@ class CourseAssistant:
             # function words. The model can only choose among words the student wrote.
             weight_of = {o: w * (1.0 if o in key_words else 0.2) for o, w in weight_of.items()}
         total = sum(weight_of.values()) or 1.0
+        # With model key words, other question words (function words of any language)
+        # count a fifth in the ranking too, not only in the coverage.
+        damp = ({o: (1.0 if o in key_words else 0.2) for o in originals}
+                if key_words else {})
         results = []
         for i, passage in enumerate(bm25.docs):
             score, covered = 0.0, set()
             for term, weight, original in triples:
                 s = bm25.term_score(i, term)
                 if s:
-                    score += weight * s
+                    score += weight * s * damp.get(original, 1.0)
                     covered.add(original)
             if score > 0:
                 coverage = sum(weight_of[o] for o in covered) / total
@@ -464,7 +468,11 @@ class CourseAssistant:
         if department not in DEPARTMENTS:
             raise ValueError("Unsupported department")
         lexical = self.lexical_ranking(question, department, understood)
-        if not lexical or lexical[0][2] < self.min_coverage:
+        # Free mode trusts only the top passage. In AI mode (model terms present) any of the
+        # top four may carry the evidence, because the second reader checks the answer
+        # afterwards and labels it "not answered" if the page does not answer the question.
+        window = 4 if (understood or {}).get("terms") else 1
+        if not lexical or max(c for _, _, c in lexical[:window]) < self.min_coverage:
             return [], "lexical", None
         candidates = lexical[: max(12, k * 4)]
         ranks = {p.identifier: 1.0 / (60 + i) for i, (p, _, _) in enumerate(candidates)}

@@ -35,7 +35,7 @@ Questions were drafted with an AI assistant (Claude) from the four curriculum fi
 ## Free extractive answers (no model provider)
 
 - Answerable questions answered: 45
-- Evidence keyword appears in the extractive answer: 80.0%
+- Evidence keyword appears in the extractive answer: 82.2%
 - Grounding screen passed: 97.8%
 
 ## Remaining failures (v3)
