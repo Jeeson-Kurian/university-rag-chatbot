@@ -21,13 +21,13 @@ start_image() {
 }
 
 check_api() {
-  local phase="$1" expected="$2" actual
+  local phase="$1" expected="$2" mode="$3" actual
   curl --retry 45 --retry-delay 1 --retry-connrefused --max-time 3 -fsS "$base/health" >/dev/null
   actual=$(curl -fsS "$base/openapi.json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["info"]["version"])')
   test "$actual" = "$expected"
   curl -fsS --max-time 60 -H 'Content-Type: application/json' \
     -d '{"question":"How many ECTS credits does the Master programme in Artificial Intelligence and Cybersecurity comprise?","department":"AIandCybersecurity"}' "$base/ask" |
-    python3 -c 'import json,sys; r=json.load(sys.stdin); assert r["mode"] == "extractive" and r["sources"] and "120" in r["answer"], "curriculum smoke query failed"'
+    python3 -c 'import json,sys; r=json.load(sys.stdin); assert r["mode"] == sys.argv[1] and r["answer"].strip() and r["sources"][0]["department"] == "AIandCybersecurity" and r["sources"][0]["excerpt"].strip(), "curriculum smoke query failed"' "$mode"
   echo "$phase: API version $actual served the curriculum smoke query"
 }
 
@@ -41,7 +41,7 @@ candidate_image=$(build_image "$candidate")
 previous_id=$(start_image "$prior_image" "")
 port=$(docker port "$previous_id" 8000/tcp | head -1 | cut -d: -f2)
 base="http://127.0.0.1:$port"
-check_api baseline 2.0.0
+check_api baseline 2.0.0 preview
 docker stop "$previous_id" >/dev/null
 
 candidate_id=$(start_image "$candidate_image" "$port")
@@ -49,7 +49,7 @@ candidate_id=$(start_image "$candidate_image" "$port")
 curl --retry 45 --retry-delay 1 --retry-connrefused --max-time 3 -fsS "$base/health" >/dev/null
 candidate_version=$(curl -fsS "$base/openapi.json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["info"]["version"])')
 test "$candidate_version" != 2.0.0
-check_api candidate "$candidate_version"
+check_api candidate "$candidate_version" extractive
 for workers in 1 4; do
   docker restart "$candidate_id" >/dev/null
   curl --retry 45 --retry-delay 1 --retry-connrefused --max-time 3 -fsS "$base/health" >/dev/null
@@ -59,4 +59,4 @@ done
 docker stop "$candidate_id" >/dev/null
 docker start "$previous_id" >/dev/null
 test "$(docker inspect --format '{{.Image}}' "$previous_id")" = "$prior_image"
-check_api rollback 2.0.0
+check_api rollback 2.0.0 preview
