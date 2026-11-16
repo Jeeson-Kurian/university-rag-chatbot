@@ -6,7 +6,9 @@ previous=56814adc71f47ca3d4c95a19175f13d2865e25fd
 candidate=$(git rev-parse HEAD)
 previous_id=""
 candidate_id=""
+restored_id=""
 cleanup() {
+  if [[ -n "$restored_id" ]]; then docker rm -f "$restored_id" >/dev/null; fi
   if [[ -n "$candidate_id" ]]; then docker rm -f "$candidate_id" >/dev/null; fi
   if [[ -n "$previous_id" ]]; then docker rm -f "$previous_id" >/dev/null; fi
 }
@@ -57,6 +59,6 @@ for workers in 1 4; do
 done
 
 docker stop "$candidate_id" >/dev/null
-docker start "$previous_id" >/dev/null
-test "$(docker inspect --format '{{.Image}}' "$previous_id")" = "$prior_image"
+restored_id=$(start_image "$prior_image" "$port")
+test "$(docker inspect --format '{{.Image}}' "$restored_id")" = "$prior_image"
 check_api rollback 2.0.0 preview
