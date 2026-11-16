@@ -45,7 +45,7 @@ COMPARE_EXAMPLES = [
 ]
 VERDICTS = {
     "verified": ("✓ Checked twice", "#0f7b4f", "#e3f5ec"),
-    "screened": ("✓ Words and numbers match the page", "#1d5fa8", "#e6effa"),
+    "screened": ("📄 Copied from the page, meaning not checked", "#1d5fa8", "#e6effa"),
     "check": ("⚠ Partly confirmed: check the page", "#9a5b00", "#fff3dc"),
     "not_answered": ("✗ Not answered by these pages", "#b42318", "#fde8e6"),
     "contradicted": ("✗ Contradicted by the page", "#b42318", "#fde8e6"),

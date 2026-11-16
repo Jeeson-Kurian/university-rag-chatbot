@@ -1,9 +1,12 @@
 """Streamlit UI smoke tests in free mode (skipped when Streamlit is not installed)."""
+from pathlib import Path
+
 import pytest
 
 pytest.importorskip("streamlit")
 from streamlit.testing.v1 import AppTest  # noqa: E402
 
+APP = Path(__file__).resolve().parents[2] / "streamlit_app.py"
 THESIS = "How many ECTS credits does the Master's thesis comprise?"
 
 
@@ -11,7 +14,7 @@ THESIS = "How many ECTS credits does the Master's thesis comprise?"
 def app(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("UNIVERSITY_API_URL", raising=False)
-    at = AppTest.from_file("streamlit_app.py", default_timeout=60)
+    at = AppTest.from_file(str(APP), default_timeout=60)
     at.run()
     assert not at.exception
     return at

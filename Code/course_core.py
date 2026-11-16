@@ -558,7 +558,8 @@ class CourseAssistant:
                 return "check", "Partly confirmed: check the highlighted sentences against the pages."
             return "verified", "Both checks passed: every sentence matches its cited page."
         if lexical_ok:
-            return "screened", "Words and numbers match the cited pages (no second reader in this mode)."
+            return "screened", ("Copied from the cited page. Without the AI second reader nobody "
+                                "checked that it answers your question, so read the page.")
         return "check", "Some words or numbers could not be matched to the cited pages."
 
     def _model_answer(self, question: str, department: str, selected: list[Passage],

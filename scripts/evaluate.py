@@ -253,6 +253,27 @@ def render_markdown(r) -> str:
             lines.append(f"- `{f['id']}` ({f['kind']}): {what}")
     else:
         lines.append("- None on this set.")
+    h = r.get("heldout_free_mode")
+    if h:
+        m = h["summary"]
+        lines += ["", "## Held-out set, free mode (frozen before any system ran on it)", "",
+                  f"{m['answerable']} answerable + {m['unanswerable']} unanswerable questions: "
+                  "paraphrases, questions in Italian, German, Spanish and French, near misses. "
+                  "Never used for tuning. Label validation failures: "
+                  f"{len(h['label_validation_failures'])}.", "",
+                  "| Hit@4 | MRR@4 | False abstention | Correct abstention | Keyword in copied answer |",
+                  "|---|---|---|---|---|",
+                  f"| {pct(m['hit_at_4'])} | {m['mrr_at_4']:.3f} | {pct(m['false_abstention_rate'])} | "
+                  f"{pct(m['abstention_accuracy'])} | {pct(h['keyword_in_extractive_answer'])} |", "",
+                  "| Type | n | Hit@4 | False abstention |", "|---|---|---|---|"]
+        for kind, k in h["by_kind"].items():
+            if k["answerable"]:
+                lines.append(f"| {kind} | {k['answerable']} | {pct(k['hit_at_4'])} | "
+                             f"{pct(k['false_abstention_rate'])} |")
+        lines += ["", "Free mode fails on fresh wording and on questions not written in English "
+                  "(0 of 8 found): the glossary and threshold were tuned on the development set. The live "
+                  "AI evaluation (`scripts/evaluate_llm.py`) measures the same questions with the "
+                  "model steps."]
     lines.append("")
     return "\n".join(lines)
 
