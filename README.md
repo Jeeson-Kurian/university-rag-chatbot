@@ -165,6 +165,14 @@ Hugging Face* workflow. It copies `OPENAI_API_KEY` into the Space as a secret.
 - Questions and excerpts go to OpenAI. No authentication on the API; the public demo relies on
   spending caps. Prompt-injection resistance has not been independently tested.
 
+## Engineering contributions
+
+**Service architecture.** Jeeson Kurian’s prototype commits changed the Kubernetes service from `NodePort` to `LoadBalancer` and the deployment from a node-local image to one pulled from Docker Hub. This addressed a concrete deployment dependency: a new cluster node needed a way to obtain the application image. These commits document the manifests. The measured rollout and rollback exercise below ran in local Docker on a CI runner. [Service change](https://github.com/Jeeson-Kurian/university-rag-chatbot/commit/2ed71cf8deaac741d47ef3b2e466f60101581afb) · [Image change](https://github.com/Jeeson-Kurian/university-rag-chatbot/commit/6dd6fcbcfb27b8ef7c4810f6d071083838400ea4)
+
+**Retrieval and application code.** A student needs to verify a curriculum answer down to the page. The v3 implementation retrieves within the selected programme, keeps page references and checks evidence coverage before calling a model. This makes abstention cheap and inspectable, at the cost of missing questions that use unfamiliar wording. Claude provided substantial implementation assistance on the retrieval redesign. [Engineering notes](docs/COURSE_COMPASS_ENGINEERING.md) · [Retrieval implementation and tests](https://github.com/Jeeson-Kurian/university-rag-chatbot/commit/28829d12)
+
+**Evaluation and operations.** Retrieval, answer correctness and serving latency have separate tests. Finding the right page still allows an answer to quote the wrong row of a curriculum table. The v4 evaluation records that failure. For the offline service, Codex implemented the load client and Docker rollback rehearsal. CI exercised the same curriculum query before rollout, on the candidate and after restoring the previous image. [v4 evaluation](https://github.com/Jeeson-Kurian/university-rag-chatbot/blob/01417605c95922b5a1cb9ffd676c77663425d5a9/README.md#results) · [Serving benchmark](docs/OFFLINE_SERVING_BENCHMARK.md)
+
 ## Prior work and what was built during AI OpenBuild (5 Nov – 10 Dec 2026)
 
 **Before the event (May 2026):** a LangChain + OpenAI RetrievalQA prototype with FastAPI, a
