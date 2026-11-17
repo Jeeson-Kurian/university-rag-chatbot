@@ -1,124 +1,169 @@
-# 🧭 Course Compass — an AI course assistant that shows its sources
+# 🧭 Course Compass
 
-Students lose time hunting through long, partly German curriculum PDFs for one number: how many ECTS the thesis is worth, which language level admission needs, how long an internship must last. Generic chatbots answer confidently and are sometimes wrong.
+**Ask your curriculum in any language. Get the answer, the page that proves it, and a second AI that checks it.**
 
-Course Compass answers questions about the University of Klagenfurt curricula in this repository. It **cites the file and page** for every answer, **refuses** when the documents don't cover a question, and **flags any sentence or number** in a generated answer that the cited text doesn't support.
+AI OpenBuild 2026 · University of Klagenfurt curricula · student prototype, not an official university service
 
-> Status: hackathon project (AI OpenBuild 2026). Not an official university service and not production-validated. Curricula can change; check the official documents before making decisions.
+> **Live demo:** _Hugging Face Space link added after deployment_ · **Evaluation:** [`eval/`](eval/) · **Limits:** [below](#limitations)
 
-**Evaluation.** Offline retrieval found the expected page in the top four for 44 of 45 answerable development questions (97.8%). On the harder set used in the v4 experiments, the free retriever found it for 7 of 20 (35%). Live AI answers on those 20 scored 10/20 under strict keyword and page matching and 16/20 when model-graded translations counted. Later runs incorporated fixes informed by earlier misses. [Development-set report](eval/RESULTS.md) · [v4 experiment and limitations](https://github.com/Jeeson-Kurian/university-rag-chatbot/blob/01417605c95922b5a1cb9ffd676c77663425d5a9/README.md#results)
+---
 
-**Serving.** A local Docker rehearsal measured offline API latency and restored a previous release on the same port. [Workload, results and reproduction commands](docs/OFFLINE_SERVING_BENCHMARK.md)
+## The problem
 
-## What it does
+A curriculum question looks simple: *how many credits is the thesis worth?* The right answer depends
+on the programme (23 ECTS in AI and Cybersecurity, 25 in Informatics, 30 in Worlds of English).
+Some curricula exist only in German, and many international students ask in English or their own
+language. A fluent chatbot answer from the wrong page is worse than no answer, because students
+act on it.
 
-| Student action | What Course Compass does |
+## What Course Compass does
+
+| You do | Course Compass does |
 |---|---|
-| Picks a study area and asks a question | Searches only that study area's documents |
-| Asks in English about a German curriculum | Bridges the languages with a curated English↔German curriculum glossary |
-| Asks something the documents don't cover | Abstains **before** any model call: no cost and no made-up answer |
-| Gets an answer | Every sentence carries a `[S#]` citation that links to the file, page and excerpt |
-| Reads a generated answer | A grounding check marks each sentence as supported, uncited, weakly matched, or containing a number missing from the source |
+| Ask in English, German, Italian, Spanish… | **AI question understanding** turns your words into the terms the curriculum uses (*tesi* → *thesis* → *Masterarbeit*) |
+| Pick your programme | Searches **only that programme's documents**, so another programme's rule can't leak in |
+| Get an answer | Every sentence cites a page. **The real PDF page opens with the supporting sentence highlighted** |
+| Trust it? | A **second AI reader** (a different model) checks every sentence against its page and whether your question was actually answered. A deterministic check flags any number not on the page |
+| The first answer missed | It **looks again, wider**, before telling you it failed |
+| Ask something the documents don't cover | It **says so** and writes nothing |
+| Not sure which programme matters | **Compare mode** answers the same question for every programme side by side |
 
-## Pipeline
+## How it works
 
 ```
-curated PDFs/TXT ──► page-aware chunks (900 chars, PDF hyphenation repaired)
-                         │
-question ─► terms (+ EN↔DE glossary) ─► BM25 within one department
-                         │
-                 evidence-coverage gate ──(too little evidence)──► abstain, no model call
-                         │
-          optional semantic re-rank (embeddings + FAISS, cached as .npy)
-          semantic hits may only re-order lexical candidates, never add new evidence
-                         │
-      ┌──────────────────┴──────────────────┐
-  no API key: free extractive answer    API key: citation-constrained LLM answer
-      └──────────────────┬──────────────────┘
-          claim-level grounding check (citations, numbers, term support)
-                         │
-                FastAPI  /  Streamlit UI
+question (any language)
+   │
+   ├─► [AI] understand: key words + curriculum terms in English and German
+   │
+   ▼
+BM25 keyword search inside ONE programme  (+ optional embedding re-rank, never new evidence)
+   │
+   ├─► evidence gate: best page covers too little of the question → "not in the documents"
+   │
+   ▼
+[AI] answer from the excerpts only, a citation on every sentence
+   │
+   ├─► [AI] second reader (another model): each sentence supported / contradicted / not in source;
+   │        does the answer address the question?  ── "no" → one wider second look
+   ├─► word & number check (deterministic): every number must be on the cited page
+   │
+   ▼
+label for the student + highlighted PDF page        (Compare: the same, for each programme)
 ```
 
-Design choices:
-
-- **Evidence-coverage gate.** The share of the question's informative terms (weighted by IDF) found in the best passage must reach 0.35. Otherwise the system abstains without calling a model. The threshold sweep in [`eval/RESULTS.md`](eval/RESULTS.md) shows the trade-off.
-- **Conservative hybrid retrieval.** Embeddings can only re-rank passages the lexical search already found. This protects traceability, but it means a paraphrase with no shared words is missed.
-- **Grounding screen, not proof.** The check is lexical and numeric. It catches invented numbers and uncited claims cheaply, but it can't prove that a sentence is entailed by its source.
-
-## Models and cost
-
-Each step uses the cheapest option that is good enough, and paid calls only happen once evidence exists.
-
-| Step | Default | Why |
+| Step | Model | Why this choice |
 |---|---|---|
-| Retrieval, gate, extractive answers, grounding | No model (BM25 + rules) | Free and deterministic; it can be tested offline in CI |
-| Embeddings (optional) | `text-embedding-3-small` | OpenAI's cheapest embedding model ($0.02 per 1M tokens). Each department's corpus is embedded once and cached on disk as `.npy` |
-| Answer generation (optional) | `gpt-4o-mini`, temperature 0 | Non-reasoning, deterministic and low-cost ($0.15 in / $0.60 out per 1M tokens) |
-| Cheaper alternative | `UNIVERSITY_CHAT_MODEL=gpt-5-nano` | $0.05 in / $0.40 out per 1M. Sent with `reasoning_effort=minimal` and `max_completion_tokens`. Supported in code but **not yet verified live** |
-| Safety net | `UNIVERSITY_FALLBACK_MODEL` (optional) | A second model is tried once if the first one errors |
+| Question understanding | `gpt-4o-mini`, JSON output | Cheap, multilingual; can only add terms for words the student wrote |
+| Answer | `gpt-4o-mini`, temperature 0 | Short, citation-constrained answers; ~$0.0003 each |
+| Second reader | `gpt-4.1-mini` | A *different* model checks the first one; ~$0.001 per check |
+| Embeddings (optional re-rank) | `text-embedding-3-small` | Cached on disk as `.npy`, no pickle |
+| Free mode (no key) | none | Copies the best source sentences; labelled "meaning not checked" |
 
-Prices are from the OpenAI pricing page as checked on 2026-11-12, and they are used only for the per-answer cost estimate shown in the UI. With the default model, a typical answer uses about 1,000–1,500 input tokens, so it costs roughly $0.0002–$0.0003. A repeated question is answered from an in-memory cache. Any OpenAI-compatible server can be used by setting `OPENAI_BASE_URL`. **No paid service is required**: without a key, the app runs in free extractive mode.
+Public-demo safety: a daily spending cap (`DAILY_BUDGET_USD`, default $2) after which the app
+falls back to free mode, a per-session question limit, answer caching, and excerpts passed to
+the model as untrusted data.
 
-## Measured results
+## Results
 
-From `python scripts/evaluate.py`: 53 labelled questions (45 answerable, 8 unanswerable), run offline with no model calls.
+All numbers come from scripts in this repository; every run is reproducible.
 
-| System | Hit@4 | MRR@4 | Correct abstention | False abstention |
-|---|---|---|---|---|
-| Pre-hackathon scorer (baseline) | 91.1% | 0.756 | 37.5% | 2.2% |
-| Course Compass v3 | **97.8%** | **0.850** | **100%** | **0.0%** |
+**Two question sets.** The *development set* (53 questions) was used while building, so its
+numbers are optimistic. The *held-out set* (26 questions: paraphrases, questions in Italian,
+German, Spanish and French, near-miss unanswerable questions) was **frozen in a commit before any
+system ran on it**; its questions and labels were never changed (but fixes were made after seeing its misses, see below). Both were drafted with an AI assistant from the
+curriculum pages; labels are machine-checked against the expected page.
 
-Limits of these numbers: the questions were drafted with an AI assistant, not written by students. It is a development set, because the threshold and glossary were tuned on it. The unanswerable group has only 8 questions. LLM answer quality is **not** measured here. The full report, with the per-type breakdown, the threshold sweep and the remaining failure, is in [`eval/RESULTS.md`](eval/RESULTS.md).
+**Free mode, offline** (`python scripts/evaluate.py`):
 
-The glossary is what makes the German curriculum usable: on the 5 English questions about it, Hit@4 goes from 0/5 without the glossary to 4/5 with it.
+| Set | Expected page in top 4 | False abstention | Correct abstention |
+|---|---|---|---|
+| Development (45 + 8) | 97.8% | 0.0% | 100% |
+| Held-out (20 + 6) | **35.0%** | **65.0%** | 83.3% |
 
-**Known failure:** for *"How many words must the master's thesis have?"* in the German *Worlds of English* curriculum, the right page (p. 10, "30.000 Wörtern") is ranked 6th, outside the top 4. Generic terms such as "master" outweigh the translated term.
+The gap is the honest headline: keyword search plus a hand-written glossary was tuned to the
+development questions and fails on fresh wording and on every non-English question (0 of 8). This is the problem the
+AI steps are built to solve.
 
-## Submission materials and live evaluation status
+**AI mode, live** (`python scripts/evaluate_llm.py`, run 5 on 16 Nov 2026, 0 provider errors,
+≈ $0.09 for everything below; full report: [`eval/LLM_RESULTS.md`](eval/LLM_RESULTS.md)):
 
-The [submission folder](docs/submission/README.md) contains five actual Streamlit screenshots, a visual walkthrough with real free-mode outputs, the draft Devpost story, reproducibility records and limitations.
+| Held-out set (20 answerable + 6 not) | Free mode | **AI mode** |
+|---|---|---|
+| Correct fact on the right page, strict keyword | 10% | **50%** |
+| … in any language (model-graded, translations count) | 10% | **80%** |
+| Answerable questions wrongly refused | 65% | **10%** |
+| Unanswerable questions correctly refused | 83% | **100%** |
+| Answers labelled *checked twice* that were right (graded) | – | **12 of 13** |
 
-A live evaluation on 13 November 2026 returned `AuthenticationError` for all 45 answerable questions: **zero generated answers**. The eight unsupported questions were refused before model calls. The [original failed-run report](docs/submission/LLM_RESULTS_2026-11-13.md) is preserved. This does not establish live AI answer quality. The evaluator now returns a nonzero exit status on provider errors while retaining diagnostic artifacts. Repair the GitHub `OPENAI_API_KEY` secret and rerun before claiming live AI success.
+On the development set AI mode gets 93% right on the right page (free 78%), refuses all 8
+unanswerable questions, and 42 of its 43 *checked twice* answers are right.
+
+**Planted errors.** 52 correct AI answers were corrupted on purpose and re-checked:
+
+| Corruption | Caught |
+|---|---|
+| A number changed (e.g. 23 → 28 ECTS) | 29 / 29 |
+| The answer to a different question | 46 / 47 |
+| An invented extra rule | 52 / 52 |
+| *Untouched* correct answers wrongly flagged | 0 / 52 (98% shown as checked twice) |
+
+Honest note: the deterministic word & number check alone already catches most of these
+planted errors (94–100%). The second reader's distinct value is judging *meaning across
+languages* and *whether the question was answered*, which word overlap cannot do.
+
+**Compare mode:** 9 of 9 programme answers correct on three questions whose answer differs by
+programme (thesis credits, English level, open electives).
+
+**The road there is kept** in [`eval/live_runs/`](eval/live_runs/): five runs on 16 Nov. Run 1
+(first contact with the held-out set) scored 40% strict; the fixes after it (answer language,
+German word forms, gate, no arithmetic) were made **after seeing held-out misses**, so the
+held-out numbers above are no longer fully blind. The student check is the next independent test.
+
+**Remaining failures (shown, not hidden):**
+- *Flattened tables.* PDF tables become one line of numbers. Twice the model read a
+  semester-plan or subtotal row as the answer (Informatics: thesis "30" instead of 25, required
+  subjects "22" instead of 34) and both checks passed, because the number really is on that page.
+- *Two German-curriculum questions are still refused* ("how long is the programme planned to
+  take", "how much time should the thesis topic allow"): their wording never reaches
+  *Studiendauer* or *sechs Monaten*.
+- A French question about the bachelor's total credits got a sub-total (122 for required
+  subjects); it is labelled *check the page*, not checked.
+- **The former known failure is fixed in AI mode:** *"How many words must the master's thesis
+  have?"* on the German curriculum is now answered "at least 30,000 words", checked twice, with
+  the sentence highlighted on page 10. In free mode it still fails.
 
 ## Run it
 
-Python 3.12 is recommended.
-
 ```bash
 python -m pip install -r requirements.txt
-streamlit run streamlit_app.py          # one command; free extractive mode
+streamlit run streamlit_app.py                 # free mode, no key needed
+OPENAI_API_KEY=sk-... streamlit run streamlit_app.py   # AI mode
 ```
 
-AI mode: set `OPENAI_API_KEY` in your environment (or in `.streamlit/secrets.toml`, which git ignores) before starting the app.
+API: `uvicorn Code.main:app` → `POST /ask`, `POST /compare`, `GET /page` (PNG with highlight),
+`GET /stats`, `GET /health`.
 
-As a separate API:
+Tests and evaluation: `python -m pytest Code/tests -q` (offline, includes Streamlit UI tests)
+and `python scripts/evaluate.py`. CI runs both and builds both Docker images.
 
-```bash
-uvicorn Code.main:app --host 127.0.0.1 --port 8000
-UNIVERSITY_API_URL=http://127.0.0.1:8000 streamlit run streamlit_app.py
-```
+**Deploy the public demo** (Hugging Face Space, free): add the GitHub secret `HF_TOKEN` (write
+token) and the variable `HF_SPACE` (`name/course-compass`), then run the *Deploy public demo to
+Hugging Face* workflow. It copies `OPENAI_API_KEY` into the Space as a secret.
 
-| Endpoint | Purpose |
-|---|---|
-| `GET /health` | Liveness check |
-| `GET /departments` | List of study areas |
-| `POST /ask` `{"question": "...", "department": "Informatics"}` | Returns `answer`, `mode` (`llm`, `extractive`, `abstained` or `model_error`), `sources[]`, `grounding`, `usage`, `model`, `cached` |
-| `GET /stats` | Process counters: abstentions before any model call, tokens used, cache hits |
+## Limitations
 
-Tests and evaluation, both offline: `python -m pytest Code/tests -q` and `python scripts/evaluate.py`. CI runs both and builds the Docker image. The evaluation fails CI if Hit@4 drops below 85% or correct abstention below 85%.
-
-## Repository map
-
-| Path | Contents |
-|---|---|
-| `Code/course_core.py` | Ingestion, BM25, gate, hybrid re-rank, answering, caching and cost accounting |
-| `Code/text_tools.py` | Tokeniser, light stemmer, EN↔DE glossary, sentence splitter |
-| `Code/grounding.py` | Claim-level grounding screen |
-| `Code/main.py` | FastAPI service |
-| `streamlit_app.py` | Student UI (runs in-process or against the API) |
-| `eval/` | Labelled questions, generated results |
-| `legacy/` | The pre-hackathon LangChain pipeline, kept for disclosure and not used |
+- **Four curricula, one university, ~60 pages.** No OCR; tables extract imperfectly.
+  Curricula change; the English versions say they are not legally binding.
+- **The second reader is a model too** and can be wrong; it missed both flattened-table errors.
+  The planted-error test measures catch and false-alarm rates on this data; it is not proof.
+- **Tables** are read as flattened text, the main remaining source of wrong "checked" answers.
+- **Question sets are AI-drafted**, not written by students. A small student check
+  ([`docs/student_testing/`](docs/student_testing/)) is the next step; its results will be
+  reported as they are.
+- Keyword search is the gate: a question that shares no words (and no translated terms) with
+  the right page is refused rather than guessed.
+- Questions and excerpts go to OpenAI. No authentication on the API; the public demo relies on
+  spending caps. Prompt-injection resistance has not been independently tested.
 
 ## Engineering contributions
 
@@ -128,29 +173,32 @@ Tests and evaluation, both offline: `python -m pytest Code/tests -q` and `python
 
 **Evaluation and operations.** Retrieval, answer correctness and serving latency have separate tests. Finding the right page still allows an answer to quote the wrong row of a curriculum table. The v4 evaluation records that failure. For the offline service, Codex implemented the load client and Docker rollback rehearsal. CI exercised the same curriculum query before rollout, on the candidate and after restoring the previous image. [v4 evaluation](https://github.com/Jeeson-Kurian/university-rag-chatbot/blob/01417605c95922b5a1cb9ffd676c77663425d5a9/README.md#results) · [Serving benchmark](docs/OFFLINE_SERVING_BENCHMARK.md)
 
-## Prior work and what was built during AI OpenBuild
+## Prior work and what was built during AI OpenBuild (5 Nov – 10 Dec 2026)
 
-**Before the event (May 14–17, 2026):** a LangChain + OpenAI RetrievalQA prototype with FastAPI, a stored FAISS index (loaded with pickle deserialisation), the curriculum files, Docker, Kubernetes manifests and a CI workflow.
+**Before the event (May 2026):** a LangChain + OpenAI RetrievalQA prototype with FastAPI, a
+pickled FAISS index, the curriculum files, Docker, Kubernetes manifests (now in
+`deploy/kubernetes/`) and CI. Kept in `legacy/` for disclosure, not used.
 
-**During the event (from Nov 11, 2026):** a new engine replacing LangChain, built with substantial help from an AI coding assistant (Claude):
+**During the event (from 11 Nov 2026)**, built with substantial help from AI coding assistants
+(Claude; ChatGPT/Codex for verification), as disclosed in the commit history:
+v3 (11–13 Nov) replaced LangChain with the page-cited BM25 engine, evidence gate, glossary,
+lexical grounding check, Streamlit UI and the 53-question evaluation; v4 (from 16 Nov) added
+AI question understanding, the second reader with a wider second look, compare mode, the
+highlighted-page evidence viewer, the redesigned UI, budget controls, the frozen held-out set,
+the planted-error evaluation, and the Hugging Face deployment.
 
-- department-safe ingestion with page citations
-- BM25 retrieval with stemming, PDF de-hyphenation and the EN↔DE glossary
-- the evidence-coverage gate, plus the conservative hybrid re-rank with a pickle-free embedding cache
-- free extractive answers, citation-validated LLM answers and the claim-level grounding check
-- model tiering, cost reporting, answer caching and a fallback model
-- the Streamlit UI and API v3
-- a 53-question labelled evaluation with a baseline comparison, and offline tests in CI
+## Repository map
 
-The full history is in the git log.
+| Path | Contents |
+|---|---|
+| `Code/course_core.py` | Engine: ingestion, search, gate, answers, second look, compare, budget |
+| `Code/ai_steps.py` | The model prompts and defensive parsing of their JSON output |
+| `Code/grounding.py` | Deterministic word & number check |
+| `Code/page_view.py` | Renders a cited PDF page with the evidence highlighted |
+| `Code/main.py` | FastAPI service |
+| `streamlit_app.py` | Student UI: Ask · Compare · How it works |
+| `eval/` | Development and held-out sets, results, student check |
+| `scripts/` | Offline and live evaluation, screenshot capture, student summary |
+| `deploy/` | Hugging Face Space, legacy Kubernetes |
 
-## Limitations
-
-- Four curricula from one university, without OCR. Scanned PDFs and tables extract imperfectly.
-- The lexical design misses pure paraphrases. The glossary covers common curriculum terms only.
-- The grounding screen is lexical, not semantic entailment.
-- Prompt-injection resistance has not been independently tested. Excerpts are passed to the model as untrusted data.
-- The model provider receives questions and excerpts. Use only documents you are allowed to share.
-- No authentication or rate limiting. The API is meant for local or demo use.
-
-Curriculum documents © University of Klagenfurt and included for demonstration. The English translations state that they are not legally binding.
+Curriculum documents © University of Klagenfurt, included for demonstration.

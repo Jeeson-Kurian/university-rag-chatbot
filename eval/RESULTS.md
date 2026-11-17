@@ -36,8 +36,25 @@ Questions were drafted with an AI assistant (Claude) from the four curriculum fi
 
 - Answerable questions answered: 45
 - Evidence keyword appears in the extractive answer: 82.2%
-- Grounding screen passed: 95.6%
+- Grounding screen passed: 97.8%
 
 ## Remaining failures (v3)
 
 - `en-04` (cross_lingual): expected page not in top 4
+
+## Held-out set, free mode (frozen before any system ran on it)
+
+20 answerable + 6 unanswerable questions: paraphrases, questions in Italian, German, Spanish and French, near misses. Never used for tuning. Label validation failures: 0.
+
+| Hit@4 | MRR@4 | False abstention | Correct abstention | Keyword in copied answer |
+|---|---|---|---|---|
+| 35.0% | 0.258 | 65.0% | 83.3% | 10.0% |
+
+| Type | n | Hit@4 | False abstention |
+|---|---|---|---|
+| cross_lingual | 4 | 25.0% | 75.0% |
+| german_question | 2 | 0.0% | 100.0% |
+| other_language | 6 | 0.0% | 100.0% |
+| paraphrase | 8 | 75.0% | 25.0% |
+
+Free mode fails on fresh wording and on questions not written in English (0 of 8 found): the glossary and threshold were tuned on the development set. The live AI evaluation (`scripts/evaluate_llm.py`) measures the same questions with the model steps.

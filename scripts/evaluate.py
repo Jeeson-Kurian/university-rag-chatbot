@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 from Code.course_core import CourseAssistant, normalise  # noqa: E402
 
 QUESTIONS = ROOT / "eval" / "questions.jsonl"
+HELDOUT = ROOT / "eval" / "heldout_questions.jsonl"
 K = 4
 # Regression floors for CI (set just below the measured values recorded in eval/RESULTS.md).
 FLOORS = {"hit_at_4": 0.85, "abstention_accuracy": 0.85, "false_abstention_rate_max": 0.10}
@@ -55,8 +56,8 @@ def flat(text: str) -> str:
     return re.sub(r"\s+", " ", text).lower()
 
 
-def load_questions():
-    return [json.loads(line) for line in QUESTIONS.read_text(encoding="utf-8").splitlines() if line]
+def load_questions(path=QUESTIONS):
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
 
 
 def validate_labels(assistant, questions):
@@ -163,6 +164,18 @@ def main(write: bool = False) -> int:
     failures = [r for r in v3_rows
                 if (r["answerable"] and r["hit_rank"] is None) or (not r["answerable"] and not r["abstained"])]
 
+    # Held-out set: frozen before any system ran on it; reported, never tuned on.
+    heldout_q = load_questions(HELDOUT) if HELDOUT.is_file() else []
+    heldout = None
+    if heldout_q:
+        rows = score_system("free_mode_heldout", heldout_q,
+                            lambda q: full.retrieve(q["question"], q["department"])[0])[1]
+        heldout = {"summary": summarise(rows), "by_kind": by_kind(rows),
+                   "label_validation_failures": validate_labels(full, heldout_q)}
+        kw = [flat(q["evidence_keyword"]) in flat(full.ask(q["question"], q["department"])["answer"])
+              for q in heldout_q if q["answerable"]]
+        heldout["keyword_in_extractive_answer"] = round(sum(kw) / (len(kw) or 1), 3)
+
     report = {
         "scope": "offline deterministic retrieval + extractive answers; not LLM accuracy",
         "questions": len(questions),
@@ -172,6 +185,7 @@ def main(write: bool = False) -> int:
         "coverage_threshold_sweep": sweep,
         "extractive_answers": extractive,
         "v3_failures": failures,
+        "heldout_free_mode": heldout,
     }
     print(json.dumps(report, indent=2, ensure_ascii=False))
     if write:
@@ -239,6 +253,27 @@ def render_markdown(r) -> str:
             lines.append(f"- `{f['id']}` ({f['kind']}): {what}")
     else:
         lines.append("- None on this set.")
+    h = r.get("heldout_free_mode")
+    if h:
+        m = h["summary"]
+        lines += ["", "## Held-out set, free mode (frozen before any system ran on it)", "",
+                  f"{m['answerable']} answerable + {m['unanswerable']} unanswerable questions: "
+                  "paraphrases, questions in Italian, German, Spanish and French, near misses. "
+                  "Never used for tuning. Label validation failures: "
+                  f"{len(h['label_validation_failures'])}.", "",
+                  "| Hit@4 | MRR@4 | False abstention | Correct abstention | Keyword in copied answer |",
+                  "|---|---|---|---|---|",
+                  f"| {pct(m['hit_at_4'])} | {m['mrr_at_4']:.3f} | {pct(m['false_abstention_rate'])} | "
+                  f"{pct(m['abstention_accuracy'])} | {pct(h['keyword_in_extractive_answer'])} |", "",
+                  "| Type | n | Hit@4 | False abstention |", "|---|---|---|---|"]
+        for kind, k in h["by_kind"].items():
+            if k["answerable"]:
+                lines.append(f"| {kind} | {k['answerable']} | {pct(k['hit_at_4'])} | "
+                             f"{pct(k['false_abstention_rate'])} |")
+        lines += ["", "Free mode fails on fresh wording and on questions not written in English "
+                  "(0 of 8 found): the glossary and threshold were tuned on the development set. The live "
+                  "AI evaluation (`scripts/evaluate_llm.py`) measures the same questions with the "
+                  "model steps."]
     lines.append("")
     return "\n".join(lines)
 

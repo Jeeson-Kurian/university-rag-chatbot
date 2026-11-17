@@ -41,3 +41,23 @@ def test_stats_endpoint(client):
     stats = client.get("/stats").json()
     assert stats["chat_model"] is None and stats["passages"] == 1
     assert stats["counters"]["abstained_before_model"] == 1
+
+
+def test_compare_endpoint(client):
+    body = client.post("/compare", json={"question": "How many ECTS credits are required?"}).json()
+    assert body["answered"] == ["AIandCybersecurity"]
+    assert len(body["results"]) == 4 and body["summary"] is None
+
+
+def test_page_endpoint_renders_real_pdf_and_rejects_traversal(monkeypatch):
+    from fastapi.testclient import TestClient
+    pytest.importorskip("pypdfium2")
+    with TestClient(main.app) as c:
+        ok = c.get("/page", params={
+            "department": "AIandCybersecurity", "page": 10,
+            "document": "curriculum-master-artificial-intelligence-and-cybersecurity-english.pdf",
+            "highlight": "The Master's thesis comprises 23 ECTS credits."})
+        assert ok.status_code == 200 and ok.content[:4] == b"\x89PNG"
+        bad = c.get("/page", params={"department": "AIandCybersecurity", "page": 1,
+                                      "document": "../Informatics/EN_MA_Informatics.pdf"})
+        assert bad.status_code == 404

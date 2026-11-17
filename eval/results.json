@@ -117,7 +117,7 @@
   "extractive_answers": {
     "answers": 45,
     "keyword_in_extractive_answer": 0.822,
-    "grounding_passed": 0.956
+    "grounding_passed": 0.978
   },
   "v3_failures": [
     {
@@ -130,6 +130,72 @@
       "keyword_in_top4": false
     }
   ],
+  "heldout_free_mode": {
+    "summary": {
+      "answerable": 20,
+      "unanswerable": 6,
+      "hit_at_1": 0.2,
+      "hit_at_4": 0.35,
+      "mrr_at_4": 0.258,
+      "evidence_keyword_at_4": 0.35,
+      "false_abstention_rate": 0.65,
+      "abstention_accuracy": 0.833
+    },
+    "by_kind": {
+      "cross_lingual": {
+        "answerable": 4,
+        "unanswerable": 0,
+        "hit_at_1": 0.25,
+        "hit_at_4": 0.25,
+        "mrr_at_4": 0.25,
+        "evidence_keyword_at_4": 0.25,
+        "false_abstention_rate": 0.75,
+        "abstention_accuracy": 0.0
+      },
+      "german_question": {
+        "answerable": 2,
+        "unanswerable": 0,
+        "hit_at_1": 0.0,
+        "hit_at_4": 0.0,
+        "mrr_at_4": 0.0,
+        "evidence_keyword_at_4": 0.0,
+        "false_abstention_rate": 1.0,
+        "abstention_accuracy": 0.0
+      },
+      "other_language": {
+        "answerable": 6,
+        "unanswerable": 0,
+        "hit_at_1": 0.0,
+        "hit_at_4": 0.0,
+        "mrr_at_4": 0.0,
+        "evidence_keyword_at_4": 0.0,
+        "false_abstention_rate": 1.0,
+        "abstention_accuracy": 0.0
+      },
+      "paraphrase": {
+        "answerable": 8,
+        "unanswerable": 0,
+        "hit_at_1": 0.375,
+        "hit_at_4": 0.75,
+        "mrr_at_4": 0.521,
+        "evidence_keyword_at_4": 0.75,
+        "false_abstention_rate": 0.25,
+        "abstention_accuracy": 0.0
+      },
+      "unanswerable": {
+        "answerable": 0,
+        "unanswerable": 6,
+        "hit_at_1": 0.0,
+        "hit_at_4": 0.0,
+        "mrr_at_4": 0.0,
+        "evidence_keyword_at_4": 0.0,
+        "false_abstention_rate": 0.0,
+        "abstention_accuracy": 0.833
+      }
+    },
+    "label_validation_failures": [],
+    "keyword_in_extractive_answer": 0.1
+  },
   "per_question": [
     {
       "id": "ai-01",
@@ -758,7 +824,7 @@
       "id": "in-12",
       "mode": "extractive",
       "keyword_in_answer": true,
-      "grounding": "flagged"
+      "grounding": "passed"
     },
     {
       "id": "bu-01",

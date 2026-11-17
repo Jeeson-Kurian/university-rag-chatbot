@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 
-TOKEN_RE = re.compile(r"[a-z0-9äöüß]+")
+TOKEN_RE = re.compile(r"[a-z0-9äöüßàáâèéêëìíîïòóôùúûçñ]+")
 NUMBER_RE = re.compile(r"\b\d+(?:[.,]\d+)*\b")
 # Split after sentence punctuation that follows a letter/bracket (so "12. Januar" and
 # "30.000" survive), or before numbered paragraphs such as "(3) ".
@@ -125,6 +125,16 @@ def content_terms(text: str) -> list[str]:
     return list(seen)
 
 
+_DISPLAY_EN_DE: dict[str, tuple[str, ...]] = {}
+for _english, _german in _RAW_GLOSSARY.items():
+    _DISPLAY_EN_DE[stem(_english)] = _DISPLAY_EN_DE.get(stem(_english), ()) + _german
+
+
+def glossary_words(term: str) -> tuple[str, ...]:
+    """Readable (unstemmed) German curriculum words for an English question term."""
+    return _DISPLAY_EN_DE.get(term, ())
+
+
 def expand(term: str) -> tuple[str, ...]:
     """Cross-lingual alternatives for one stemmed term (may be empty)."""
     return GLOSSARY_EN_DE.get(term, ()) + GLOSSARY_DE_EN.get(term, ())
@@ -148,3 +158,31 @@ def sentences(text: str) -> list[str]:
         elif part:
             merged.append(part)
     return [p for p in merged if len(p) >= 12]
+
+
+LEAD_MARKER_RE = re.compile(r"^(?:\(\s*\d+[a-z]?\s*\)|§\s*\d+[a-z]?\.?|[a-z]\)|[•▪◦\-–])\s*")
+
+
+def clean_sentence(text: str) -> str:
+    """Remove paragraph markers such as "(3)", "§ 5" or bullets from the start of a copied
+    sentence and collapse whitespace; the words themselves are left untouched."""
+    text = re.sub(r"\s+", " ", text).strip()
+    for _ in range(3):
+        stripped = LEAD_MARKER_RE.sub("", text, count=1)
+        if stripped == text:
+            break
+        text = stripped
+    return text
+
+
+def inflections(term: str) -> tuple[str, ...]:
+    """A model-suggested German term plus its common inflected forms (Wörter -> Wörtern,
+    Semester -> Semestern, Prüfung -> Prüfungen). Forms absent from a corpus score zero,
+    so extra variants cannot create evidence on their own."""
+    forms = [term]
+    if len(term) >= 4:
+        forms += [term + "n", term + "en", term + "e", term + "s"]
+        for ending in ("en", "n", "e", "s"):
+            if term.endswith(ending) and len(term) - len(ending) >= 4:
+                forms.append(term[: -len(ending)])
+    return tuple(dict.fromkeys(forms))

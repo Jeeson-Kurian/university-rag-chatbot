@@ -26,3 +26,18 @@ def test_unknown_department_is_rejected():
     except ValueError:
         return
     assert False, "Unknown departments must be rejected"
+
+
+def test_extractive_answer_stays_on_topic_and_drops_paragraph_markers():
+    assistant = CourseAssistant(use_environment_key=False)
+    answer = assistant.ask("How many ECTS credits does the Master's thesis comprise?",
+                           "AIandCybersecurity")["answer"]
+    assert "23 ECTS" in answer and "120" not in answer and "(3)" not in answer
+
+
+def test_programme_answers_differ_in_compare_mode():
+    result = CourseAssistant(use_environment_key=False).compare(
+        "How many ECTS credits does the Master's thesis comprise?",
+        ["AIandCybersecurity", "Informatics"])
+    answers = {r["department"]: r["answer"] for r in result["results"]}
+    assert "23 ECTS" in answers["AIandCybersecurity"] and "25 ECTS" in answers["Informatics"]
