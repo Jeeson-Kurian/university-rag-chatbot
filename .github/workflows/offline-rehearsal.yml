@@ -3,6 +3,13 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      # Exercise changes to the image, runtime and benchmark workload too.
+      - Dockerfile
+      - requirements.txt
+      - 'Code/**'
+      - 'data/**'
+      - streamlit_app.py
+      - eval/questions.jsonl
       - scripts/benchmark_offline.py
       - scripts/rehearse_offline_release.sh
       - .github/workflows/offline-rehearsal.yml
