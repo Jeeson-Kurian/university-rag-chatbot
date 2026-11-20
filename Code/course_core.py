@@ -16,6 +16,7 @@ The repository's historical pickle/FAISS index is never deserialised.
 from __future__ import annotations
 
 from collections import Counter, OrderedDict
+from copy import deepcopy
 from dataclasses import dataclass
 from functools import lru_cache
 from hashlib import sha256
@@ -364,7 +365,7 @@ class CourseAssistant:
             cached = self._answers.get(cache_key)
         if cached is not None:
             self.stats["answer_cache_hits"] += 1
-            return {**cached, "cached": True}
+            return {**deepcopy(cached), "cached": True}
 
         selected, retrieval_mode, warning = self.retrieve(question, department)
         base: dict[str, Any] = {
@@ -452,7 +453,7 @@ class CourseAssistant:
                 base["warning"] = ("Some sentences could not be matched to the cited text; "
                                    "check the flagged lines against the excerpts.")
             with self._lock:
-                self._answers[cache_key] = dict(base)
+                self._answers[cache_key] = deepcopy(base)
                 while len(self._answers) > 256:
                     self._answers.popitem(last=False)
             return base
