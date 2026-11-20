@@ -20,7 +20,7 @@ def verify(answer: str, excerpts: dict[int, str]) -> dict:
     vocab = {i: set(tokens(text)) for i, text in excerpts.items()}
     nums = {i: numbers(text) for i, text in excerpts.items()}
     report = []
-    for sentence in sentences(answer) or [answer]:
+    for sentence in sentences(answer, min_length=1) or [answer]:
         cited = sorted({int(i) for i in CITATION_RE.findall(sentence)} & set(excerpts))
         body = CITATION_RE.sub("", sentence)
         terms = [t for t in content_terms(body) if not t.isdigit()]
