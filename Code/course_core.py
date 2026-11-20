@@ -386,7 +386,7 @@ class CourseAssistant:
 
         sources = [
             {"id": f"S{i}", "document": p.document, "page": p.page,
-             "department": p.department, "excerpt": p.text[:850]}
+             "department": p.department, "excerpt": p.text}
             for i, p in enumerate(selected, start=1)
         ]
         excerpt_by_number = {i: s["excerpt"] for i, s in enumerate(sources, start=1)}
@@ -403,7 +403,7 @@ class CourseAssistant:
             return base
 
         excerpts = "\n\n".join(
-            f"[S{i}] Document: {p.document}; page: {p.page or 'text file'}\n{p.text[:850]}"
+            f"[S{i}] Document: {p.document}; page: {p.page or 'text file'}\n{p.text}"
             for i, p in enumerate(selected, start=1)
         )
         system = (
