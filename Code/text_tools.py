@@ -131,8 +131,21 @@ def expand(term: str) -> tuple[str, ...]:
 
 
 def numbers(text: str) -> set[str]:
-    """Numbers normalised so that 30.000, 30,000 and 30000 compare equal."""
-    return {re.sub(r"[.,]", "", n) for n in NUMBER_RE.findall(text)}
+    """Preserve decimals while accepting regular three-digit thousands groups.
+
+    A single separator followed by three digits remains ambiguous without locale
+    metadata; retain the curriculum convention that 30.000 means 30000.
+    Other separators are retained (decimal commas become decimal points), so
+    1.5 cannot corroborate 15. This is a numeric screen, not unit/claim validation.
+    """
+    result = set()
+    for value in NUMBER_RE.findall(text):
+        if re.fullmatch(r"\d{1,3}(?P<sep>[.,])\d{3}(?:(?P=sep)\d{3})*", value):
+            value = re.sub(r"[.,]", "", value)
+        else:
+            value = value.replace(",", ".")
+        result.add(value)
+    return result
 
 
 ABBREVIATIONS = ("max.", "min.", "para.", "paras.", "no.", "nr.", "abs.", "vgl.", "lit.",
