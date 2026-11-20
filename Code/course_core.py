@@ -365,7 +365,7 @@ class CourseAssistant:
             cached = self._answers.get(cache_key)
         if cached is not None:
             self.stats["answer_cache_hits"] += 1
-            return {**deepcopy(cached), "cached": True}
+            return {**deepcopy(cached), "question": question, "cached": True}
 
         selected, retrieval_mode, warning = self.retrieve(question, department)
         base: dict[str, Any] = {

@@ -63,3 +63,15 @@ class AnswerCacheIsolationTests(unittest.TestCase):
         self.assert_unchanged(first, expected)
         self.assert_unchanged(self.ask(), expected)
         self.assertEqual(len(self.calls), 1)
+
+    def test_cache_hit_reports_the_current_question(self):
+        original = self.ask()
+        question = "  HOW many ECTS credits for the thesis?  "
+        cached = self.assistant.ask(question, "Informatics")
+        QueryResponse(**cached)
+        self.assertTrue(cached["cached"])
+        self.assertEqual(cached["question"], question.strip())
+        self.assertEqual(original["question"], "How many ECTS credits for the thesis?")
+        self.assertEqual(cached["answer"], original["answer"])
+        self.assert_unchanged(cached, original)
+        self.assertEqual(len(self.calls), 1)
