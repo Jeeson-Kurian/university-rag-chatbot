@@ -152,7 +152,8 @@ ABBREVIATIONS = ("max.", "min.", "para.", "paras.", "no.", "nr.", "abs.", "vgl."
                  "e.g.", "i.e.", "etc.", "approx.", "z.b.", "bzw.", "inkl.", "incl.", "gem.")
 
 
-def sentences(text: str) -> list[str]:
+def sentences(text: str, *, min_length: int = 12) -> list[str]:
+    """Split sentences; grounding opts into short claims with min_length=1."""
     flat = re.sub(r"\s+", " ", text).strip()
     merged: list[str] = []
     for part in (p.strip() for p in SENTENCE_SPLIT_RE.split(flat)):
@@ -160,4 +161,4 @@ def sentences(text: str) -> list[str]:
             merged[-1] = f"{merged[-1]} {part}"
         elif part:
             merged.append(part)
-    return [p for p in merged if len(p) >= 12]
+    return [p for p in merged if len(p) >= min_length]
