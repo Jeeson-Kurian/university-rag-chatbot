@@ -239,8 +239,8 @@ class CourseAssistant:
             batch_in = texts[start:start + 64]
             response = self.client.embeddings.create(model=self.embedding_model, input=batch_in)
             batch = sorted(response.data, key=lambda item: item.index)
-            if len(batch) != len(batch_in):
-                raise ValueError("Embedding provider returned an incomplete batch")
+            if [item.index for item in batch] != list(range(len(batch_in))):
+                raise ValueError("Embedding provider returned invalid batch indices")
             vectors.extend(item.embedding for item in batch)
             usage = getattr(response, "usage", None)
             tokens_used += int(getattr(usage, "total_tokens", 0) or 0)
